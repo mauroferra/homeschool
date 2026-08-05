@@ -1,0 +1,543 @@
+openapi: 3.0.3
+info:
+  title: Czech–Italian Hybrid Curriculum API
+  description: API for managing weekly curriculum, activities, themes, progress, and authentication.
+  version: 1.0.0
+
+servers:
+  - url: https://curriculum.yourdomain.com/api/v1
+
+paths:
+
+  /auth/login:
+    post:
+      summary: User login
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  user:
+                    $ref: '#/components/schemas/User'
+
+  /auth/logout:
+    post:
+      summary: Logout user
+      tags: [Auth]
+      responses:
+        '204':
+          description: Logged out
+
+  /auth/reset:
+    post:
+      summary: Request password reset
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+      responses:
+        '200':
+          description: Reset email sent
+
+  /users:
+    get:
+      summary: List users
+      tags: [Users]
+      responses:
+        '200':
+          description: User list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+    post:
+      summary: Create user
+      tags: [Users]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+      responses:
+        '201':
+          description: User created
+
+  /users/{id}:
+    patch:
+      summary: Update user
+      tags: [Users]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+      responses:
+        '200':
+          description: User updated
+
+    delete:
+      summary: Delete user
+      tags: [Users]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: User deleted
+
+  /themes:
+    get:
+      summary: List themes
+      tags: [Themes]
+      responses:
+        '200':
+          description: Theme list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Theme'
+
+    post:
+      summary: Create theme
+      tags: [Themes]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ThemeCreate'
+      responses:
+        '201':
+          description: Theme created
+
+  /themes/{id}:
+    patch:
+      summary: Update theme
+      tags: [Themes]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ThemeUpdate'
+      responses:
+        '200':
+          description: Theme updated
+
+    delete:
+      summary: Delete theme
+      tags: [Themes]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Theme deleted
+
+  /activities:
+    get:
+      summary: List activity templates
+      tags: [Activities]
+      responses:
+        '200':
+          description: Activity template list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Activity'
+
+    post:
+      summary: Create activity template
+      tags: [Activities]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivityCreate'
+      responses:
+        '201':
+          description: Activity created
+
+  /activities/{id}:
+    patch:
+      summary: Update activity template
+      tags: [Activities]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivityUpdate'
+      responses:
+        '200':
+          description: Activity updated
+
+    delete:
+      summary: Delete activity template
+      tags: [Activities]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Activity deleted
+
+  /weeks:
+    get:
+      summary: List weeks
+      tags: [Weeks]
+      responses:
+        '200':
+          description: Week list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Week'
+
+    post:
+      summary: Create week
+      tags: [Weeks]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WeekCreate'
+      responses:
+        '201':
+          description: Week created
+
+  /weeks/{id}:
+    get:
+      summary: Get week details
+      tags: [Weeks]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Week details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Week'
+
+    delete:
+      summary: Delete week
+      tags: [Weeks]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Week deleted
+
+  /weeks/{week_id}/instances:
+    get:
+      summary: List activity instances for a week
+      tags: [ActivityInstances]
+      parameters:
+        - in: path
+          name: week_id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Activity instance list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ActivityInstance'
+
+    post:
+      summary: Create activity instance
+      tags: [ActivityInstances]
+      parameters:
+        - in: path
+          name: week_id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivityInstanceCreate'
+      responses:
+        '201':
+          description: Activity instance created
+
+  /instances/{id}:
+    patch:
+      summary: Update activity instance
+      tags: [ActivityInstances]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivityInstanceUpdate'
+      responses:
+        '200':
+          description: Activity instance updated
+
+    delete:
+      summary: Delete activity instance
+      tags: [ActivityInstances]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Activity instance deleted
+
+components:
+
+  schemas:
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        role:
+          type: string
+
+    UserCreate:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        role:
+          type: string
+
+    UserUpdate:
+      type: object
+      properties:
+        role:
+          type: string
+        active:
+          type: boolean
+
+    Theme:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        start_date:
+          type: string
+        end_date:
+          type: string
+
+    ThemeCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        start_date:
+          type: string
+        end_date:
+          type: string
+
+    ThemeUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+
+    Activity:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        category:
+          type: string
+        description:
+          type: string
+        estimated_duration:
+          type: integer
+        links:
+          type: array
+          items:
+            type: string
+        theme_id:
+          type: integer
+
+    ActivityCreate:
+      type: object
+      properties:
+        title:
+          type: string
+        category:
+          type: string
+        description:
+          type: string
+        estimated_duration:
+          type: integer
+        links:
+          type: array
+          items:
+            type: string
+        theme_id:
+          type: integer
+
+    ActivityUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+        category:
+          type: string
+        description:
+          type: string
+
+    Week:
+      type: object
+      properties:
+        id:
+          type: integer
+        start_date:
+          type: string
+        user_id:
+          type: integer
+
+    WeekCreate:
+      type: object
+      properties:
+        start_date:
+          type: string
+
+    ActivityInstance:
+      type: object
+      properties:
+        id:
+          type: integer
+        week_id:
+          type: integer
+        day_of_week:
+          type: integer
+        block_type:
+          type: string
+        activity_id:
+          type: integer
+        home_tag:
+          type: string
+        status:
+          type: string
+        reflection_text:
+          type: string
+
+    ActivityInstanceCreate:
+      type: object
+      properties:
+        day_of_week:
+          type: integer
+        block_type:
+          type: string
+        activity_id:
+          type: integer
+        home_tag:
+          type: string
+
+    ActivityInstanceUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+        reflection_text:
+          type: string

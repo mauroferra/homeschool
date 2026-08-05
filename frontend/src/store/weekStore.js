@@ -1,0 +1,91 @@
+import { create } from 'zustand';
+import { weekService } from '../services/weekService';
+import { startOfWeek, dateOnlyISO, addWeek } from '../utils/dateHelpers';
+
+export const useWeekStore = create((set, get) => ({
+  weeks: [],
+  currentWeek: null,
+  instances: [],
+  loading: false,
+  error: null,
+  householdFilter: 'All',
+
+  async loadWeeks() {
+    const weeks = await weekService.getWeeks();
+    set({ weeks });
+    if (!get().currentWeek && weeks.length) {
+      await get().loadWeek(weeks[0].id);
+    }
+    return weeks;
+  },
+
+  async loadWeek(id) {
+    set({ loading: true, error: null });
+    try {
+      const [week, instances] = await Promise.all([
+        weekService.getWeek(id),
+        weekService.getInstances(id, get().householdFilter),
+      ]);
+      set({ currentWeek: week, instances, loading: false });
+      return week;
+    } catch (err) {
+      set({ loading: false, error: err.message });
+      throw err;
+    }
+  },
+
+  async ensureWeekForDate(date) {
+    const start = dateOnlyISO(startOfWeek(date));
+    let week = get().weeks.find((w) => w.start_date === start);
+    if (!week) {
+      const created = await weekService.createWeek(start);
+      const weeks = [created, ...get().weeks];
+      week = created;
+      set({ weeks });
+    }
+    await get().loadWeek(week.id);
+    return week;
+  },
+
+  async goToWeek(delta) {
+    if (!get().currentWeek) return;
+    const target = addWeek(get().currentWeek.start_date, delta);
+    await get().ensureWeekForDate(target);
+  },
+
+  async addInstance(payload) {
+    const week = get().currentWeek;
+    await weekService.createInstance(week.id, payload);
+    await get().loadWeek(week.id);
+  },
+
+  async addAdHocInstance(payload) {
+    const week = get().currentWeek;
+    const created = await weekService.createAdHocInstance(week.id, payload);
+    await get().loadWeek(week.id);
+    return created;
+  },
+
+  async updateInstance(id, payload) {
+    await weekService.updateInstance(id, payload);
+    await get().loadWeek(get().currentWeek.id);
+  },
+
+  async deleteInstance(id) {
+    await weekService.deleteInstance(id);
+    await get().loadWeek(get().currentWeek.id);
+  },
+
+  async updateReflection(text) {
+    const week = get().currentWeek;
+    const updated = await weekService.updateWeekReflection(week.id, text);
+    set({ currentWeek: updated });
+  },
+
+  setHouseholdFilter(filter) {
+    set({ householdFilter: filter });
+    if (get().currentWeek) {
+      weekService.getInstances(get().currentWeek.id, filter).then((instances) => set({ instances }));
+    }
+  },
+}));

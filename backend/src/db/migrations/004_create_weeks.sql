@@ -1,0 +1,10 @@
+-- 004_create_weeks.sql
+CREATE TABLE IF NOT EXISTS weeks (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  start_date DATE NOT NULL,
+  parent_reflection TEXT,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE (start_date, user_id)
+);
