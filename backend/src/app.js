@@ -50,6 +50,14 @@ function createApp() {
   app.use(config.apiBase, instanceRoutes);
   app.use(config.apiBase + '/progress', progressRoutes);
 
+  const frontendDist = process.env.FRONTEND_DIST || path.resolve(__dirname, '../../frontend/dist');
+  if (fs.existsSync(path.join(frontendDist, 'index.html'))) {
+    app.use(express.static(frontendDist, { index: 'index.html', maxAge: '1d' }));
+    app.get(/^\/(?!api|uploads|health|docs).*/, (req, res) => {
+      res.sendFile(path.join(frontendDist, 'index.html'));
+    });
+  }
+
   app.use(notFoundHandler);
   app.use(errorHandler);
   return app;

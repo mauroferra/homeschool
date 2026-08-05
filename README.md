@@ -105,6 +105,43 @@ Follow `specs/DEPLOYMENT-PLAN.md`. In short:
 3. Run the backend behind PM2/systemd with `NODE_ENV=production`, a real `JWT_SECRET`, HTTPS via Let's Encrypt, and hardened security headers (helmet is already on).
 4. Run migrations and seed on the production database.
 
+## Container deployment (Docker / Podman)
+
+The [`Dockerfile`](Dockerfile) produces a single self-contained image: it builds the Vite frontend, then runs the backend (Express) serving both the API and the built SPA on one port. On boot the entrypoint idempotently applies migrations and seeds the admin user (demo data is optional via `SEED_DEMO`).
+
+### Docker
+
+```bash
+docker compose up --build
+# or
+docker build -t homeschool .
+docker run -p 4000:4000 -e JWT_SECRET=change-me -v homeschool-data:/app/backend/data homeschool
+```
+
+### Podman
+
+```bash
+podman build -t homeschool .
+podman run -p 4000:4000 \
+  -e JWT_SECRET=change-me \
+  -e ADMIN_EMAIL=admin@homeschool.app \
+  -e ADMIN_PASSWORD=admin123 \
+  -v homeschool-data:/app/backend/data \
+  homeschool
+
+# Compose (podman 4.7+ has a built-in wrapper; otherwise use the docker-compose CLI
+# against the podman socket via podman-docker)
+podman compose up --build
+docker compose up --build
+```
+
+### Container notes
+
+- **Data persistence**: SQLite DB + uploads live in `/app/backend/data`. Use a named volume (as above); on SELinux-enabled hosts (Fedora/RHEL) a bind mount needs the `:Z` label, e.g. `-v ./data:/app/backend/data:Z`.
+- **Config via environment** (see [`docker-compose.yml`](docker-compose.yml)): `JWT_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `SEED_DEMO` (`off` skips demo data), plus `DB_DIALECT`/`DB_HOST`/etc. to switch to PostgreSQL/MySQL. Migrations and seeding run automatically on every start.
+- **Image runs as non-root** user `app` (UID 1000); the container exposes `HEALTHCHECK` on `/health`.
+- `container_name` in the compose file is honoured by `docker compose` but ignored by `podman-compose` (it generates its own name) — no functional impact.
+
 ## Tests
 
 ```bash

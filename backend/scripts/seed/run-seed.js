@@ -6,8 +6,12 @@ import { seedDemo } from './seed_templates.js';
 async function run() {
   await createConnection();
   await upsertAdmin();
-  await seedDemo();
-  console.log('[seed] Demo data ready.');
+  if (process.env.SEED_DEMO !== 'off') {
+    await seedDemo();
+    console.log('[seed] Demo data ready.');
+  } else {
+    console.log('[seed] Demo data skipped (SEED_DEMO=off).');
+  }
   await closeConnection();
 }
 

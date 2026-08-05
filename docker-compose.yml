@@ -1,0 +1,37 @@
+services:
+  curriculum:
+    build: .
+    image: homeschool-curriculum:latest
+    container_name: homeschool-curriculum
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: production
+      JWT_SECRET: ${JWT_SECRET:-change-this-in-production}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@homeschool.app}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin123}
+      # Switch to a real database by uncommenting and providing credentials:
+      # DB_DIALECT: postgres
+      # DB_HOST: postgres
+      # DB_PORT: 5432
+      # DB_NAME: homeschool
+      # DB_USER: app
+      # DB_PASSWORD: ${DB_PASSWORD:-app}
+    volumes:
+      - curriculum-data:/app/backend/data
+    restart: unless-stopped
+
+  # Optional: PostgreSQL for production. Uncomment and set DB_* above.
+  # postgres:
+  #   image: postgres:16-alpine
+  #   environment:
+  #     POSTGRES_DB: homeschool
+  #     POSTGRES_USER: app
+  #     POSTGRES_PASSWORD: ${DB_PASSWORD:-app}
+  #   volumes:
+  #     - postgres-data:/var/lib/postgresql/data
+  #   restart: unless-stopped
+
+volumes:
+  curriculum-data:
+  # postgres-data:
