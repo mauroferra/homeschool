@@ -120,8 +120,17 @@ docker run -p 4000:4000 -e JWT_SECRET=change-me -v homeschool-data:/app/backend/
 
 ### Podman
 
+Podman auto-detects `Containerfile` first, so the repo ships an identical copy of the `Dockerfile` under `Containerfile` — either name works:
+
 ```bash
 podman build -t homeschool .
+# or, explicitly
+podman build -t homeschool -f Dockerfile .
+```
+
+Then run it (and optionally compose):
+
+```bash
 podman run -p 4000:4000 \
   -e JWT_SECRET=change-me \
   -e ADMIN_EMAIL=admin@homeschool.app \
