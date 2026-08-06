@@ -1,12 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import BlockCard from './BlockCard';
 import { BLOCK_TYPES, WEEKDAY_SHORT } from '../../utils/constants';
-import { dayOffset, formatDate } from '../../utils/dateHelpers';
+import { formatDate, isSameDay } from '../../utils/dateHelpers';
 
-export default function DayColumn({ startDate, dayIndex, instances, onOpenInstance, onAdd }) {
+export default function DayColumn({ date, dayIndex, instances, onOpenInstance, onAdd }) {
   const { t } = useTranslation();
-  const date = dayOffset(startDate, dayIndex);
-  const isToday = formatDate(date) === formatDate(new Date());
+  const isToday = isSameDay(date, new Date());
   return (
     <div className={`day-column ${isToday ? 'is-today' : ''}`}>
       <div className="day-header">
@@ -20,7 +19,7 @@ export default function DayColumn({ startDate, dayIndex, instances, onOpenInstan
             blockType={block}
             instances={instances.filter((i) => i.day_of_week === dayIndex && i.block_type === block)}
             onOpenInstance={onOpenInstance}
-            onAdd={(block) => onAdd(block, dayIndex)}
+            onAdd={(blk) => onAdd(blk, date)}
           />
         ))}
       </div>

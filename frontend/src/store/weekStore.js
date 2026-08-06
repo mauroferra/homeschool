@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { weekService } from '../services/weekService';
-import { startOfWeek, dateOnlyISO, addWeek } from '../utils/dateHelpers';
+import { startOfWeek, dateOnlyISO, addWeek, addMonths, addDays, parseISO, getMonthGrid } from '../utils/dateHelpers';
 
 export const useWeekStore = create((set, get) => ({
   weeks: [],
@@ -9,6 +9,8 @@ export const useWeekStore = create((set, get) => ({
   loading: false,
   error: null,
   householdFilter: 'All',
+  viewDate: null,
+  monthInstances: [],
 
   async loadWeeks() {
     const weeks = await weekService.getWeeks();
@@ -51,6 +53,34 @@ export const useWeekStore = create((set, get) => ({
     if (!get().currentWeek) return;
     const target = addWeek(get().currentWeek.start_date, delta);
     await get().ensureWeekForDate(target);
+  },
+
+  async setViewDate(date) {
+    await get().ensureWeekForDate(date);
+    set({ viewDate: dateOnlyISO(date) });
+    return get().viewDate;
+  },
+
+  async goToDay(date, delta) {
+    const anchor = date ? parseISO(date) : new Date();
+    return get().setViewDate(addDays(anchor, delta));
+  },
+
+  async loadMonth(date) {
+    const grid = getMonthGrid(date);
+    const first = dateOnlyISO(grid[0][0]);
+    const last = dateOnlyISO(grid[grid.length - 1][6]);
+    const inRange = get().weeks.filter((w) => w.start_date >= first && w.start_date <= last);
+    const results = await Promise.all(
+      inRange.map((w) => weekService.getInstances(w.id, get().householdFilter))
+    );
+    set({ monthInstances: results.flat(), viewDate: dateOnlyISO(date) });
+    return grid;
+  },
+
+  async goToMonth(date, delta) {
+    const anchor = date ? parseISO(date) : new Date();
+    return get().loadMonth(addMonths(anchor, delta));
   },
 
   async addInstance(payload) {

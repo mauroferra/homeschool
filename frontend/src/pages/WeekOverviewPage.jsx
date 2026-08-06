@@ -7,25 +7,33 @@ import { useThemeStore } from '../store/themeStore';
 import WeekNavigation from '../features/weekplanner/WeekNavigation';
 import WeekGrid from '../features/weekplanner/WeekGrid';
 import DayColumn from '../features/weekplanner/DayColumn';
+import MonthGrid from '../features/weekplanner/MonthGrid';
+import ViewToggle from '../features/weekplanner/ViewToggle';
 import HouseholdFilterToggle from '../features/household/HouseholdFilterToggle';
 import Modal from '../components/ui/Modal';
 import Tabs from '../components/ui/Tabs';
 import { Select } from '../components/ui/Input';
 import Button from '../components/ui/Button';
 import ActivityForm from '../features/activities/ActivityForm';
-import { startOfWeek, dateOnlyISO } from '../utils/dateHelpers';
+import {
+  startOfWeek, dateOnlyISO, parseISO, addDays, weekdayIndex, isSameDay, isSameMonth,
+  formatWeekLabel, formatDayLabel, formatMonthLabel,
+} from '../utils/dateHelpers';
 
 export default function WeekOverviewPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const {
-    currentWeek, instances, loading, error, householdFilter,
-    loadWeek, loadWeeks, ensureWeekForDate, goToWeek, addInstance, addAdHocInstance, setHouseholdFilter,
+    weeks, currentWeek, instances, loading, error, householdFilter,
+    viewDate, monthInstances,
+    loadWeek, loadWeeks, ensureWeekForDate, goToWeek, setViewDate, loadMonth, goToDay, goToMonth,
+    addInstance, addAdHocInstance, setHouseholdFilter,
   } = useWeekStore();
   const { templates, loadTemplates } = useActivityStore();
   const { themes, loadThemes } = useThemeStore();
 
   const [ready, setReady] = useState(false);
+  const [view, setView] = useState('week');
   const [addModal, setAddModal] = useState(null);
   const [tab, setTab] = useState(0);
   const [pickedTemplate, setPickedTemplate] = useState('');
@@ -34,7 +42,7 @@ export default function WeekOverviewPage() {
     (async () => {
       try {
         const thisWeekIso = dateOnlyISO(startOfWeek(new Date()));
-        const [wkThemes, , weeksList] = await Promise.all([loadThemes(), loadTemplates(), loadWeeks()]);
+        const [, , weeksList] = await Promise.all([loadThemes(), loadTemplates(), loadWeeks()]);
         const thisWeek = weeksList.find((w) => w.start_date === thisWeekIso);
         if (thisWeek) await loadWeek(thisWeek.id);
         else await ensureWeekForDate(new Date());
@@ -48,12 +56,61 @@ export default function WeekOverviewPage() {
   if (!currentWeek) return <div className="page-loading">{t('week.setup')}</div>;
 
   const startDate = currentWeek.start_date;
+  const anchorDate = viewDate ? parseISO(viewDate) : new Date();
+  const startIso = dateOnlyISO(startOfWeek(new Date()));
+
+  const changeView = (next) => {
+    setView(next);
+    if (next === 'week') {
+      if (viewDate) ensureWeekForDate(parseISO(viewDate));
+    } else if (next === 'day') {
+      setViewDate(parseISO(startDate));
+    } else if (next === 'month') {
+      loadMonth(parseISO(startDate));
+    }
+  };
+
+  const onPrev = () => {
+    if (view === 'day') goToDay(viewDate, -1);
+    else if (view === 'month') goToMonth(viewDate, -1);
+    else goToWeek(-1);
+  };
+  const onNext = () => {
+    if (view === 'day') goToDay(viewDate, 1);
+    else if (view === 'month') goToMonth(viewDate, 1);
+    else goToWeek(1);
+  };
+  const onToday = () => {
+    if (view === 'day') setViewDate(new Date());
+    else if (view === 'month') loadMonth(new Date());
+    else ensureWeekForDate(new Date());
+  };
+
+  const navLabel = view === 'day' ? formatDayLabel(anchorDate)
+    : view === 'month' ? formatMonthLabel(anchorDate)
+      : formatWeekLabel(startDate);
+  const todayLabel = view === 'day' ? t('week.thisDay') : view === 'month' ? t('week.thisMonth') : t('week.thisWeek');
+  const isToday = view === 'day' ? isSameDay(anchorDate, new Date())
+    : view === 'month' ? isSameMonth(anchorDate, new Date())
+      : startDate === startIso;
+
+  const visibleCount = view === 'month' ? monthInstances.length
+    : view === 'day' ? instances.filter((i) => i.day_of_week === weekdayIndex(anchorDate)).length
+      : instances.length;
 
   const openInstance = (inst) => navigate(`/activity/${inst.id}`);
-  const openAdd = (blockType, day = 0) => { setPickedTemplate(''); setAddModal({ dayOfWeek: day, blockType }); };
+  const openAdd = (blockType, date) => {
+    setPickedTemplate('');
+    setAddModal({ date, dayOfWeek: weekdayIndex(date), blockType });
+  };
+
+  const refreshMonth = async () => {
+    if (viewDate) await loadMonth(parseISO(viewDate));
+  };
 
   const addFromTemplate = async () => {
     if (!pickedTemplate) return;
+    await ensureWeekForDate(addModal.date);
     await addInstance({
       day_of_week: addModal.dayOfWeek,
       block_type: addModal.blockType,
@@ -61,9 +118,11 @@ export default function WeekOverviewPage() {
       home_tag: 'Home A',
     });
     setAddModal(null);
+    if (view === 'month') refreshMonth();
   };
 
   const createAdHoc = async (payload) => {
+    await ensureWeekForDate(addModal.date);
     await addAdHocInstance({
       day_of_week: addModal.dayOfWeek,
       block_type: addModal.blockType,
@@ -75,34 +134,71 @@ export default function WeekOverviewPage() {
       links: payload.links,
     });
     setAddModal(null);
+    if (view === 'month') refreshMonth();
+  };
+
+  const onHouseholdChange = (filter) => {
+    setHouseholdFilter(filter);
+    if (view === 'month') refreshMonth();
   };
 
   return (
     <div className="page week-page">
       <WeekNavigation
-        startDate={startDate}
-        onPrev={() => goToWeek(-1)}
-        onNext={() => goToWeek(1)}
-        onToday={() => ensureWeekForDate(new Date())}
-        today={startDate === dateOnlyISO(startOfWeek(new Date()))}
+        label={navLabel}
+        todayLabel={todayLabel}
+        isToday={isToday}
+        onPrev={onPrev}
+        onNext={onNext}
+        onToday={onToday}
       />
 
       <div className="week-toolbar">
-        <HouseholdFilterToggle value={householdFilter} onChange={setHouseholdFilter} />
-        <span className="instances-count">{t('week.scheduled', { count: instances.length })}</span>
+        <ViewToggle value={view} onChange={changeView} />
+        <HouseholdFilterToggle value={householdFilter} onChange={onHouseholdChange} />
+        <span className="instances-count">{t('week.scheduled', { count: visibleCount })}</span>
       </div>
 
       {error && <div className="alert alert-error">{error}</div>}
 
-      <div className="week-grid-view">
-        <WeekGrid startDate={startDate} instances={instances} onOpenInstance={openInstance} onAdd={openAdd} />
-      </div>
+      {view === 'week' && (
+        <>
+          <div className="week-grid-view">
+            <WeekGrid startDate={startDate} instances={instances} onOpenInstance={openInstance} onAdd={openAdd} />
+          </div>
 
-      <div className="mobile-day-scroller">
-        {Array.from({ length: 7 }).map((_, i) => (
-          <DayColumn key={i} startDate={startDate} dayIndex={i} instances={instances} onOpenInstance={openInstance} onAdd={openAdd} />
-        ))}
-      </div>
+          <div className="mobile-day-scroller">
+            {Array.from({ length: 7 }).map((_, i) => {
+              const date = addDays(parseISO(startDate), i);
+              return (
+                <DayColumn key={i} date={date} dayIndex={i} instances={instances} onOpenInstance={openInstance} onAdd={openAdd} />
+              );
+            })}
+          </div>
+        </>
+      )}
+
+      {view === 'day' && (
+        <div className="day-view">
+          <DayColumn
+            date={anchorDate}
+            dayIndex={weekdayIndex(anchorDate)}
+            instances={instances}
+            onOpenInstance={openInstance}
+            onAdd={openAdd}
+          />
+        </div>
+      )}
+
+      {view === 'month' && (
+        <MonthGrid
+          anchorDate={anchorDate}
+          instances={monthInstances}
+          weeks={weeks}
+          onOpenInstance={openInstance}
+          onAdd={openAdd}
+        />
+      )}
 
       <Modal open={!!addModal} title={addModal ? t('week.addActivityTitle', { block: t(`domain.block.${addModal.blockType}`) }) : ''} onClose={() => setAddModal(null)} size="md">
         <Tabs tabs={[{ label: t('week.fromTemplate') }, { label: t('week.newActivity') }]} active={tab} onChange={setTab} />

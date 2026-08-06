@@ -335,6 +335,47 @@ a { color: var(--primary); text-decoration: none; }
 .day-column.is-today .day-name { color: var(--primary); font-weight: 800; }
 .day-blocks { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
 
+/* ---------- View toggle ---------- */
+.view-toggle { display: inline-flex; gap: 4px; background: var(--surface-2, #eef1f5); padding: 4px; border-radius: 10px; }
+.view-toggle-btn {
+  padding: 7px 14px; border: 0; background: transparent;
+  border-radius: 8px; font-weight: 600; font-size: 13px; color: var(--text-muted);
+  cursor: pointer;
+}
+.view-toggle-btn.active { background: var(--surface); color: var(--primary); box-shadow: var(--shadow); }
+
+/* ---------- Day view ---------- */
+.day-view { max-width: 560px; }
+.day-view .day-column { flex: none; max-width: none; width: 100%; }
+.day-view .day-blocks { gap: 10px; }
+
+/* ---------- Month view ---------- */
+.month-view { overflow-x: auto; }
+.month-weekdays {
+  display: grid; grid-template-columns: repeat(7, minmax(96px, 1fr));
+  gap: 6px; margin-bottom: 6px;
+}
+.month-weekday { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); text-align: center; }
+.month-row { display: grid; grid-template-columns: repeat(7, minmax(96px, 1fr)); gap: 6px; margin-bottom: 6px; min-width: 720px; }
+.month-cell {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 6px; min-height: 84px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.month-cell.out-month { opacity: 0.45; }
+.month-cell.is-today { border-color: var(--primary); box-shadow: inset 0 0 0 1px var(--primary); }
+.month-cell-head { display: flex; align-items: center; justify-content: space-between; }
+.month-day-number { font-size: 12px; font-weight: 700; color: var(--text); }
+.month-cell.is-today .month-day-number { color: var(--primary); }
+.month-cell-add { width: 20px; height: 20px; font-size: 14px; opacity: 0; }
+.month-cell:hover .month-cell-add { opacity: 1; }
+.month-instances { display: flex; flex-direction: column; gap: 3px; }
+.month-instance {
+  width: 100%; text-align: left; border: 0;
+  border-radius: 5px; font-size: 11px; padding: 3px 5px; cursor: pointer;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
 /* ---------- Cards ---------- */
 .card {
   background: var(--surface);

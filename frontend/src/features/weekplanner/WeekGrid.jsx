@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import DayColumn from './DayColumn';
 import { WEEKDAY_SHORT } from '../../utils/constants';
-import { dayOffset, formatDate } from '../../utils/dateHelpers';
+import { dayOffset, formatDate, isSameDay } from '../../utils/dateHelpers';
 
 const BLOCK_TYPES = [
   'Italian Micro-Immersion',
@@ -16,7 +15,7 @@ export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd }
     <div className="week-grid">
       {Array.from({ length: 7 }).map((_, i) => {
         const date = dayOffset(startDate, i);
-        const isToday = formatDate(date) === formatDate(new Date());
+        const isToday = isSameDay(date, new Date());
         return (
           <div key={i} className={`grid-col ${isToday ? 'is-today' : ''}`}>
             <div className="day-header">
@@ -28,7 +27,7 @@ export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd }
                 <div key={block} className={`grid-block block-${kebab(block)}`}>
                   <div className="block-header">
                     <span className="block-title">{t(`domain.blockShort.${block}`)}</span>
-                    <button type="button" className="btn-icon block-add" onClick={() => onAdd(block, i)} aria-label={t('week.addTo', { block: t(`domain.blockShort.${block}`) })}>
+                    <button type="button" className="btn-icon block-add" onClick={() => onAdd(block, date)} aria-label={t('week.addTo', { block: t(`domain.blockShort.${block}`) })}>
                       +
                     </button>
                   </div>
