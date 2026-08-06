@@ -37,9 +37,11 @@ COPY --from=frontend-build /build/dist /app/frontend/dist
 RUN mkdir -p /app/backend/data
 VOLUME ["/app/backend/data"]
 
-# Run as a non-root user
-RUN useradd -m -u 1000 app && chown -R app:app /app
-USER app
+# Run as a non-root user. node:20-slim ships a 'node' user with uid 1000,
+# so reuse it instead of creating a conflicting 'app' account (uid 1000 on
+# the host maps cleanly to the Synology bind-mount chown in deploy/synology.yml).
+RUN chown -R node:node /app
+USER node
 
 EXPOSE 4000
 
