@@ -236,12 +236,14 @@ a { color: var(--primary); text-decoration: none; }
 .empty-state { color: var(--text-muted); font-size: 14px; padding: 18px; text-align: center; }
 
 /* ---------- Week navigation ---------- */
+.week-nav-wrap { display: flex; flex-direction: column; gap: 6px; }
 .week-nav { display: flex; align-items: center; gap: 10px; justify-content: space-between; flex-wrap: wrap; }
-.week-nav-center { display: flex; align-items: baseline; gap: 8px; flex: 1; min-width: 180px; }
-.week-label { font-size: 16px; font-weight: 700; }
+.week-nav-center { display: flex; align-items: center; align-content: center; gap: 4px 8px; flex: 1; min-width: 0; flex-wrap: wrap; height: 44px; overflow: hidden; }
+.week-label { font-size: 16px; font-weight: 700; min-width: 0; line-height: 1.15; white-space: pre-line; }
 .week-today { font-size: 12px; color: var(--primary); background: var(--primary-soft, #e7edf6); padding: 2px 8px; border-radius: 999px; font-weight: 600; }
-.week-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.instances-count { font-size: 13px; color: var(--text-muted); }
+.week-today-row { display: flex; align-items: center; min-height: 24px; }
+.week-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.instances-count { font-size: 13px; color: var(--text-muted); margin-left: auto; }
 
 /* ---------- Week grid (desktop) ---------- */
 .week-grid-view { display: none; }
@@ -349,13 +351,13 @@ a { color: var(--primary); text-decoration: none; }
 .day-view .day-blocks { gap: 10px; }
 
 /* ---------- Month view ---------- */
-.month-view { overflow-x: auto; }
+.month-view { overflow: hidden; }
 .month-weekdays {
-  display: grid; grid-template-columns: repeat(7, minmax(96px, 1fr));
+  display: grid; grid-template-columns: repeat(7, 1fr);
   gap: 6px; margin-bottom: 6px;
 }
 .month-weekday { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); text-align: center; }
-.month-row { display: grid; grid-template-columns: repeat(7, minmax(96px, 1fr)); gap: 6px; margin-bottom: 6px; min-width: 720px; }
+.month-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 6px; }
 .month-cell {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 10px; padding: 6px; min-height: 84px;

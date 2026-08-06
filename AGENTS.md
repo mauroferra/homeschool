@@ -35,5 +35,6 @@ Seed logins: `parent@homeschool.app / parent123`, `admin@homeschool.app / admin1
 
 ## Containers
 - `Containerfile` is a **symlink to `Dockerfile`** (single source of truth — edit `Dockerfile` only). Podman auto-detects `Containerfile`; `podman build -t homeschool .`.
-- Container entrypoint auto-runs migrate + seed every start (idempotent), so no manual `db:migrate`/`db:seed` inside the container. Persist `data/` via a volume on `/app/backend/data`.
+- Container entrypoint auto-runs migrate + seed every start (idempotent), so no manual `db:migrate`/`db:seed` inside the container. Persist `data/` (uploads) via a volume on `/app/backend/data`.
+- `docker-compose.yml` provisions a **PostgreSQL** service (`postgres-data` volume) as the persistent DB; the `curriculum` service depends on its `pg_isready` healthcheck before migrate/seed run. Build with `podman build -t homeschool .`.
 - Deployment details: `specs/DEPLOYMENT-PLAN.md`; compose + env vars in `docker-compose.yml`.
