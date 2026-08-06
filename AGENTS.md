@@ -8,6 +8,7 @@ Czech–Italian hybrid curriculum app. Two independent packages in one repo — 
 - Specs live in `specs/`; the code was built to match them (API-SPEC / swagger.yaml, FRONTEND-ARCH, BACKEND-STRUCTURE).
 
 ## Setup / run (backend first)
+There is a root `package.json` that drives both packages via `npm --prefix` (no workspaces). All-in-one: `npm run deploy` (install → migrate → seed → build SPA → serve on :4000). Both dev servers in one terminal: `npm run dev`. Or step-by-step:
 ```bash
 cd backend && npm install && cp .env.example .env
 npm run db:migrate && npm run db:seed   # required before first dev run (no auto-migrate in dev)

@@ -38,7 +38,24 @@ frontend/
 
 ## Quick start
 
-Requires Node 18+.
+Requires Node 18+. Both packages are driven from the repo root via root npm scripts (`npm --prefix`), so no `cd`-ing or workspace config is needed.
+
+### Single command (recommended)
+
+```bash
+npm run deploy   # installs both packages, migrates, seeds, builds the SPA, and serves
+                 # the whole app (API + frontend) on http://localhost:4000
+```
+
+`npm run deploy` is the all-in-one command — install → migrate → seed → build → serve, in one go.
+
+During development, start both servers in a single terminal:
+
+```bash
+npm run dev      # API on http://localhost:4000 (docs at /docs) + Vite app on :5173
+```
+
+### Individually (for backend/frontend work)
 
 ```bash
 # 1. Backend
@@ -55,6 +72,8 @@ cd frontend
 npm install
 npm run dev                   # app on http://localhost:5173, proxies /api to the backend
 ```
+
+Root scripts: `npm run setup` (installs both packages), `npm run dev` (both dev servers, one terminal), `npm run deploy` (full single-command deploy), `npm run build` / `npm run start` (build the SPA / run the API serving it), `npm run db:migrate`, `npm run db:seed`, `npm test`.
 
 Demo accounts (created by the seed):
 

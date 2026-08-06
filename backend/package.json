@@ -9,7 +9,7 @@
     "dev": "node --watch src/app.js",
     "db:migrate": "node src/db/migrate.js",
     "db:seed": "node scripts/seed/run-seed.js",
-    "test": "NODE_ENV=test DB_STORAGE=:memory: node --test tests/",
+    "test": "NODE_ENV=test DB_STORAGE=:memory: node --test 'tests/**/*.test.js'",
     "docs": "node src/app.js --docs"
   },
   "engines": {
