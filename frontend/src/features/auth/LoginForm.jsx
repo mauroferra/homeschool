@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Button from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
 import { useAuthStore } from '../../store/authStore';
 import { validateEmail, validateRequired } from '../../utils/validationHelpers';
 
 export default function LoginForm() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const login = useAuthStore((s) => s.login);
   const [email, setEmail] = useState('');
@@ -16,9 +18,9 @@ export default function LoginForm() {
 
   const validate = () => {
     const next = {};
-    if (!validateRequired(email)) next.email = 'Email is required';
-    else if (!validateEmail(email)) next.email = 'Enter a valid email';
-    if (!validateRequired(password)) next.password = 'Password is required';
+    if (!validateRequired(email)) next.email = t('login.emailRequired');
+    else if (!validateEmail(email)) next.email = t('login.emailInvalid');
+    if (!validateRequired(password)) next.password = t('login.passwordRequired');
     setErrors(next);
     return Object.keys(next).length === 0;
   };
@@ -40,14 +42,14 @@ export default function LoginForm() {
 
   return (
     <form className="auth-form" onSubmit={onSubmit} noValidate>
-      <h2>Welcome back</h2>
+      <h2>{t('login.welcome')}</h2>
       {apiError && <div className="alert alert-error" role="alert">{apiError}</div>}
       <Input
         name="email"
         type="email"
-        label="Email"
+        label={t('login.email')}
         autoComplete="email"
-        placeholder="you@example.com"
+        placeholder={t('login.emailPlaceholder')}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         error={errors.email}
@@ -55,15 +57,15 @@ export default function LoginForm() {
       <Input
         name="password"
         type="password"
-        label="Password"
+        label={t('login.password')}
         autoComplete="current-password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         error={errors.password}
       />
-      <Button type="submit" loading={loading} className="btn-block">Log in</Button>
+      <Button type="submit" loading={loading} className="btn-block">{t('login.submit')}</Button>
       <p className="auth-link">
-        <Link to="/reset">Forgot password?</Link>
+        <Link to="/reset">{t('login.forgot')}</Link>
       </p>
     </form>
   );

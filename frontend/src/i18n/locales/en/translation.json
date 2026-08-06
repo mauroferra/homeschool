@@ -1,0 +1,246 @@
+{
+  "app": {
+    "name": "Curriculum",
+    "title": "Czech & Italian Curriculum",
+    "tagline": "Bilingual learning, one calm planner."
+  },
+  "nav": {
+    "week": "Week",
+    "themes": "Themes",
+    "progress": "Progress",
+    "settings": "Settings",
+    "logout": "Log out",
+    "ariaPrimary": "Primary",
+    "ariaMain": "Main"
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "cs": "Čeština",
+    "it": "Italiano"
+  },
+  "login": {
+    "welcome": "Welcome back",
+    "email": "Email",
+    "password": "Password",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Enter a valid email",
+    "passwordRequired": "Password is required",
+    "submit": "Log in",
+    "forgot": "Forgot password?",
+    "emailPlaceholder": "you@example.com"
+  },
+  "reset": {
+    "title": "Reset password",
+    "email": "Email",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Enter a valid email",
+    "submit": "Send reset link",
+    "backToLogin": "Back to login",
+    "devLink": "Dev link: {{link}}",
+    "sent": "If that email exists, a reset link has been sent."
+  },
+  "week": {
+    "loading": "Loading week…",
+    "setup": "Set up your first week…",
+    "scheduled_one": "{{count}} scheduled",
+    "scheduled_other": "{{count}} scheduled",
+    "today": "Today",
+    "thisWeek": "this week",
+    "prevWeek": "Previous week",
+    "nextWeek": "Next week",
+    "addTo": "Add to {{block}}",
+    "noActivity": "No activity",
+    "addActivity": "Add activity",
+    "addActivityTitle": "Add activity · {{block}}",
+    "fromTemplate": "From template",
+    "newActivity": "New activity",
+    "template": "Template",
+    "chooseTemplate": "Choose a template",
+    "cancel": "Cancel",
+    "add": "Add"
+  },
+  "activity": {
+    "loading": "Loading activity…",
+    "back": "Back to week",
+    "removeConfirm": "Remove this scheduled activity?",
+    "created": "Created {{date}}",
+    "statusHeading": "Status & reflection",
+    "status": "Status",
+    "reflection": "Reflection",
+    "howDidItGo": "How did it go?",
+    "saved": "Saved",
+    "remove": "Remove",
+    "saveChanges": "Save changes"
+  },
+  "activityForm": {
+    "titleRequired": "Title is required",
+    "categoryRequired": "Category is required",
+    "title": "Title",
+    "category": "Category",
+    "durationMin": "Duration (min)",
+    "theme": "Theme",
+    "noTheme": "No theme",
+    "description": "Description",
+    "links": "Links",
+    "removeLink": "Remove link",
+    "cancel": "Cancel"
+  },
+  "templateList": {
+    "empty": "No activity templates yet. Create one to reuse it across weeks."
+  },
+  "templateCard": {
+    "linksCount_one": "{{count}} link",
+    "linksCount_other": "{{count}} links",
+    "edit": "Edit {{title}}",
+    "delete": "Delete {{title}}"
+  },
+  "themeForm": {
+    "nameRequired": "Name is required",
+    "endAfterStart": "End date must be after start date",
+    "themeName": "Theme name",
+    "description": "Description",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "cancel": "Cancel"
+  },
+  "themeList": {
+    "empty": "No themes yet. Create a monthly theme to group activities."
+  },
+  "themePage": {
+    "title": "Themes",
+    "subtitle": "Monthly themes give each week a focus.",
+    "newTheme": "New theme",
+    "loading": "Loading themes…",
+    "editTitle": "Edit theme",
+    "newTitle": "New theme",
+    "createTheme": "Create theme",
+    "saveChanges": "Save changes",
+    "deleteConfirm": "Delete theme \"{{name}}\"? Activities linked to it will keep their template."
+  },
+  "themeCard": {
+    "current": "current",
+    "edit": "Edit {{name}}",
+    "delete": "Delete {{name}}"
+  },
+  "progressPage": {
+    "title": "Progress",
+    "subtitle": "Completed activities, category coverage and notes.",
+    "week": "Week",
+    "loading": "Loading progress…",
+    "last4Weeks": "Last 4 weeks",
+    "reflections": "Reflections"
+  },
+  "weeklyStats": {
+    "completed": "completed",
+    "scheduled": "scheduled",
+    "pending": "pending",
+    "skipped": "skipped",
+    "empty": "Nothing completed in this category set yet."
+  },
+  "categoryChart": {
+    "empty": "No completed weeks to chart yet."
+  },
+  "reflectionList": {
+    "empty": "No reflections recorded yet.",
+    "weekly": "weekly",
+    "activity": "activity",
+    "weekOf": "Week of {{date}}"
+  },
+  "household": {
+    "label": "Household",
+    "all": "All",
+    "homeA": "Home A",
+    "homeB": "Home B",
+    "both": "Both"
+  },
+  "settingsPage": {
+    "title": "Settings",
+    "subtitle": "Profile, password and reusable activity templates.",
+    "account": "Account",
+    "templates": "Templates ({{count}})",
+    "profileTitle": "Profile",
+    "signedInAs": "Signed in as",
+    "role": "Role",
+    "changePassword": "Change password",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password",
+    "updatePassword": "Update password",
+    "pwUpdated": "Password updated.",
+    "pwTooShort": "Password must be at least 8 characters.",
+    "pwMismatch": "Passwords do not match.",
+    "deleteTemplateConfirm": "Delete template \"{{title}}\"?",
+    "activityTemplates": "Activity templates",
+    "newTemplate": "New template",
+    "editTitle": "Edit template",
+    "newTitle": "New template",
+    "createTemplate": "Create template",
+    "saveChanges": "Save changes"
+  },
+  "fileUploader": {
+    "attachments": "Attachments",
+    "empty": "No attachments yet.",
+    "remove": "Remove",
+    "addFile": "Add file"
+  },
+  "modal": {
+    "close": "Close"
+  },
+  "duration": {
+    "min": "min",
+    "hourShort": "h"
+  },
+  "domain": {
+    "block": {
+      "Italian Micro-Immersion": "Italian Micro-Immersion",
+      "Czech School Alignment": "Czech School Alignment",
+      "Italian Cultural Activity": "Italian Cultural Activity",
+      "Bonding Ritual": "Bonding Ritual"
+    },
+    "blockShort": {
+      "Italian Micro-Immersion": "IMI",
+      "Czech School Alignment": "CSA",
+      "Italian Cultural Activity": "ICA",
+      "Bonding Ritual": "BR"
+    },
+    "category": {
+      "Language": "Language",
+      "Culture": "Culture",
+      "School Alignment": "School Alignment",
+      "Ritual": "Ritual",
+      "Project": "Project",
+      "Professional": "Professional"
+    },
+    "status": {
+      "Not started": "Not started",
+      "In progress": "In progress",
+      "Completed": "Completed",
+      "Skipped": "Skipped"
+    },
+    "weekday": {
+      "Monday": "Monday",
+      "Tuesday": "Tuesday",
+      "Wednesday": "Wednesday",
+      "Thursday": "Thursday",
+      "Friday": "Friday",
+      "Saturday": "Saturday",
+      "Sunday": "Sunday"
+    },
+    "weekdayShort": {
+      "Mon": "Mon",
+      "Tue": "Tue",
+      "Wed": "Wed",
+      "Thu": "Thu",
+      "Fri": "Fri",
+      "Sat": "Sat",
+      "Sun": "Sun"
+    },
+    "household": {
+      "All": "All",
+      "Home A": "Home A",
+      "Home B": "Home B",
+      "Both": "Both"
+    }
+  }
+}

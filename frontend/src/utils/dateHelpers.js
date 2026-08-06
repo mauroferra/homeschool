@@ -1,3 +1,5 @@
+import i18n, { toLocaleTag } from '../i18n';
+
 export function startOfWeek(date = new Date()) {
   const d = new Date(date);
   const day = d.getDay() === 0 ? 6 : d.getDay() - 1;
@@ -28,7 +30,7 @@ export function getWeekRange(startDate) {
 
 export function formatDate(date, opts = {}) {
   if (!date) return '';
-  return new Date(date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', ...opts });
+  return new Date(date).toLocaleDateString(toLocaleTag(i18n.language), { day: 'numeric', month: 'short', ...opts });
 }
 
 export function formatWeekLabel(startDate) {

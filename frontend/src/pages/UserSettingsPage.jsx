@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 import { Input } from '../components/ui/Input';
@@ -11,6 +12,7 @@ import { authService } from '../services/authService';
 import { useAuthStore } from '../store/authStore';
 
 export default function UserSettingsPage() {
+  const { t } = useTranslation();
   const { templates, loadTemplates, createTemplate, updateTemplate, deleteTemplate } = useActivityStore();
   const { themes, loadThemes } = useThemeStore();
   const user = useAuthStore((s) => s.user);
@@ -40,19 +42,19 @@ export default function UserSettingsPage() {
   };
 
   const handleDelete = async (tpl) => {
-    if (!window.confirm(`Delete template "${tpl.title}"?`)) return;
+    if (!window.confirm(t('settingsPage.deleteTemplateConfirm', { title: tpl.title }))) return;
     await deleteTemplate(tpl.id);
   };
 
   const changePassword = async (e) => {
     e.preventDefault();
     setPwMsg(''); setPwErr('');
-    if (newPassword.length < 8) { setPwErr('Password must be at least 8 characters.'); return; }
-    if (newPassword !== confirmPassword) { setPwErr('Passwords do not match.'); return; }
+    if (newPassword.length < 8) { setPwErr(t('settingsPage.pwTooShort')); return; }
+    if (newPassword !== confirmPassword) { setPwErr(t('settingsPage.pwMismatch')); return; }
     setPwLoading(true);
     try {
       await authService.changePassword(currentPassword, newPassword);
-      setPwMsg('Password updated.');
+      setPwMsg(t('settingsPage.pwUpdated'));
       setCurrentPassword(''); setNewPassword(''); setConfirmPassword('');
     } catch (err) {
       setPwErr(err.message);
@@ -65,53 +67,53 @@ export default function UserSettingsPage() {
     <div className="page">
       <div className="page-header">
         <div>
-          <h1 className="page-title">Settings</h1>
-          <p className="page-sub">Profile, password and reusable activity templates.</p>
+          <h1 className="page-title">{t('settingsPage.title')}</h1>
+          <p className="page-sub">{t('settingsPage.subtitle')}</p>
         </div>
       </div>
 
       <div className="settings-tabs">
-        <button type="button" className={`settings-tab ${tab === 0 ? 'active' : ''}`} onClick={() => setTab(0)}>Account</button>
-        <button type="button" className={`settings-tab ${tab === 1 ? 'active' : ''}`} onClick={() => setTab(1)}>Templates ({templates.length})</button>
+        <button type="button" className={`settings-tab ${tab === 0 ? 'active' : ''}`} onClick={() => setTab(0)}>{t('settingsPage.account')}</button>
+        <button type="button" className={`settings-tab ${tab === 1 ? 'active' : ''}`} onClick={() => setTab(1)}>{t('settingsPage.templates', { count: templates.length })}</button>
       </div>
 
       {tab === 0 ? (
         <div className="settings-grid">
           <Card className="profile-card">
-            <h2 className="card-title">Profile</h2>
-            <p className="profile-email">Signed in as <strong>{user?.email}</strong></p>
-            <p className="profile-role">Role: {user?.role}</p>
+            <h2 className="card-title">{t('settingsPage.profileTitle')}</h2>
+            <p className="profile-email">{t('settingsPage.signedInAs')} <strong>{user?.email}</strong></p>
+            <p className="profile-role">{t('settingsPage.role')}: {user?.role}</p>
           </Card>
 
           <Card>
-            <h2 className="card-title">Change password</h2>
+            <h2 className="card-title">{t('settingsPage.changePassword')}</h2>
             <form className="form-stack" onSubmit={changePassword} noValidate>
               {pwMsg && <div className="alert alert-success">{pwMsg}</div>}
               {pwErr && <div className="alert alert-error">{pwErr}</div>}
-              <Input name="currentPassword" type="password" label="Current password" autoComplete="current-password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
-              <Input name="newPassword" type="password" label="New password" autoComplete="new-password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-              <Input name="confirmPassword" type="password" label="Confirm new password" autoComplete="new-password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-              <Button type="submit" loading={pwLoading}>Update password</Button>
+              <Input name="currentPassword" type="password" label={t('settingsPage.currentPassword')} autoComplete="current-password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
+              <Input name="newPassword" type="password" label={t('settingsPage.newPassword')} autoComplete="new-password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+              <Input name="confirmPassword" type="password" label={t('settingsPage.confirmNewPassword')} autoComplete="new-password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+              <Button type="submit" loading={pwLoading}>{t('settingsPage.updatePassword')}</Button>
             </form>
           </Card>
         </div>
       ) : (
         <div>
           <div className="page-header">
-            <h2 className="card-title">Activity templates</h2>
-            <Button icon="plus" onClick={openCreate}>New template</Button>
+            <h2 className="card-title">{t('settingsPage.activityTemplates')}</h2>
+            <Button icon="plus" onClick={openCreate}>{t('settingsPage.newTemplate')}</Button>
           </div>
           <ActivityTemplateList activities={templates} onEdit={openEdit} onDelete={handleDelete} />
         </div>
       )}
 
-      <Modal open={modalOpen} title={editing ? 'Edit template' : 'New template'} onClose={close}>
+      <Modal open={modalOpen} title={editing ? t('settingsPage.editTitle') : t('settingsPage.newTitle')} onClose={close}>
         <ActivityForm
           initial={editing || {}}
           themes={themes}
           onSubmit={handleSubmit}
           onCancel={close}
-          submitLabel={editing ? 'Save changes' : 'Create template'}
+          submitLabel={editing ? t('settingsPage.saveChanges') : t('settingsPage.createTemplate')}
         />
       </Modal>
     </div>

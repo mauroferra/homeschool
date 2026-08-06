@@ -1,8 +1,10 @@
+import { useTranslation } from 'react-i18next';
 import Icon from '../../components/ui/Icon';
 
 const statusClassFrom = (status = '') => `status-dot status-${status.toLowerCase().replace(/\s+/g, '-')}`;
 
 export default function ActivityInstanceCard({ instance, onOpen }) {
+  const { t } = useTranslation();
   const { activity, status } = instance;
   return (
     <button type="button" className="instance-card" onClick={() => onOpen(instance)}>
@@ -13,10 +15,10 @@ export default function ActivityInstanceCard({ instance, onOpen }) {
         )}
       </div>
       <div className="instance-meta">
-        <span className={statusClassFrom(status)} title="status" />
-        <span className="instance-status">{status}</span>
+        <span className={statusClassFrom(status)} title={t(`domain.status.${status}`)} />
+        <span className="instance-status">{t(`domain.status.${status}`)}</span>
         {instance.reflection_text && <Icon name="edit" size={14} className="instance-reflect-icon" />}
-        <span className="instance-cat">{activity.category}</span>
+        <span className="instance-cat">{t(`domain.category.${activity.category}`)}</span>
       </div>
     </button>
   );

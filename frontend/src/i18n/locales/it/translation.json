@@ -1,0 +1,246 @@
+{
+  "app": {
+    "name": "Curriculum",
+    "title": "Piano di studi ceco e italiano",
+    "tagline": "Apprendimento bilingue, un pianificatore sereno."
+  },
+  "nav": {
+    "week": "Settimana",
+    "themes": "Temi",
+    "progress": "Progressi",
+    "settings": "Impostazioni",
+    "logout": "Esci",
+    "ariaPrimary": "Principale",
+    "ariaMain": "Principale"
+  },
+  "language": {
+    "label": "Lingua",
+    "en": "English",
+    "cs": "Čeština",
+    "it": "Italiano"
+  },
+  "login": {
+    "welcome": "Bentornato",
+    "email": "Email",
+    "password": "Password",
+    "emailRequired": "L'email è obbligatoria",
+    "emailInvalid": "Inserisci un'email valida",
+    "passwordRequired": "La password è obbligatoria",
+    "submit": "Accedi",
+    "forgot": "Password dimenticata?",
+    "emailPlaceholder": "tuo@esempio.it"
+  },
+  "reset": {
+    "title": "Reimposta password",
+    "email": "Email",
+    "emailRequired": "L'email è obbligatoria",
+    "emailInvalid": "Inserisci un'email valida",
+    "submit": "Invia link di ripristino",
+    "backToLogin": "Torna all'accesso",
+    "devLink": "Link di sviluppo: {{link}}",
+    "sent": "Se questa email esiste, è stato inviato un link di ripristino."
+  },
+  "week": {
+    "loading": "Caricamento settimana…",
+    "setup": "Imposta la tua prima settimana…",
+    "scheduled_one": "{{count}} programmato",
+    "scheduled_other": "{{count}} programmati",
+    "today": "Oggi",
+    "thisWeek": "questa settimana",
+    "prevWeek": "Settimana precedente",
+    "nextWeek": "Settimana successiva",
+    "addTo": "Aggiungi a {{block}}",
+    "noActivity": "Nessuna attività",
+    "addActivity": "Aggiungi attività",
+    "addActivityTitle": "Aggiungi attività · {{block}}",
+    "fromTemplate": "Da modello",
+    "newActivity": "Nuova attività",
+    "template": "Modello",
+    "chooseTemplate": "Scegli un modello",
+    "cancel": "Annulla",
+    "add": "Aggiungi"
+  },
+  "activity": {
+    "loading": "Caricamento attività…",
+    "back": "Torna alla settimana",
+    "removeConfirm": "Rimuovere questa attività programmata?",
+    "created": "Creato {{date}}",
+    "statusHeading": "Stato e riflessione",
+    "status": "Stato",
+    "reflection": "Riflessione",
+    "howDidItGo": "Come è andata?",
+    "saved": "Salvato",
+    "remove": "Rimuovi",
+    "saveChanges": "Salva modifiche"
+  },
+  "activityForm": {
+    "titleRequired": "Il titolo è obbligatorio",
+    "categoryRequired": "La categoria è obbligatoria",
+    "title": "Titolo",
+    "category": "Categoria",
+    "durationMin": "Durata (min)",
+    "theme": "Tema",
+    "noTheme": "Nessun tema",
+    "description": "Descrizione",
+    "links": "Link",
+    "removeLink": "Rimuovi link",
+    "cancel": "Annulla"
+  },
+  "templateList": {
+    "empty": "Non ci sono ancora modelli di attività. Creane uno per riutilizzarlo nelle settimane."
+  },
+  "templateCard": {
+    "linksCount_one": "{{count}} link",
+    "linksCount_other": "{{count}} link",
+    "edit": "Modifica {{title}}",
+    "delete": "Elimina {{title}}"
+  },
+  "themeForm": {
+    "nameRequired": "Il nome è obbligatorio",
+    "endAfterStart": "La data di fine deve essere dopo quella di inizio",
+    "themeName": "Nome del tema",
+    "description": "Descrizione",
+    "startDate": "Data di inizio",
+    "endDate": "Data di fine",
+    "cancel": "Annulla"
+  },
+  "themeList": {
+    "empty": "Ancora nessun tema. Crea un tema mensile per raggruppare le attività."
+  },
+  "themePage": {
+    "title": "Temi",
+    "subtitle": "I temi mensili danno un focus a ogni settimana.",
+    "newTheme": "Nuovo tema",
+    "loading": "Caricamento temi…",
+    "editTitle": "Modifica tema",
+    "newTitle": "Nuovo tema",
+    "createTheme": "Crea tema",
+    "saveChanges": "Salva modifiche",
+    "deleteConfirm": "Eliminare il tema \"{{name}}\"? Le attività collegate manterranno il proprio modello."
+  },
+  "themeCard": {
+    "current": "attuale",
+    "edit": "Modifica {{name}}",
+    "delete": "Elimina {{name}}"
+  },
+  "progressPage": {
+    "title": "Progressi",
+    "subtitle": "Attività completate, copertura per categoria e note.",
+    "week": "Settimana",
+    "loading": "Caricamento progressi…",
+    "last4Weeks": "Ultime 4 settimane",
+    "reflections": "Riflessioni"
+  },
+  "weeklyStats": {
+    "completed": "completate",
+    "scheduled": "programmate",
+    "pending": "in corso",
+    "skipped": "saltate",
+    "empty": "Ancora nessuna attività completata in questo set di categorie."
+  },
+  "categoryChart": {
+    "empty": "Ancora nessuna settimana completata da visualizzare."
+  },
+  "reflectionList": {
+    "empty": "Ancora nessuna riflessione registrata.",
+    "weekly": "settimanale",
+    "activity": "attività",
+    "weekOf": "Settimana del {{date}}"
+  },
+  "household": {
+    "label": "Nucleo familiare",
+    "all": "Tutti",
+    "homeA": "Casa A",
+    "homeB": "Casa B",
+    "both": "Entrambi"
+  },
+  "settingsPage": {
+    "title": "Impostazioni",
+    "subtitle": "Profilo, password e modelli di attività riutilizzabili.",
+    "account": "Account",
+    "templates": "Modelli ({{count}})",
+    "profileTitle": "Profilo",
+    "signedInAs": "Connesso come",
+    "role": "Ruolo",
+    "changePassword": "Cambia password",
+    "currentPassword": "Password attuale",
+    "newPassword": "Nuova password",
+    "confirmNewPassword": "Conferma nuova password",
+    "updatePassword": "Aggiorna password",
+    "pwUpdated": "Password aggiornata.",
+    "pwTooShort": "La password deve avere almeno 8 caratteri.",
+    "pwMismatch": "Le password non coincidono.",
+    "deleteTemplateConfirm": "Eliminare il modello \"{{title}}\"?",
+    "activityTemplates": "Modelli di attività",
+    "newTemplate": "Nuovo modello",
+    "editTitle": "Modifica modello",
+    "newTitle": "Nuovo modello",
+    "createTemplate": "Crea modello",
+    "saveChanges": "Salva modifiche"
+  },
+  "fileUploader": {
+    "attachments": "Allegati",
+    "empty": "Nessun allegato.",
+    "remove": "Rimuovi",
+    "addFile": "Aggiungi file"
+  },
+  "modal": {
+    "close": "Chiudi"
+  },
+  "duration": {
+    "min": "min",
+    "hourShort": "h"
+  },
+  "domain": {
+    "block": {
+      "Italian Micro-Immersion": "Micro-immersione italiana",
+      "Czech School Alignment": "Allineamento con la scuola ceca",
+      "Italian Cultural Activity": "Attività culturale italiana",
+      "Bonding Ritual": "Rituale di legame"
+    },
+    "blockShort": {
+      "Italian Micro-Immersion": "IMI",
+      "Czech School Alignment": "CSA",
+      "Italian Cultural Activity": "ICA",
+      "Bonding Ritual": "BR"
+    },
+    "category": {
+      "Language": "Lingua",
+      "Culture": "Cultura",
+      "School Alignment": "Allineamento scolastico",
+      "Ritual": "Rituale",
+      "Project": "Progetto",
+      "Professional": "Professionale"
+    },
+    "status": {
+      "Not started": "Non iniziato",
+      "In progress": "In corso",
+      "Completed": "Completato",
+      "Skipped": "Saltato"
+    },
+    "weekday": {
+      "Monday": "Lunedì",
+      "Tuesday": "Martedì",
+      "Wednesday": "Mercoledì",
+      "Thursday": "Giovedì",
+      "Friday": "Venerdì",
+      "Saturday": "Sabato",
+      "Sunday": "Domenica"
+    },
+    "weekdayShort": {
+      "Mon": "Lun",
+      "Tue": "Mar",
+      "Wed": "Mer",
+      "Thu": "Gio",
+      "Fri": "Ven",
+      "Sat": "Sab",
+      "Sun": "Dom"
+    },
+    "household": {
+      "All": "Tutti",
+      "Home A": "Casa A",
+      "Home B": "Casa B",
+      "Both": "Entrambi"
+    }
+  }
+}

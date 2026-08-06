@@ -1,7 +1,10 @@
 import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Icon from './Icon';
 
-export default function FileUploader({ files = [], onChange, label = 'Attachments', disabled, api }) {
+export default function FileUploader({ files = [], onChange, label, disabled, api }) {
+  const { t } = useTranslation();
+  const displayLabel = label || t('fileUploader.attachments');
   const inputRef = useRef(null);
   const [localFiles, setLocalFiles] = useState([]);
   const current = localFiles.length ? localFiles : files;
@@ -21,16 +24,16 @@ export default function FileUploader({ files = [], onChange, label = 'Attachment
 
   return (
     <div className="field">
-      <label className="field-label">{label}</label>
+      <label className="field-label">{displayLabel}</label>
       <div className="file-list">
-        {current.length === 0 && <p className="file-empty">No attachments yet.</p>}
+        {current.length === 0 && <p className="file-empty">{t('fileUploader.empty')}</p>}
         {current.map((f, idx) => {
           const name = typeof f === 'string' ? f.split('/').pop() : f.name;
           return (
             <div className="file-item" key={`${name}-${idx}`}>
               <Icon name="file" size={18} />
               <span className="file-name">{name}</span>
-              <button type="button" className="btn-icon" onClick={() => remove(idx)} aria-label="Remove">
+              <button type="button" className="btn-icon" onClick={() => remove(idx)} aria-label={t('fileUploader.remove')}>
                 <Icon name="close" size={16} />
               </button>
             </div>
@@ -38,7 +41,7 @@ export default function FileUploader({ files = [], onChange, label = 'Attachment
         })}
       </div>
       <button type="button" className="btn btn-secondary btn-sm file-trigger" disabled={disabled} onClick={() => inputRef.current?.click()}>
-        <Icon name="plus" size={18} /> Add file
+        <Icon name="plus" size={18} /> {t('fileUploader.addFile')}
       </button>
       <input ref={inputRef} type="file" multiple hidden onChange={(e) => handleFiles(e.target.files)} />
     </div>

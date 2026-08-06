@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useWeekStore } from '../store/weekStore';
 import { useActivityStore } from '../store/activityStore';
 import { useThemeStore } from '../store/themeStore';
@@ -15,6 +16,7 @@ import ActivityForm from '../features/activities/ActivityForm';
 import { startOfWeek, dateOnlyISO } from '../utils/dateHelpers';
 
 export default function WeekOverviewPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const {
     currentWeek, instances, loading, error, householdFilter,
@@ -42,8 +44,8 @@ export default function WeekOverviewPage() {
     })();
   }, []);
 
-  if (!ready) return <div className="page-loading">Loading week…</div>;
-  if (!currentWeek) return <div className="page-loading">Set up your first week…</div>;
+  if (!ready) return <div className="page-loading">{t('week.loading')}</div>;
+  if (!currentWeek) return <div className="page-loading">{t('week.setup')}</div>;
 
   const startDate = currentWeek.start_date;
 
@@ -87,7 +89,7 @@ export default function WeekOverviewPage() {
 
       <div className="week-toolbar">
         <HouseholdFilterToggle value={householdFilter} onChange={setHouseholdFilter} />
-        <span className="instances-count">{instances.length} scheduled</span>
+        <span className="instances-count">{t('week.scheduled', { count: instances.length })}</span>
       </div>
 
       {error && <div className="alert alert-error">{error}</div>}
@@ -102,25 +104,25 @@ export default function WeekOverviewPage() {
         ))}
       </div>
 
-      <Modal open={!!addModal} title={addModal ? `Add activity · ${addModal.blockType}` : ''} onClose={() => setAddModal(null)} size="md">
-        <Tabs tabs={[{ label: 'From template' }, { label: 'New activity' }]} active={tab} onChange={setTab} />
+      <Modal open={!!addModal} title={addModal ? t('week.addActivityTitle', { block: t(`domain.block.${addModal.blockType}`) }) : ''} onClose={() => setAddModal(null)} size="md">
+        <Tabs tabs={[{ label: t('week.fromTemplate') }, { label: t('week.newActivity') }]} active={tab} onChange={setTab} />
         {tab === 0 ? (
           <div className="form-stack">
             <Select
-              label="Template"
+              label={t('week.template')}
               name="template"
               value={pickedTemplate}
               onChange={(e) => setPickedTemplate(e.target.value)}
-              options={templates.map((t) => ({ value: t.id, label: `${t.title} · ${t.category}` }))}
-              placeholder="Choose a template"
+              options={templates.map((tpl) => ({ value: tpl.id, label: `${tpl.title} · ${tpl.category}` }))}
+              placeholder={t('week.chooseTemplate')}
             />
             <div className="form-actions">
-              <Button type="button" variant="secondary" onClick={() => setAddModal(null)}>Cancel</Button>
-              <Button disabled={!pickedTemplate} onClick={addFromTemplate}>Add</Button>
+              <Button type="button" variant="secondary" onClick={() => setAddModal(null)}>{t('week.cancel')}</Button>
+              <Button disabled={!pickedTemplate} onClick={addFromTemplate}>{t('week.add')}</Button>
             </div>
           </div>
         ) : (
-          <ActivityForm themes={themes} submitLabel="Add activity" onSubmit={createAdHoc} onCancel={() => setAddModal(null)} />
+          <ActivityForm themes={themes} submitLabel={t('week.addActivity')} onSubmit={createAdHoc} onCancel={() => setAddModal(null)} />
         )}
       </Modal>
     </div>

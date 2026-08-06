@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import Icon from './Icon';
 
 export default function Modal({ open, onClose, title, children, footer, size = 'md' }) {
+  const { t } = useTranslation();
   const ref = useRef(null);
 
   useEffect(() => {
@@ -25,7 +27,7 @@ export default function Modal({ open, onClose, title, children, footer, size = '
       <div className={`modal modal-${size}`} role="dialog" aria-modal="true" aria-label={title} ref={ref}>
         <div className="modal-header">
           <h2 className="modal-title">{title}</h2>
-          <button type="button" className="btn-icon" onClick={onClose} aria-label="Close">
+          <button type="button" className="btn-icon" onClick={onClose} aria-label={t('modal.close')}>
             <Icon name="close" size={20} />
           </button>
         </div>

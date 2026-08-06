@@ -1,8 +1,17 @@
+import { useTranslation } from 'react-i18next';
 import DayColumn from './DayColumn';
 import { WEEKDAY_SHORT } from '../../utils/constants';
 import { dayOffset, formatDate } from '../../utils/dateHelpers';
 
+const BLOCK_TYPES = [
+  'Italian Micro-Immersion',
+  'Czech School Alignment',
+  'Italian Cultural Activity',
+  'Bonding Ritual',
+];
+
 export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd }) {
+  const { t } = useTranslation();
   return (
     <div className="week-grid">
       {Array.from({ length: 7 }).map((_, i) => {
@@ -11,15 +20,15 @@ export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd }
         return (
           <div key={i} className={`grid-col ${isToday ? 'is-today' : ''}`}>
             <div className="day-header">
-              <span className="day-name">{WEEKDAY_SHORT[i]}</span>
+              <span className="day-name">{t(`domain.weekdayShort.${WEEKDAY_SHORT[i]}`)}</span>
               <span className="day-date">{formatDate(date)}</span>
             </div>
             <div className="grid-blocks">
-              {['Italian Micro-Immersion', 'Czech School Alignment', 'Italian Cultural Activity', 'Bonding Ritual'].map((block) => (
-                <div key={block} className={`grid-block block-${block.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>
+              {BLOCK_TYPES.map((block) => (
+                <div key={block} className={`grid-block block-${kebab(block)}`}>
                   <div className="block-header">
-                    <span className="block-title">{shortBlock(block)}</span>
-                    <button type="button" className="btn-icon block-add" onClick={() => onAdd(block, i)} aria-label={`Add to ${shortBlock(block)}`}>
+                    <span className="block-title">{t(`domain.blockShort.${block}`)}</span>
+                    <button type="button" className="btn-icon block-add" onClick={() => onAdd(block, i)} aria-label={t('week.addTo', { block: t(`domain.blockShort.${block}`) })}>
                       +
                     </button>
                   </div>
@@ -44,12 +53,6 @@ export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd }
   );
 }
 
-function shortBlock(block) {
-  const map = {
-    'Italian Micro-Immersion': 'IMI',
-    'Czech School Alignment': 'CSA',
-    'Italian Cultural Activity': 'ICA',
-    'Bonding Ritual': 'BR',
-  };
-  return map[block] || block;
+function kebab(str = '') {
+  return str.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 }

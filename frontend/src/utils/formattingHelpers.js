@@ -6,12 +6,16 @@ export function truncate(str = '', len = 60) {
   return str.length > len ? `${str.slice(0, len - 3)}...` : str;
 }
 
+import { t } from '../i18n';
+
 export function formatDuration(minutes) {
   if (!minutes) return '';
-  if (minutes < 60) return `${minutes} min`;
+  if (minutes < 60) return `${minutes} ${t('duration.min')}`;
   const h = Math.floor(minutes / 60);
   const m = minutes % 60;
-  return m ? `${h}h ${m}m` : `${h}h`;
+  const hour = t('duration.hourShort');
+  const min = t('duration.min');
+  return m ? `${h}${hour} ${m}${min}` : `${h}${hour}`;
 }
 
 export function initialsFromEmail(email = '') {

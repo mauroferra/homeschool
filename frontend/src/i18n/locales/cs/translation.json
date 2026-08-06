@@ -1,0 +1,246 @@
+{
+  "app": {
+    "name": "Curriculum",
+    "title": "Česko-italské učivo",
+    "tagline": "Dvojjazyčné učení, jeden klidný plánovač."
+  },
+  "nav": {
+    "week": "Týden",
+    "themes": "Témata",
+    "progress": "Pokrok",
+    "settings": "Nastavení",
+    "logout": "Odhlásit se",
+    "ariaPrimary": "Hlavní",
+    "ariaMain": "Hlavní"
+  },
+  "language": {
+    "label": "Jazyk",
+    "en": "English",
+    "cs": "Čeština",
+    "it": "Italiano"
+  },
+  "login": {
+    "welcome": "Vítejte zpět",
+    "email": "E-mail",
+    "password": "Heslo",
+    "emailRequired": "E-mail je povinný",
+    "emailInvalid": "Zadejte platný e-mail",
+    "passwordRequired": "Heslo je povinné",
+    "submit": "Přihlásit se",
+    "forgot": "Zapomenuté heslo?",
+    "emailPlaceholder": "vas@priklad.cz"
+  },
+  "reset": {
+    "title": "Obnovit heslo",
+    "email": "E-mail",
+    "emailRequired": "E-mail je povinný",
+    "emailInvalid": "Zadejte platný e-mail",
+    "submit": "Odeslat odkaz k obnovení",
+    "backToLogin": "Zpět k přihlášení",
+    "devLink": "Vývojový odkaz: {{link}}",
+    "sent": "Pokud tento e-mail existuje, byl odeslán odkaz k obnovení hesla."
+  },
+  "week": {
+    "loading": "Nahrávám týden…",
+    "setup": "Nastavte svůj první týden…",
+    "scheduled_one": "{{count}} naplánováno",
+    "scheduled_other": "{{count}} naplánováno",
+    "today": "Dnes",
+    "thisWeek": "tento týden",
+    "prevWeek": "Předchozí týden",
+    "nextWeek": "Příští týden",
+    "addTo": "Přidat do {{block}}",
+    "noActivity": "Žádná aktivita",
+    "addActivity": "Přidat aktivitu",
+    "addActivityTitle": "Přidat aktivitu · {{block}}",
+    "fromTemplate": "Ze šablony",
+    "newActivity": "Nová aktivita",
+    "template": "Šablona",
+    "chooseTemplate": "Vyberte šablonu",
+    "cancel": "Zrušit",
+    "add": "Přidat"
+  },
+  "activity": {
+    "loading": "Nahrávám aktivitu…",
+    "back": "Zpět na týden",
+    "removeConfirm": "Odebrat tuto plánovanou aktivitu?",
+    "created": "Vytvořeno {{date}}",
+    "statusHeading": "Stav a reflexe",
+    "status": "Stav",
+    "reflection": "Reflexe",
+    "howDidItGo": "Jak to proběhlo?",
+    "saved": "Uloženo",
+    "remove": "Odebrat",
+    "saveChanges": "Uložit změny"
+  },
+  "activityForm": {
+    "titleRequired": "Název je povinný",
+    "categoryRequired": "Kategorie je povinná",
+    "title": "Název",
+    "category": "Kategorie",
+    "durationMin": "Délka (min)",
+    "theme": "Téma",
+    "noTheme": "Bez tématu",
+    "description": "Popis",
+    "links": "Odkazy",
+    "removeLink": "Odebrat odkaz",
+    "cancel": "Zrušit"
+  },
+  "templateList": {
+    "empty": "Zatím žádné šablony aktivit. Vytvořte jednu pro opakované použití v dalších týdnech."
+  },
+  "templateCard": {
+    "linksCount_one": "{{count}} odkaz",
+    "linksCount_other": "{{count}} odkazů",
+    "edit": "Upravit {{title}}",
+    "delete": "Smazat {{title}}"
+  },
+  "themeForm": {
+    "nameRequired": "Název je povinný",
+    "endAfterStart": "Konec musí být po začátku",
+    "themeName": "Název tématu",
+    "description": "Popis",
+    "startDate": "Datum začátku",
+    "endDate": "Datum konce",
+    "cancel": "Zrušit"
+  },
+  "themeList": {
+    "empty": "Zatím žádná témata. Vytvořte měsíční téma, které seskupuje aktivity."
+  },
+  "themePage": {
+    "title": "Témata",
+    "subtitle": "Měsíční témata dávají každému týdnu zaměření.",
+    "newTheme": "Nové téma",
+    "loading": "Nahrávám témata…",
+    "editTitle": "Upravit téma",
+    "newTitle": "Nové téma",
+    "createTheme": "Vytvořit téma",
+    "saveChanges": "Uložit změny",
+    "deleteConfirm": "Smazat téma „{{name}}“? Aktivity k němu připojené si ponechají šablonu."
+  },
+  "themeCard": {
+    "current": "aktuální",
+    "edit": "Upravit {{name}}",
+    "delete": "Smazat {{name}}"
+  },
+  "progressPage": {
+    "title": "Pokrok",
+    "subtitle": "Dokončené aktivity, pokrytí kategorií a poznámky.",
+    "week": "Týden",
+    "loading": "Nahrávám pokrok…",
+    "last4Weeks": "Poslední 4 týdny",
+    "reflections": "Reflexe"
+  },
+  "weeklyStats": {
+    "completed": "dokončeno",
+    "scheduled": "naplánováno",
+    "pending": "probíhá",
+    "skipped": "přeskočeno",
+    "empty": "V této sadě kategorií zatím nic nebylo dokončeno."
+  },
+  "categoryChart": {
+    "empty": "Zatím nejsou žádné dokončené týdny ke grafu."
+  },
+  "reflectionList": {
+    "empty": "Zatím nejsou žádné reflexe.",
+    "weekly": "týdenní",
+    "activity": "aktivita",
+    "weekOf": "Týden od {{date}}"
+  },
+  "household": {
+    "label": "Domácnost",
+    "all": "Vše",
+    "homeA": "Domov A",
+    "homeB": "Domov B",
+    "both": "Obojí"
+  },
+  "settingsPage": {
+    "title": "Nastavení",
+    "subtitle": "Profil, heslo a znovupoužitelné šablony aktivit.",
+    "account": "Účet",
+    "templates": "Šablony ({{count}})",
+    "profileTitle": "Profil",
+    "signedInAs": "Přihlášen jako",
+    "role": "Role",
+    "changePassword": "Změnit heslo",
+    "currentPassword": "Současné heslo",
+    "newPassword": "Nové heslo",
+    "confirmNewPassword": "Potvrďte nové heslo",
+    "updatePassword": "Aktualizovat heslo",
+    "pwUpdated": "Heslo bylo aktualizováno.",
+    "pwTooShort": "Heslo musí mít alespoň 8 znaků.",
+    "pwMismatch": "Hesla se neshodují.",
+    "deleteTemplateConfirm": "Smazat šablonu „{{title}}“?",
+    "activityTemplates": "Šablony aktivit",
+    "newTemplate": "Nová šablona",
+    "editTitle": "Upravit šablonu",
+    "newTitle": "Nová šablona",
+    "createTemplate": "Vytvořit šablonu",
+    "saveChanges": "Uložit změny"
+  },
+  "fileUploader": {
+    "attachments": "Přílohy",
+    "empty": "Zatím žádné přílohy.",
+    "remove": "Odebrat",
+    "addFile": "Přidat soubor"
+  },
+  "modal": {
+    "close": "Zavřít"
+  },
+  "duration": {
+    "min": "min",
+    "hourShort": "h"
+  },
+  "domain": {
+    "block": {
+      "Italian Micro-Immersion": "Italská mikro-ponoření",
+      "Czech School Alignment": "Sladění s českou školou",
+      "Italian Cultural Activity": "Italská kulturní aktivita",
+      "Bonding Ritual": "Rituál sblížení"
+    },
+    "blockShort": {
+      "Italian Micro-Immersion": "IMI",
+      "Czech School Alignment": "CSA",
+      "Italian Cultural Activity": "ICA",
+      "Bonding Ritual": "BR"
+    },
+    "category": {
+      "Language": "Jazyk",
+      "Culture": "Kultura",
+      "School Alignment": "Sladění se školou",
+      "Ritual": "Rituál",
+      "Project": "Projekt",
+      "Professional": "Profesní"
+    },
+    "status": {
+      "Not started": "Nezahájeno",
+      "In progress": "Probíhá",
+      "Completed": "Dokončeno",
+      "Skipped": "Přeskočeno"
+    },
+    "weekday": {
+      "Monday": "Pondělí",
+      "Tuesday": "Úterý",
+      "Wednesday": "Středa",
+      "Thursday": "Čtvrtek",
+      "Friday": "Pátek",
+      "Saturday": "Sobota",
+      "Sunday": "Neděle"
+    },
+    "weekdayShort": {
+      "Mon": "Po",
+      "Tue": "Út",
+      "Wed": "St",
+      "Thu": "Čt",
+      "Fri": "Pá",
+      "Sat": "So",
+      "Sun": "Ne"
+    },
+    "household": {
+      "All": "Vše",
+      "Home A": "Domov A",
+      "Home B": "Domov B",
+      "Both": "Obojí"
+    }
+  }
+}

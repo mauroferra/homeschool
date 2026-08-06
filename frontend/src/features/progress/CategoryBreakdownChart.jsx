@@ -1,8 +1,10 @@
+import { useTranslation } from 'react-i18next';
 import { CATEGORIES } from '../../utils/constants';
 
 export default function CategoryBreakdownChart({ history = [] }) {
+  const { t } = useTranslation();
   if (!history.length) {
-    return <p className="empty-state">No completed weeks to chart yet.</p>;
+    return <p className="empty-state">{t('categoryChart.empty')}</p>;
   }
   const colors = ['#e07a5f', '#3d8b99', '#5a7d3a', '#b58bd6', '#d19a3d', '#8a6f5c'];
   const series = history.map((w) => ({
@@ -24,7 +26,7 @@ export default function CategoryBreakdownChart({ history = [] }) {
                     key={c}
                     className="chart-seg"
                     style={{ height: `${(v / max) * 100}%`, background: colors[ci] }}
-                    title={`${c}: ${v}`}
+                    title={`${t(`domain.category.${c}`)}: ${v}`}
                   />
                 );
               })}
@@ -36,7 +38,7 @@ export default function CategoryBreakdownChart({ history = [] }) {
       <div className="chart-legend">
         {CATEGORIES.map((c, i) => (
           <span key={c} className="legend-item">
-            <i style={{ background: colors[i] }} /> {c}
+            <i style={{ background: colors[i] }} /> {t(`domain.category.${c}`)}
           </span>
         ))}
       </div>

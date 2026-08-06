@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Select } from '../components/ui/Input';
 import WeeklyStats from '../features/progress/WeeklyStats';
 import CategoryBreakdownChart from '../features/progress/CategoryBreakdownChart';
@@ -9,6 +10,7 @@ import { useWeekStore } from '../store/weekStore';
 import { formatWeekLabel } from '../utils/dateHelpers';
 
 export default function ProgressDashboardPage() {
+  const { t } = useTranslation();
   const { stats, history, reflections, loading, error, loadAll } = useProgressStore();
   const { weeks, loadWeeks, currentWeek } = useWeekStore();
   const [weekId, setWeekId] = useState('');
@@ -34,14 +36,14 @@ export default function ProgressDashboardPage() {
     <div className="page">
       <div className="page-header">
         <div>
-          <h1 className="page-title">Progress</h1>
-          <p className="page-sub">Completed activities, category coverage and notes.</p>
+          <h1 className="page-title">{t('progressPage.title')}</h1>
+          <p className="page-sub">{t('progressPage.subtitle')}</p>
         </div>
       </div>
 
       <div className="progress-toolbar">
         <Select
-          label="Week"
+          label={t('progressPage.week')}
           name="week"
           value={weekId}
           onChange={(e) => changeWeek(e.target.value)}
@@ -51,12 +53,12 @@ export default function ProgressDashboardPage() {
 
       {error && <div className="alert alert-error">{error}</div>}
       {loading ? (
-        <div className="page-loading">Loading progress…</div>
+        <div className="page-loading">{t('progressPage.loading')}</div>
       ) : (
         <>
           <WeeklyStats stats={stats} />
 
-          <Tabs tabs={[{ label: 'Last 4 weeks' }, { label: 'Reflections' }]} active={tab} onChange={setTab} />
+          <Tabs tabs={[{ label: t('progressPage.last4Weeks') }, { label: t('progressPage.reflections') }]} active={tab} onChange={setTab} />
           {tab === 0 ? <CategoryBreakdownChart history={history} /> : <ReflectionList reflections={reflections} />}
         </>
       )}

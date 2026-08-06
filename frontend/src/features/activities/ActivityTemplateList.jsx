@@ -1,8 +1,10 @@
+import { useTranslation } from 'react-i18next';
 import ActivityTemplateCard from './ActivityTemplateCard';
 
 export default function ActivityTemplateList({ activities, onEdit, onDelete }) {
+  const { t } = useTranslation();
   if (activities.length === 0) {
-    return <p className="empty-state">No activity templates yet. Create one to reuse it across weeks.</p>;
+    return <p className="empty-state">{t('templateList.empty')}</p>;
   }
   return (
     <div className="template-grid">

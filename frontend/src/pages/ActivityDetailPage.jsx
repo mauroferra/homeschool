@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 import Tabs from '../components/ui/Tabs';
@@ -14,6 +15,7 @@ import { formatDate } from '../utils/dateHelpers';
 
 export default function ActivityDetailPage() {
   const { instanceId } = useParams();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const refresh = useWeekStore((s) => s.loadWeek);
   const currentWeek = useWeekStore((s) => s.currentWeek);
@@ -59,7 +61,7 @@ export default function ActivityDetailPage() {
   };
 
   const remove = async () => {
-    if (!window.confirm('Remove this scheduled activity?')) return;
+    if (!window.confirm(t('activity.removeConfirm'))) return;
     await weekService.deleteInstance(instance.id);
     if (currentWeek) await refresh(currentWeek.id);
     navigate(`/week`);
@@ -69,23 +71,23 @@ export default function ActivityDetailPage() {
     return (
       <div className="page">
         <div className="alert alert-error">{error}</div>
-        <Button variant="secondary" onClick={() => navigate('/week')}>Back to week</Button>
+        <Button variant="secondary" onClick={() => navigate('/week')}>{t('activity.back')}</Button>
       </div>
     );
   }
 
-  if (!instance) return <div className="page-loading">Loading activity…</div>;
+  if (!instance) return <div className="page-loading">{t('activity.loading')}</div>;
 
   const a = instance.activity;
 
   return (
     <div className="page detail-page">
       <button type="button" className="btn btn-ghost btn-sm" onClick={() => navigate('/week')}>
-        <Icon name="arrowBack" size={18} /> Back to week
+        <Icon name="arrowBack" size={18} /> {t('activity.back')}
       </button>
 
       <div className="detail-head">
-        <span className="pill pill-cat">{a.category}</span>
+        <span className="pill pill-cat">{t(`domain.category.${a.category}`)}</span>
         <h1 className="detail-title">{a.title}</h1>
         {a.theme_name && <span className="pill pill-theme">{a.theme_name}</span>}
       </div>
@@ -93,8 +95,8 @@ export default function ActivityDetailPage() {
       <Card className="detail-info">
         <div className="detail-meta">
           {a.estimated_duration && <span><Icon name="clock" size={16} /> {formatDuration(a.estimated_duration)}</span>}
-          <span>{instance.block_type}</span>
-          <span>Created {formatDate(instance.created_at)}</span>
+          <span>{t(`domain.block.${instance.block_type}`)}</span>
+          <span>{t('activity.created', { date: formatDate(instance.created_at) })}</span>
         </div>
         {a.description && <p className="detail-desc">{a.description}</p>}
         {a.links?.length > 0 && (
@@ -106,17 +108,17 @@ export default function ActivityDetailPage() {
         )}
       </Card>
 
-      <Tabs tabs={[{ label: 'Status & reflection' }]} active={0} onChange={() => {}} />
+      <Tabs tabs={[{ label: t('activity.statusHeading') }]} active={0} onChange={() => {}} />
 
       <div className="form-stack">
-        <Select label="Status" name="status" value={status} onChange={(e) => setStatus(e.target.value)} options={STATUSES} />
+        <Select label={t('activity.status')} name="status" value={status} onChange={(e) => setStatus(e.target.value)} options={STATUSES.map((s) => ({ value: s, label: t(`domain.status.${s}`) }))} />
         <HouseholdTagSelector value={homeTag} onChange={setHomeTag} />
-        <TextArea label="Reflection" name="reflection" rows={4} placeholder="How did it go?" value={reflection} onChange={(e) => setReflection(e.target.value)} />
-        {saved && <div className="alert alert-success">Saved</div>}
+        <TextArea label={t('activity.reflection')} name="reflection" rows={4} placeholder={t('activity.howDidItGo')} value={reflection} onChange={(e) => setReflection(e.target.value)} />
+        {saved && <div className="alert alert-success">{t('activity.saved')}</div>}
         {error && <div className="alert alert-error">{error}</div>}
         <div className="form-actions">
-          <Button variant="danger" icon="trash" onClick={remove}>Remove</Button>
-          <Button loading={saving} onClick={save}>Save changes</Button>
+          <Button variant="danger" icon="trash" onClick={remove}>{t('activity.remove')}</Button>
+          <Button loading={saving} onClick={save}>{t('activity.saveChanges')}</Button>
         </div>
       </div>
     </div>
