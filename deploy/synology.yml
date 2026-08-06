@@ -7,7 +7,7 @@
 # (the container runs as non-root uid 1000 and needs to write SQLite there)
 services:
   curriculum:
-    image: ghcr.io/<github-username>/homeschool:latest
+    image: ghcr.io/mauroferra/homeschool:latest
     container_name: homeschool-curriculum
     ports:
       - "4000:4000"
