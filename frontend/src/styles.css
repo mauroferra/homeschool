@@ -246,19 +246,19 @@ a { color: var(--primary); text-decoration: none; }
 /* ---------- Week grid (desktop) ---------- */
 .week-grid-view { display: none; }
 .week-grid {
-  display: grid; grid-template-columns: repeat(7, minmax(140px, 1fr));
-  gap: 10px; overflow-x: auto;
+  display: grid; grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px; overflow: hidden;
   background: var(--surface);
   border-radius: 14px;
-  padding: 12px;
+  padding: 10px;
   box-shadow: var(--shadow);
 }
-.grid-col { display: flex; flex-direction: column; gap: 8px; min-width: 140px; }
+.grid-col { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .grid-col.is-today .day-name { color: var(--primary); font-weight: 700; }
 .day-header { display: flex; flex-direction: column; }
 .day-name { font-size: 12px; font-weight: 700; color: var(--text); text-transform: uppercase; }
 .day-date { font-size: 12px; color: var(--text-muted); }
-.grid-blocks { display: flex; flex-direction: column; gap: 8px; }
+.grid-blocks { display: flex; flex-direction: column; gap: 6px; }
 
 /* ---------- Blocks ---------- */
 .k-block, .grid-block { border-radius: 10px; overflow: hidden; }
@@ -268,13 +268,13 @@ a { color: var(--primary); text-decoration: none; }
 .block-italian-cultural-activity { background: var(--block-ica); }
 .block-bonding-ritual { background: var(--block-br); }
 .block-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 7px 8px;
+  display: flex; align-items: center; justify-content: space-between; gap: 4px;
+  padding: 5px 6px;
 }
-.block-title { font-size: 12px; font-weight: 700; }
-.block-add { width: 24px; height: 24px; font-size: 16px; line-height: 1; color: var(--primary); border: 0; background: rgba(255,255,255,0.5); border-radius: 6px; }
-.block-empty { font-size: 12px; color: var(--text-muted); padding: 6px 10px; }
-.block-body { padding: 0 6px 6px; display: flex; flex-direction: column; gap: 6px; }
+.block-title { font-size: 11px; font-weight: 700; line-height: 1.2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.block-add { width: 20px; height: 20px; font-size: 14px; line-height: 1; color: var(--primary); border: 0; background: rgba(255,255,255,0.5); border-radius: 6px; flex-shrink: 0; }
+.block-empty { font-size: 11px; color: var(--text-muted); padding: 4px 6px; }
+.block-body { padding: 0 4px 4px; display: flex; flex-direction: column; gap: 4px; }
 
 /* ---------- Instance cards ---------- */
 .instance-card {
@@ -301,13 +301,14 @@ a { color: var(--primary); text-decoration: none; }
 
 .instance-chip {
   width: 100%; text-align: left;
-  display: flex; align-items: center; gap: 6px;
+  display: flex; align-items: center; gap: 4px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 7px;
-  font-size: 12px; padding: 7px 8px; cursor: pointer;
+  border-radius: 6px;
+  font-size: 11px; padding: 5px 6px; cursor: pointer;
 }
-.instance-chip .home-chip { margin-left: auto; }
+.instance-chip .home-chip { margin-left: auto; flex-shrink: 0; }
+.instance-chip span:not(.status-dot):not(.home-chip) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .instance-chip .instance-title { }
 
 .status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
