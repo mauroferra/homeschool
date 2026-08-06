@@ -508,7 +508,7 @@ a { color: var(--primary); text-decoration: none; }
   .modal-overlay { align-items: center; }
   .modal { border-radius: 16px; max-height: 88vh; }
 }
-@media (min-width: 651px) and (max-width: 899px) {
+@media (min-width: 626px) and (max-width: 899px) {
   .mobile-day-scroller {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
