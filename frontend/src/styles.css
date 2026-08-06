@@ -316,17 +316,15 @@ a { color: var(--primary); text-decoration: none; }
 .status-completed { background: var(--success); }
 .status-skipped { background: #a5aab3; }
 
-/* ---------- Mobile day scroller ---------- */
+/* ---------- Mobile day list ---------- */
 .mobile-day-scroller {
-  display: flex; gap: 12px; overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  display: flex; flex-direction: column; gap: 12px;
   padding: 2px 2px 10px;
   margin: 0 -4px;
 }
 .day-column {
-  scroll-snap-align: start;
-  flex: 0 0 86%;
-  max-width: 360px;
+  width: 100%;
+  max-width: none;
   background: var(--surface);
   border-radius: 14px;
   box-shadow: var(--shadow);
