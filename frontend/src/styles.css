@@ -508,6 +508,14 @@ a { color: var(--primary); text-decoration: none; }
   .modal-overlay { align-items: center; }
   .modal { border-radius: 16px; max-height: 88vh; }
 }
+@media (min-width: 651px) and (max-width: 899px) {
+  .mobile-day-scroller {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .day-column { width: 100%; }
+}
 @media (max-width: 899px) {
   .settings-tabs { width: 100%; }
   .settings-tab { flex: 1; text-align: center; }
