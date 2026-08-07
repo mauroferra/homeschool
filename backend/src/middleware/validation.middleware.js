@@ -8,7 +8,11 @@ export function validate(schema, source = 'body') {
       const details = error.details.map((d) => d.message);
       return next(badRequest(details.join('; '), 'VALIDATION'));
     }
-    req[source] = validated;
+    if (source === 'query') {
+      Object.assign(req.query, validated);
+    } else {
+      req[source] = validated;
+    }
     return next();
   };
 }
