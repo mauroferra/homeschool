@@ -206,7 +206,7 @@ a { color: var(--primary); text-decoration: none; }
 .main-content {
   flex: 1;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 16px 16px calc(var(--mobile-nav-h) + 40px);
 }
@@ -506,6 +506,11 @@ a { color: var(--primary); text-decoration: none; }
   .main-content { padding-bottom: 40px; }
   .modal-overlay { align-items: center; }
   .modal { border-radius: 16px; max-height: 88vh; }
+}
+@media (min-width: 900px) and (max-width: 1050px) {
+  .week-grid { grid-template-columns: repeat(12, 1fr); }
+  .week-grid .grid-col:nth-child(-n+4) { grid-column: span 3; }
+  .week-grid .grid-col:nth-child(n+5) { grid-column: span 4; }
 }
 @media (min-width: 626px) and (max-width: 899px) {
   .mobile-day-scroller {
