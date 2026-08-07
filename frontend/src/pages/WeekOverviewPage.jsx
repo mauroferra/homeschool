@@ -143,7 +143,7 @@ export default function WeekOverviewPage() {
       <WeekNavigation
         label={navLabel}
         todayLabel={todayLabel}
-        isToday={isToday}
+        active={isToday}
         onPrev={onPrev}
         onNext={onNext}
         onToday={onToday}
