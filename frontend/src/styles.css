@@ -513,7 +513,7 @@ a { color: var(--primary); text-decoration: none; }
   .week-grid .grid-col:nth-child(-n+4) { grid-column: span 3; }
   .week-grid .grid-col:nth-child(n+5) { grid-column: span 4; }
 }
-@media (min-width: 626px) and (max-width: 899px) {
+@media (min-width: 525px) and (max-width: 899px) {
   .mobile-day-scroller {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
