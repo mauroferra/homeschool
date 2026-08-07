@@ -163,6 +163,12 @@ podman compose up --build
 docker compose up --build
 ```
 
+One-liner for a full edit-to-browser test cycle — rebuilds the image from your current code, (re)creates the containers (entrypoint re-applies migrations + seed automatically), starts the stack, and all that's left is a browser refresh:
+
+```bash
+podman compose up --build --force-recreate
+```
+
 ### Container notes
 
 - **Data persistence**: SQLite DB + uploads live in `/app/backend/data`. Use a named volume (as above); on SELinux-enabled hosts (Fedora/RHEL) a bind mount needs the `:Z` label, e.g. `-v ./data:/app/backend/data:Z`.
