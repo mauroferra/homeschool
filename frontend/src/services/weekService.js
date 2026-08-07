@@ -6,7 +6,7 @@ export const weekService = {
   createWeek: (start_date) => apiClient.post('/weeks', { start_date }),
   updateWeekReflection: (id, parent_reflection) => apiClient.patch(`/weeks/${id}/reflection`, { parent_reflection }),
   deleteWeek: (id) => apiClient.delete(`/weeks/${id}`),
-  getInstances: (weekId, household) => apiClient.get(`/weeks/${weekId}/instances${household && household !== 'All' ? `?household=${encodeURIComponent(household)}` : ''}`),
+  getInstances: (weekId) => apiClient.get(`/weeks/${weekId}/instances`),
   createInstance: (weekId, payload) => apiClient.post(`/weeks/${weekId}/instances`, payload),
   createAdHocInstance: (weekId, payload) => apiClient.post(`/weeks/${weekId}/instances/ad-hoc`, payload),
   updateInstance: (id, payload) => apiClient.patch(`/instances/${id}`, payload),

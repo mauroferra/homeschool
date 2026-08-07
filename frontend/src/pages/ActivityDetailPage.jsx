@@ -5,8 +5,7 @@ import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 import Tabs from '../components/ui/Tabs';
 import Icon from '../components/ui/Icon';
-import { Select, TextArea, Input } from '../components/ui/Input';
-import HouseholdTagSelector from '../features/household/HouseholdTagSelector';
+import { Select, TextArea } from '../components/ui/Input';
 import { weekService } from '../services/weekService';
 import { useWeekStore } from '../store/weekStore';
 import { STATUSES } from '../utils/constants';
@@ -112,7 +111,6 @@ export default function ActivityDetailPage() {
 
       <div className="form-stack">
         <Select label={t('activity.status')} name="status" value={status} onChange={(e) => setStatus(e.target.value)} options={STATUSES.map((s) => ({ value: s, label: t(`domain.status.${s}`) }))} />
-        <HouseholdTagSelector value={homeTag} onChange={setHomeTag} />
         <TextArea label={t('activity.reflection')} name="reflection" rows={4} placeholder={t('activity.howDidItGo')} value={reflection} onChange={(e) => setReflection(e.target.value)} />
         {saved && <div className="alert alert-success">{t('activity.saved')}</div>}
         {error && <div className="alert alert-error">{error}</div>}

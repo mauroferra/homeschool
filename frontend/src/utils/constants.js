@@ -7,8 +7,6 @@ export const BLOCK_TYPES = [
   'Bonding Ritual',
 ];
 
-export const HOUSEHOLD_TAGS = ['Home A', 'Home B', 'Both'];
-
 export const STATUSES = ['Not started', 'In progress', 'Completed', 'Skipped'];
 
 export const WEEKDAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];

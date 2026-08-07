@@ -5,7 +5,7 @@
     "tagline": "Apprendimento bilingue, un pianificatore sereno."
   },
   "nav": {
-    "week": "Settimana",
+    "week": "Calendario",
     "themes": "Temi",
     "progress": "Progressi",
     "settings": "Impostazioni",
@@ -46,9 +46,9 @@
     "scheduled_one": "{{count}} programmato",
     "scheduled_other": "{{count}} programmati",
     "today": "Oggi",
-    "thisWeek": "questa settimana",
+    "thisWeek": "Questa settimana",
     "thisDay": "oggi",
-    "thisMonth": "questo mese",
+    "thisMonth": "Questo mese",
     "prev": "Precedente",
     "next": "Successiva",
     "prevWeek": "Settimana precedente",

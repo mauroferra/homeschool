@@ -5,7 +5,7 @@
     "tagline": "Bilingual learning, one calm planner."
   },
   "nav": {
-    "week": "Week",
+    "week": "Calendar",
     "themes": "Themes",
     "progress": "Progress",
     "settings": "Settings",
@@ -46,9 +46,9 @@
     "scheduled_one": "{{count}} scheduled",
     "scheduled_other": "{{count}} scheduled",
     "today": "Today",
-    "thisWeek": "this week",
+    "thisWeek": "This week",
     "thisDay": "this day",
-    "thisMonth": "this month",
+    "thisMonth": "This month",
     "prev": "Previous",
     "next": "Next",
     "prevWeek": "Previous week",

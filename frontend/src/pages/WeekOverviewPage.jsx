@@ -9,7 +9,6 @@ import WeekGrid from '../features/weekplanner/WeekGrid';
 import DayColumn from '../features/weekplanner/DayColumn';
 import MonthGrid from '../features/weekplanner/MonthGrid';
 import ViewToggle from '../features/weekplanner/ViewToggle';
-import HouseholdFilterToggle from '../features/household/HouseholdFilterToggle';
 import Modal from '../components/ui/Modal';
 import Tabs from '../components/ui/Tabs';
 import { Select } from '../components/ui/Input';
@@ -24,10 +23,10 @@ export default function WeekOverviewPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const {
-    weeks, currentWeek, instances, loading, error, householdFilter,
+    weeks, currentWeek, instances, loading, error,
     viewDate, monthInstances,
     loadWeek, loadWeeks, ensureWeekForDate, goToWeek, setViewDate, loadMonth, goToDay, goToMonth,
-    addInstance, addAdHocInstance, setHouseholdFilter,
+    addInstance, addAdHocInstance,
   } = useWeekStore();
   const { templates, loadTemplates } = useActivityStore();
   const { themes, loadThemes } = useThemeStore();
@@ -89,7 +88,7 @@ export default function WeekOverviewPage() {
   const navLabel = view === 'day' ? formatDayLabel(anchorDate)
     : view === 'month' ? formatMonthLabel(anchorDate)
       : formatWeekLabel(startDate);
-  const todayLabel = view === 'day' ? t('week.thisDay') : view === 'month' ? t('week.thisMonth') : t('week.thisWeek');
+  const todayLabel = view === 'day' ? t('week.today') : view === 'month' ? t('week.thisMonth') : t('week.thisWeek');
   const isToday = view === 'day' ? isSameDay(anchorDate, new Date())
     : view === 'month' ? isSameMonth(anchorDate, new Date())
       : startDate === startIso;
@@ -137,11 +136,6 @@ export default function WeekOverviewPage() {
     if (view === 'month') refreshMonth();
   };
 
-  const onHouseholdChange = (filter) => {
-    setHouseholdFilter(filter);
-    if (view === 'month') refreshMonth();
-  };
-
   return (
     <div className="page week-page">
       <WeekNavigation
@@ -155,7 +149,6 @@ export default function WeekOverviewPage() {
 
       <div className="week-toolbar">
         <ViewToggle value={view} onChange={changeView} />
-        <HouseholdFilterToggle value={householdFilter} onChange={onHouseholdChange} />
         <span className="instances-count">{t('week.scheduled', { count: visibleCount })}</span>
       </div>
 

@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import Button from '../../components/ui/Button';
 import Icon from '../../components/ui/Icon';
 
-export default function WeekNavigation({ label, todayLabel, onPrev, onNext, onToday, isToday = false }) {
+export default function WeekNavigation({ label, onPrev, onNext, onToday, todayLabel, active = false }) {
   const { t } = useTranslation();
   return (
     <div className="week-nav-wrap">
@@ -12,11 +12,16 @@ export default function WeekNavigation({ label, todayLabel, onPrev, onNext, onTo
           <strong className="week-label">{label}</strong>
         </div>
         <Button variant="secondary" icon="chevronRight" aria-label={t('week.next')} onClick={onNext} />
-        <Button variant="ghost" size="sm" onClick={onToday}>
-          <Icon name="home" size={16} /> {t('week.today')}
+        <Button
+          variant="secondary"
+          size="sm"
+          icon="home"
+          className={active ? 'week-now active' : 'week-now'}
+          onClick={onToday}
+        >
+          {todayLabel}
         </Button>
       </div>
-      {isToday && <div className="week-today-row"><span className="week-today">{todayLabel}</span></div>}
     </div>
   );
 }

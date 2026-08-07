@@ -8,7 +8,6 @@ export const useWeekStore = create((set, get) => ({
   instances: [],
   loading: false,
   error: null,
-  householdFilter: 'All',
   viewDate: null,
   monthInstances: [],
 
@@ -26,7 +25,7 @@ export const useWeekStore = create((set, get) => ({
     try {
       const [week, instances] = await Promise.all([
         weekService.getWeek(id),
-        weekService.getInstances(id, get().householdFilter),
+        weekService.getInstances(id),
       ]);
       set({ currentWeek: week, instances, loading: false });
       return week;
@@ -72,7 +71,7 @@ export const useWeekStore = create((set, get) => ({
     const last = dateOnlyISO(grid[grid.length - 1][6]);
     const inRange = get().weeks.filter((w) => w.start_date >= first && w.start_date <= last);
     const results = await Promise.all(
-      inRange.map((w) => weekService.getInstances(w.id, get().householdFilter))
+      inRange.map((w) => weekService.getInstances(w.id))
     );
     set({ monthInstances: results.flat(), viewDate: dateOnlyISO(date) });
     return grid;
@@ -110,12 +109,5 @@ export const useWeekStore = create((set, get) => ({
     const week = get().currentWeek;
     const updated = await weekService.updateWeekReflection(week.id, text);
     set({ currentWeek: updated });
-  },
-
-  setHouseholdFilter(filter) {
-    set({ householdFilter: filter });
-    if (get().currentWeek) {
-      weekService.getInstances(get().currentWeek.id, filter).then((instances) => set({ instances }));
-    }
   },
 }));

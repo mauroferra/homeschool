@@ -36,7 +36,7 @@ export function formatDate(date, opts = {}) {
 export function formatWeekLabel(startDate) {
   const s = startOfWeek(startDate);
   const e = addDays(s, 6);
-  return `${formatDate(s)} / ${formatDate(e)} \n${new Date(e).getFullYear()}`;
+  return `${formatDate(s)} / ${formatDate(e, { year: 'numeric' })}`;
 }
 
 export function addWeek(startDate, delta) {

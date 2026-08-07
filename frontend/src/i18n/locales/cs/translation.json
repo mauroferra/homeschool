@@ -5,7 +5,7 @@
     "tagline": "Dvojjazyčné učení, jeden klidný plánovač."
   },
   "nav": {
-    "week": "Týden",
+    "week": "Kalendář",
     "themes": "Témata",
     "progress": "Pokrok",
     "settings": "Nastavení",
@@ -46,9 +46,9 @@
     "scheduled_one": "{{count}} naplánováno",
     "scheduled_other": "{{count}} naplánováno",
     "today": "Dnes",
-    "thisWeek": "tento týden",
+    "thisWeek": "Tento týden",
     "thisDay": "dnes",
-    "thisMonth": "tento měsíc",
+    "thisMonth": "Tento měsíc",
     "prev": "Předchozí",
     "next": "Další",
     "prevWeek": "Předchozí týden",
