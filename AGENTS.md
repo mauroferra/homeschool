@@ -3,8 +3,9 @@
 Czech–Italian hybrid curriculum app. Two independent packages in one repo — no npm workspaces, install/run each separately.
 
 ## Layout & entrypoints
-- `backend/` — Express (ESM, `"type": "module"`). Entry `src/app.js`. API base `/api/v1`, health `/health`, OpenAPI YAML at `/docs`.
-- `frontend/` — Vite + React 18 + Zustand. Entry `src/main.jsx`. Dev server `:5173` proxies `/api` and `/uploads` → backend `:4000`.
+- `backend/` — Express 5 (ESM, `"type": "module"`). Entry `src/app.js`. API base `/api/v1`, health `/health`, OpenAPI YAML at `/docs`.
+- `frontend/` — Vite + React 19 + Zustand. Entry `src/main.jsx`. Dev server `:5173` proxies `/api` and `/uploads` → backend `:4000`.
+- **Trilingual content (en/cs/it)**: activities and themes carry per-language columns (`title_en/cs/it`, `description_en/cs/it`); the backend resolves them via `localized()` in `src/utils/localization.js`, and UI strings go through i18next (`frontend/src/i18n`). New content fields need all three language columns.
 - Specs live in `specs/`; the code was built to match them (API-SPEC / swagger.yaml, FRONTEND-ARCH, BACKEND-STRUCTURE).
 
 ## Setup / run (backend first)
@@ -22,7 +23,9 @@ Seed logins: `parent@homeschool.app / parent123`, `admin@homeschool.app / admin1
 - Frontend: `cd frontend && npm run build` (catches JSX/import errors).
 
 ## Backend gotchas (non-obvious wiring)
-- **Schema is managed by Sequelize `sync()`**, not the SQL files. `npm run db:migrate` = `db.sync()`; the SQL in `src/db/migrations/*.sql` is reference documentation only and is never executed.
+- **Schema is managed by Sequelize `sync()`**, not the SQL files. `npm run db:migrate` = `db.sync()` + `backfillTranslationColumns()`; the SQL in `src/db/migrations/*.sql` is reference documentation only and is never executed.
+- **`sync()` does not alter existing tables** — new model columns only appear on brand-new tables/DBs. To add a column to an existing dev DB, you must add it to the `TRANSLATION_COLUMNS` map in `src/db/migrate.js` (that's how the translation columns were back-ported) or delete `data/app.db`.
+- **`User.defaultScope` excludes `passwordHash`/`resetToken`** — auth/user services must use `User.unscoped()`, and every query on user-owned tables must filter `where: { userId }` (no unscoped user reads outside services).
 - **Models**: each file in `src/db/models/*.js` calls `getSequelize()` at import; associations are defined in `src/db/models/index.js`. Import `./db/models/index.js` (side-effect) before querying; services import named models from it.
 - **Route mounting**: auth routes are mounted at `/api/v1/auth` (routes inside are `/login`, `/reset`, `/me`, …). `instanceRoutes` is mounted broadly at `/api/v1` and calls `router.use(auth)` — it would intercept any path not matched by earlier routers, so mount any new public route **before** `app.use(config.apiBase, instanceRoutes)` in `src/app.js`.
 - **`app.js` must not listen on import**: server startup is guarded by an `isDirectRun` check, so tests can `import { createApp }`. Don't move the `listen()` call into module scope.
