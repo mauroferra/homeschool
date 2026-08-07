@@ -29,6 +29,13 @@ Seed logins: `parent@homeschool.app / parent123`, `admin@homeschool.app / admin1
 - **Dates are timezone-sensitive**: `src/utils/date.js::dateOnlyISO` builds `YYYY-MM-DD` from *local* date components on purpose. Do not switch it back to `toISOString().slice(0,10)` — that reintroduces a UTC off-by-one (repo is in UTC+2).
 - **SPA serving**: backend serves `frontend/dist` (SPA fallback) if it exists. In dev, Vite serves the frontend, so the dist fallback is inactive unless a build is present.
 
+## Accepted dependency warnings (do not "fix" by upgrading)
+- A clean `npm ci` in `backend/` still prints 3 deprecated-package warnings: `dottie@2.0.7`, `prebuild-install@7.1.3`, and `uuid@8.3.2`. These are **hard-pinned inside Sequelize v6 and `sqlite3`** — upgrading the top-level packages to latest does not and cannot remove them:
+  - `dottie` is an internal dependency of Sequelize at every version (v7 alpha still uses it); only dropping the ORM removes it.
+  - `prebuild-install` belongs to the `sqlite3` native module; Sequelize v6's sqlite dialect hard-requires `sqlite3`, so it can't be swapped for `better-sqlite3`/`node:sqlite` without a dialect migration.
+  - `uuid@8` is pinned by Sequelize v6 (v7 uses `uuid@11`), but Sequelize v7 is still `7.0.0-alpha.*`.
+- Decision (Aug 2026): stay on Sequelize v6 + `sqlite3` and accept these warnings rather than migrate to alpha ORM code or rewrite the data layer.
+
 ## Config & secrets
 - Backend reads `backend/.env` (dotenv, resolved relative to `src/config/env.js`). `.env` is gitignored; `.env.example` is the tracked template.
 - `DB_DIALECT=sqlite` default; Postgres/MySQL via env. `data/` (SQLite DB + uploads) is gitignored runtime state.
