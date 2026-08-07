@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { WEEKDAY_SHORT } from '../../utils/constants';
+import { WEEKDAYS } from '../../utils/constants';
 import { dayOffset, formatDate, isSameDay } from '../../utils/dateHelpers';
+import { useLocalized } from '../../utils/localize';
 
 const BLOCK_TYPES = [
   'Italian Micro-Immersion',
@@ -11,6 +12,7 @@ const BLOCK_TYPES = [
 
 export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd }) {
   const { t } = useTranslation();
+  const L = useLocalized();
   return (
     <div className="week-grid">
       {Array.from({ length: 7 }).map((_, i) => {
@@ -19,7 +21,7 @@ export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd }
         return (
           <div key={i} className={`grid-col ${isToday ? 'is-today' : ''}`}>
             <div className="day-header">
-              <span className="day-name">{t(`domain.weekdayShort.${WEEKDAY_SHORT[i]}`)}</span>
+              <span className="day-name">{t(`domain.weekday.${WEEKDAYS[i]}`)}</span>
               <span className="day-date">{formatDate(date)}</span>
             </div>
             <div className="grid-blocks">
@@ -37,7 +39,7 @@ export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd }
                       .map((inst) => (
                         <button key={inst.id} type="button" className="instance-chip" onClick={() => onOpenInstance(inst)}>
                           <span className={`status-dot status-${inst.status.toLowerCase().replace(/\s+/g, '-')}`} />
-                          {inst.activity.title}
+                          {L(inst.activity, 'title')}
                           {inst.home_tag !== 'Home A' && <span className="home-chip">{inst.home_tag === 'Both' ? 'A+B' : 'B'}</span>}
                         </button>
                       ))}

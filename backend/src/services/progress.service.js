@@ -99,6 +99,9 @@ export async function getReflections(userId, { weekId } = {}) {
         start_date: week.startDate,
         text: inst.reflectionText,
         title: inst.adHocTitle || (inst.Activity ? inst.Activity.title : 'Activity'),
+        title_en: inst.Activity ? inst.Activity.title_en : null,
+        title_cs: inst.Activity ? inst.Activity.title_cs : null,
+        title_it: inst.Activity ? inst.Activity.title_it : null,
         status: inst.status,
       });
     }

@@ -5,9 +5,11 @@ import { Input, Select, TextArea } from '../../components/ui/Input';
 import FileUploader from '../../components/ui/FileUploader';
 import { CATEGORIES } from '../../utils/constants';
 import { validateRequired } from '../../utils/validationHelpers';
+import { useLocalized } from '../../utils/localize';
 
 export default function ActivityForm({ initial = {}, themes = [], onSubmit, onCancel, submitLabel = 'Save', extraFields }) {
   const { t } = useTranslation();
+  const L = useLocalized();
   const [form, setForm] = useState({
     title: initial.title || '',
     category: initial.category || CATEGORIES[0],
@@ -81,7 +83,7 @@ export default function ActivityForm({ initial = {}, themes = [], onSubmit, onCa
           placeholder={t('activityForm.noTheme')}
           value={form.theme_id}
           onChange={set('theme_id')}
-          options={themes.map((t) => ({ value: t.id, label: t.name }))}
+          options={themes.map((t) => ({ value: t.id, label: L(t, 'name') }))}
         />
       )}
       <TextArea name="description" label={t('activityForm.description')} rows={3} value={form.description} onChange={set('description')} />

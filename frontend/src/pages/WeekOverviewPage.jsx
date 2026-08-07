@@ -18,9 +18,11 @@ import {
   startOfWeek, dateOnlyISO, parseISO, addDays, weekdayIndex, isSameDay, isSameMonth,
   formatWeekLabel, formatDayLabel, formatMonthLabel,
 } from '../utils/dateHelpers';
+import { useLocalized } from '../utils/localize';
 
 export default function WeekOverviewPage() {
   const { t } = useTranslation();
+  const L = useLocalized();
   const navigate = useNavigate();
   const {
     weeks, currentWeek, instances, loading, error,
@@ -202,7 +204,7 @@ export default function WeekOverviewPage() {
               name="template"
               value={pickedTemplate}
               onChange={(e) => setPickedTemplate(e.target.value)}
-              options={templates.map((tpl) => ({ value: tpl.id, label: `${tpl.title} · ${tpl.category}` }))}
+              options={templates.map((tpl) => ({ value: tpl.id, label: `${L(tpl, 'title')} · ${t(`domain.category.${tpl.category}`)}` }))}
               placeholder={t('week.chooseTemplate')}
             />
             <div className="form-actions">

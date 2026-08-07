@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import BlockCard from './BlockCard';
-import { BLOCK_TYPES, WEEKDAY_SHORT } from '../../utils/constants';
+import { BLOCK_TYPES, WEEKDAYS } from '../../utils/constants';
 import { formatDate, isSameDay } from '../../utils/dateHelpers';
 
 export default function DayColumn({ date, dayIndex, instances, onOpenInstance, onAdd }) {
@@ -9,7 +9,7 @@ export default function DayColumn({ date, dayIndex, instances, onOpenInstance, o
   return (
     <div className={`day-column ${isToday ? 'is-today' : ''}`}>
       <div className="day-header">
-        <span className="day-name">{t(`domain.weekdayShort.${WEEKDAY_SHORT[dayIndex]}`)}</span>
+        <span className="day-name">{t(`domain.weekday.${WEEKDAYS[dayIndex]}`)}</span>
         <span className="day-date">{formatDate(date)}</span>
       </div>
       <div className="day-blocks">

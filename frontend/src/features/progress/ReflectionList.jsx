@@ -1,9 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import Card from '../../components/ui/Card';
 import { formatDate } from '../../utils/dateHelpers';
+import { useLocalized } from '../../utils/localize';
 
 export default function ReflectionList({ reflections = [] }) {
   const { t } = useTranslation();
+  const L = useLocalized();
   if (!reflections.length) {
     return <p className="empty-state">{t('reflectionList.empty')}</p>;
   }
@@ -18,7 +20,7 @@ export default function ReflectionList({ reflections = [] }) {
           )}
           <div className="reflection-meta">
             <span className="reflection-date">{t('reflectionList.weekOf', { date: formatDate(r.start_date) })}</span>
-            {r.title && <span className="reflection-title"> · {r.title}</span>}
+            {r.title && <span className="reflection-title"> · {L(r, 'title')}</span>}
           </div>
           <p className="reflection-text">“{r.text}”</p>
         </Card>

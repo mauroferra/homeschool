@@ -11,10 +11,12 @@ import { useWeekStore } from '../store/weekStore';
 import { STATUSES } from '../utils/constants';
 import { formatDuration } from '../utils/formattingHelpers';
 import { formatDate } from '../utils/dateHelpers';
+import { useLocalized } from '../utils/localize';
 
 export default function ActivityDetailPage() {
   const { instanceId } = useParams();
   const { t } = useTranslation();
+  const L = useLocalized();
   const navigate = useNavigate();
   const refresh = useWeekStore((s) => s.loadWeek);
   const currentWeek = useWeekStore((s) => s.currentWeek);
@@ -87,7 +89,7 @@ export default function ActivityDetailPage() {
 
       <div className="detail-head">
         <span className="pill pill-cat">{t(`domain.category.${a.category}`)}</span>
-        <h1 className="detail-title">{a.title}</h1>
+        <h1 className="detail-title">{L(a, 'title')}</h1>
         {a.theme_name && <span className="pill pill-theme">{a.theme_name}</span>}
       </div>
 
@@ -97,7 +99,7 @@ export default function ActivityDetailPage() {
           <span>{t(`domain.block.${instance.block_type}`)}</span>
           <span>{t('activity.created', { date: formatDate(instance.created_at) })}</span>
         </div>
-        {a.description && <p className="detail-desc">{a.description}</p>}
+        {L(a, 'description') && <p className="detail-desc">{L(a, 'description')}</p>}
         {a.links?.length > 0 && (
           <ul className="detail-links">
             {a.links.map((l) => (
