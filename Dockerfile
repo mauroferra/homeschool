@@ -1,5 +1,5 @@
 # ---- Stage 1: build the frontend (pure-JS, alpine is fine) ----
-FROM node:20-alpine AS frontend-build
+FROM docker.io/library/node:20-alpine AS frontend-build
 WORKDIR /build
 COPY frontend/package*.json ./
 RUN npm ci --no-audit --no-fund
@@ -8,13 +8,13 @@ RUN npm run build
 
 # ---- Stage 2: backend production dependencies ----
 # node:20-slim (glibc) so the prebuilt sqlite3 binary installs without build tools.
-FROM node:20-slim AS backend-deps
+FROM docker.io/library/node:20-slim AS backend-deps
 WORKDIR /app/backend
 COPY backend/package*.json ./
 RUN npm ci --omit=dev --no-audit --no-fund
 
 # ---- Stage 3: runtime ----
-FROM node:20-slim AS runtime
+FROM docker.io/library/node:20-slim AS runtime
 ENV NODE_ENV=production \
     PORT=4000 \
     BASE_URL=http://localhost:4000 \

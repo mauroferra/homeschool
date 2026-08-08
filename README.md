@@ -169,6 +169,21 @@ One-liner for a full edit-to-browser test cycle — rebuilds the image from your
 podman compose up --build --force-recreate
 ```
 
+### Publishing to GitHub Container Registry (GHCR)
+
+```bash
+# Build with the registry-qualified tag
+podman build -t ghcr.io/mauroferra/homeschool:latest .
+
+# Log in to GHCR (use a Personal Access Token with package:write as the password)
+podman login ghcr.io
+
+# Push the image
+podman push ghcr.io/mauroferra/homeschool:latest
+```
+
+`ghcr.io/mauroferra/homeschool:latest` is the image referenced by `deploy/synology.yml`. On first push to a new repo the `:latest` tag is created; subsequent pushes overwrite it.
+
 ### Container notes
 
 - **Data persistence**: SQLite DB + uploads live in `/app/backend/data`. Use a named volume (as above); on SELinux-enabled hosts (Fedora/RHEL) a bind mount needs the `:Z` label, e.g. `-v ./data:/app/backend/data:Z`.
