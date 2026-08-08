@@ -7,8 +7,8 @@ const User = getSequelize().define('User', {
   passwordHash: { type: DataTypes.STRING, allowNull: false, field: 'password_hash' },
   role: { type: DataTypes.STRING, defaultValue: 'parent' },
   active: { type: DataTypes.BOOLEAN, defaultValue: true },
-  resetToken: { type: DataTypes.STRING, allowNull: true },
-  resetTokenExpires: { type: DataTypes.DATE, allowNull: true },
+  resetToken: { type: DataTypes.STRING, allowNull: true, field: 'reset_token' },
+  resetTokenExpires: { type: DataTypes.DATE, allowNull: true, field: 'reset_token_expires' },
   profile: { type: DataTypes.JSON, allowNull: true },
 }, {
   tableName: 'users',
