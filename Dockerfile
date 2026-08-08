@@ -1,5 +1,8 @@
-# ---- Stage 1: build the frontend (pure-JS, alpine is fine) ----
-FROM ghcr.io/eic/node:20-alpine AS frontend-build
+# ---- Stage 1: build the frontend (pure-JS, alpine is fine)
+# Node >= 22.12 required: rolldown (vite 8) ships only prebuilt musl bindings and
+# old npm drops the optional libc-gated binding (npm/cli#4828); ghcr.io/eic mirror
+# is stuck at Node 22.4.1 so we pull the official image here.
+FROM docker.io/library/node:22-alpine AS frontend-build
 WORKDIR /build
 COPY frontend/package*.json ./
 RUN npm ci --no-audit --no-fund
