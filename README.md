@@ -182,7 +182,18 @@ podman login ghcr.io
 podman push ghcr.io/mauroferra/homeschool:latest
 ```
 
-`ghcr.io/mauroferra/homeschool:latest` is the image referenced by `deploy/synology.yml`. On first push to a new repo the `:latest` tag is created; subsequent pushes overwrite it.
+`ghcr.io/mauroferra/homeschool:latest` is the image referenced by `docker-compose.yml` and `deploy/synology.yml`. On first push to a new repo the `:latest` tag is created; subsequent pushes overwrite it.
+
+### One-shot build → push → redeploy
+
+`scripts/release.sh` builds the image, pushes it to GHCR, stops the compose stack if it's running, pulls the new image, and starts it again:
+
+```bash
+./scripts/release.sh           # build + push + restart compose
+./scripts/release.sh --no-push # build + restart compose only (skip ghcr push)
+```
+
+Requires a working `docker` or `podman` with compose support (set `DOCKER=podman` for the latter). Opts out of the compose step with `--no-restart`.
 
 ### Container notes
 

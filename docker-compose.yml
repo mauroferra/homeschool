@@ -1,7 +1,7 @@
 services:
   curriculum:
+    image: ghcr.io/mauroferra/homeschool:latest
     build: .
-    image: homeschool-curriculum:latest
     container_name: homeschool-curriculum
     ports:
       - "4000:4000"
