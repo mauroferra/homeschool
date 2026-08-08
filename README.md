@@ -20,7 +20,7 @@ backend/
     modules/      Controllers + Joi validators per domain
     services/     Stateless business logic
     middleware/   auth, role, validation, error, logging
-    db/           models, migrations (SQL reference), db.js
+    db/           models, umzug migrations, db.js
     config/ utils/
   scripts/seed/   admin + demo data seeding
   tests/          node:test integration suite (7 tests)
@@ -62,7 +62,7 @@ npm run dev      # API on http://localhost:4000 (docs at /docs) + Vite app on :5
 cd backend
 npm install
 cp .env.example .env          # defaults are fine for local dev
-npm run db:migrate            # creates tables (SQLite at backend/data/app.db)
+npm run db:migrate            # applies umzug migrations (SQLite at backend/data/app.db)
 npm run db:seed               # admin user, parent user, templates, themes, a sample week
 npm test                      # run the API test suite
 npm run dev                   # API on http://localhost:4000  (docs at /docs)
@@ -113,7 +113,7 @@ DB_USER=app
 DB_PASSWORD=app
 ```
 
-Then run `npm run db:migrate` and `npm run db:seed` again. Schema is managed by Sequelize; the SQL files in `src/db/migrations/` document the same structure for reference.
+Then run `npm run db:migrate` and `npm run db:seed` again. Schema is managed by umzug migrations in `src/db/migrations/` (tracked in a `SequelizeMeta` table); new schema changes are added as numbered migration files.
 
 ## Production deployment
 

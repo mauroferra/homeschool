@@ -1,53 +1,39 @@
-import { DataTypes } from 'sequelize';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { Umzug, SequelizeStorage } from 'umzug';
 import { createConnection, closeConnection } from './db.js';
-import './models/index.js';
 
-// Columns that Sequelize.sync() only adds to brand-new tables. Existing dev
-// databases need them back-ported idempotently, so we add any that are missing.
-const TRANSLATION_COLUMNS = {
-  activities: [
-    { name: 'title_en', type: DataTypes.STRING },
-    { name: 'title_cs', type: DataTypes.STRING },
-    { name: 'title_it', type: DataTypes.STRING },
-    { name: 'description_en', type: DataTypes.TEXT },
-    { name: 'description_cs', type: DataTypes.TEXT },
-    { name: 'description_it', type: DataTypes.TEXT },
-  ],
-  themes: [
-    { name: 'name_en', type: DataTypes.STRING },
-    { name: 'name_cs', type: DataTypes.STRING },
-    { name: 'name_it', type: DataTypes.STRING },
-    { name: 'description_en', type: DataTypes.TEXT },
-    { name: 'description_cs', type: DataTypes.TEXT },
-    { name: 'description_it', type: DataTypes.TEXT },
-  ],
-};
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const migrationsDir = path.join(__dirname, 'migrations');
 
-export async function backfillTranslationColumns() {
-  const db = createConnection();
-  const qi = db.getQueryInterface();
-  for (const [table, columns] of Object.entries(TRANSLATION_COLUMNS)) {
-    const existing = await qi.describeTable(table).catch(() => ({}));
-    for (const col of columns) {
-      if (!existing[col.name]) {
-        await qi.addColumn(table, col.name, { type: col.type });
-        console.log(`[db] Added column ${table}.${col.name}`);
-      }
-    }
-  }
-  return db;
+export function createMigrator() {
+  const sequelize = createConnection();
+  const migrator = new Umzug({
+    migrations: {
+      glob: ['*.js', { cwd: migrationsDir }],
+    },
+    // Each migration receives `context` (the QueryInterface) to run DDL.
+    context: sequelize.getQueryInterface(),
+    storage: new SequelizeStorage({ sequelize }),
+    logger: console,
+  });
+  return { sequelize, migrator };
 }
 
 async function migrate() {
-  const db = createConnection();
-  console.log(`[db] Applying models to ${db.getDialect()}...`);
-  await db.sync();
-  await backfillTranslationColumns();
-  console.log('[db] Migration complete.');
+  const { sequelize, migrator } = createMigrator();
+  const applied = await migrator.up();
+  console.log(`[db] Migration complete (${applied.length} applied).`);
   await closeConnection();
 }
 
-migrate().catch((err) => {
-  console.error('[db] Migration failed:', err.message);
-  process.exit(1);
-});
+export default migrate;
+
+const isDirectRun = process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname);
+
+if (isDirectRun) {
+  migrate().catch((err) => {
+    console.error('[db] Migration failed:', err.stack || err.message);
+    process.exit(1);
+  });
+}

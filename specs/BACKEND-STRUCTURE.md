@@ -149,12 +149,11 @@ src/db/
  │    └── Reflection.js
  │
  ├── migrations/
- │    ├── 001_create_users.sql
- │    ├── 002_create_themes.sql
- │    ├── 003_create_activities.sql
- │    ├── 004_create_weeks.sql
- │    ├── 005_create_instances.sql
- │    └── 006_create_reflections.sql
+ │    ├── 001_create_users.js
+ │    ├── 002_create_themes.js
+ │    ├── 003_create_activities.js
+ │    ├── 004_create_weeks.js
+ │    └── 005_create_instances.js
  │
  ├── seeds/
  │    ├── seed_users.js
