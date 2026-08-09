@@ -615,15 +615,81 @@ const curriculumTemplates = [
     description_cs: 'Lekce: připravíme piknik: la mela, il pane, il formaggio, l\'acqua – každé jídlo má jméno a člen.\nAktivita: jdeme ze zahrady na louku a po cestě pojmenováváme věci italsky pojmenováváme věci italsky.\nZdroje: kuchyně jako živý slovníček.',
     links: [],
   },
-  {
+{
     title: 'La Canzonetta Italiana',
     title_en: 'The Italian Little Song',
     title_cs: 'Italská písnička',
     category: categories[0], milestone: 'Estate delle Parole 2027', estimatedDuration: 10,
-    description: 'Lezioni: cantiamo insieme una canzonetta corta in italiano (es. \"Girotondo\") e la animiamo con i gesti e il ritmo delle mani.\nAttività: la canzonetta della settimana si aggiunge al nostro libro dei canti.\nFonti: canzoni per bambini italiane (RaiPlay, YouTube Kids).',
-    description_en: 'Lesson: we sing a short Italian song together (e.g. \"Girotondo\") and animate it with gestures and a hand beat.\nActivity: the song of the week goes into our family songbook.\nSources: Italian children\'s songs (RaiPlay, YouTube Kids).',
-    description_cs: 'Lekce: zpíváme společně krátkou italskou písničku (např. \"Girotondo\") a doplníme ji gesty a rytmem.\nAktivita: píseň týdne si zavedeme do zpěvníčku.\nZdroje: italské dětské písně (RaiPlay, YouTube Kids).',
+    description: 'Lezioni: cantiamo insieme una canzonetta corta in italiano (es. "Girotondo") e la animiamo con i gesti e il ritmo delle mani.\nAttività: la canzonetta della settimana si aggiunge al nostro libro dei canti.\nFonti: canzoni per bambini italiane (RaiPlay, YouTube Kids).',
+    description_en: 'Lesson: we sing a short Italian song together (e.g. "Girotondo") and animate it with gestures and a hand beat.\nActivity: the song of the week goes into our family songbook.\nSources: Italian children\'s songs (RaiPlay, YouTube Kids).',
+    description_cs: 'Lekce: zpíváme společně krátkou italskou písničku (např. "Girotondo") a doplníme ji gesty a rytmem.\nAktivita: píseň týdne si zavedeme do zpěvníčku.\nZdroje: italské dětské písně (RaiPlay, YouTube Kids).',
     links: ['https://www.raiplay.it'],
+  },
+];
+
+// Weekend-specific activities — scheduled on Saturdays/Sundays so the
+// weekend isn't just a gap in the curriculum. Base title/description are
+// English; Italian and Czech translations are stored explicitly.
+const weekendTemplates = [
+  {
+    title: 'Weekend Walk',
+    title_it: 'Passeggiata del fine settimana',
+    title_cs: 'Víkendová procházka',
+    category: categories[1],
+    description: 'A relaxed family walk; name everything you see in Italian (diagons: colours, shop signs, animals).',
+    description_it: 'Una passeggiata tranquilla in famiglia; nomina in italiano quello che vedi (colori, insegne, animali).',
+    description_cs: 'Poklidná rodinná procházka; pojmenuj italsky vše, co vidíš (barvy, vývěsní štíty, zvířata).',
+    estimatedDuration: 20,
+  },
+  {
+    title: 'Family Breakfast Ritual',
+    title_it: 'Rituale della colazione in famiglia',
+    title_cs: 'Rodinný rituál snidaně',
+    category: categories[3],
+    description: 'Slow weekend breakfast together; each person says one good thing to share in Italian.',
+    description_it: 'Colazione lenta del weekend insieme; ognuno dice una cosa bella da condividere in italiano.',
+    description_cs: 'Pomalá víkendová snidaně; každý řekne italsky jednu hezkou věc, kterou chce sdílet.',
+    estimatedDuration: 15,
+  },
+  {
+    title: 'Weekend Garden Hunt',
+    title_it: 'Caccia nel giardino del weekend',
+    title_cs: 'Víkendová zahradní honička',
+    category: categories[0],
+    description: 'Find things in the garden or street matching Italian colours and numbers.',
+    description_it: 'Trova in giardino o per strada cose che corrispondono a colori e numeri in italiano.',
+    description_cs: 'Najdi na zahradě nebo venku věci, které odpovídají italským barvám a číslům.',
+    estimatedDuration: 15,
+  },
+  {
+    title: 'Grandparents Video Call',
+    title_it: 'Videochiamata con i nonni',
+    title_cs: 'Videohovor s prarodiči',
+    category: categories[2],
+    description: 'A short video call with grandparents; show them one Italian word or story learned this week.',
+    description_it: 'Una breve videochiamata con i nonni; mostra loro una parola o una storia italiana imparata questa settimana.',
+    description_cs: 'Krátký videohovor s prarodiči; ukaž jim jedno italské slovo nebo příběh z tohoto týdne.',
+    estimatedDuration: 10,
+  },
+  {
+    title: 'Weekend Story Tents',
+    title_it: 'Tenda di storie del weekend',
+    title_cs: 'Víkendový stan plný příběhů',
+    category: categories[0],
+    description: 'Build a blanket fort and read or tell a short Italian story inside it.',
+    description_it: 'Costruisci una tenda con le coperte e leggi o racconta al suo interno una breve storia in italiano.',
+    description_cs: 'Postav stan z dek a uvnitř si přečti nebo vyprávěj krátký italský příběh.',
+    estimatedDuration: 20,
+  },
+  {
+    title: 'Lunch Table Words',
+    title_it: 'Parole a tavola',
+    title_cs: 'Slova u oběda',
+    category: categories[1],
+    description: 'At lunch at the weekend, name each dish and item on the table in Italian.',
+    description_it: 'A pranzo nel weekend, nomina in italiano ogni piatto e oggetto sulla tavola.',
+    description_cs: 'U víkendového oběda pojmenuj italsky každé jídlo a věc na stole.',
+    estimatedDuration: 10,
   },
 ];
 
@@ -677,18 +743,53 @@ async function upsertActivity(userId, tmpl, themeId = null) {
 }
 
 // ---------------------------------------------------------------------------
-// Full-year scheduler. Per week (Monday start): Mon = main lesson,
-// Tue = micro-immersion, Wed = Czech-school alignment, Thu = bonding ritual.
-// September keeps its handcrafted plan; Oct 2026 – Jun 2027 rotate each
-// month's lesson templates; August 2026 and summer 2027 are light bridges.
+// Full-year scheduler. Per week (Monday start): Mon = main lesson, Tue =
+// micro-immersion, Wed = Czech-school alignment, Thu = culture hook, Fri =
+// extra immersion. Every weekend gets its own weekend-specific activities,
+// and the evening cuddle (bonding ritual) rotates across the week so it does
+// not always fall on Thursday.
+// September keeps its handcrafted plan (enriched with weekends + rotating
+// cuddle); Oct 2026 – Jun 2027 rotate each month's lesson templates; August
+// 2026 and summer 2027 are light bridges that keep a weekend activity too.
 // ---------------------------------------------------------------------------
 
-const BONDING_RITUAL = {
-  day: 3,
-  block: blockTypes.BONDING_RITUAL,
-  title: 'Evening Check-in Cuddle',
-};
+const BONDING_RITUAL_TITLE = 'Evening Check-in Cuddle';
 
+// Vary the cuddle day so it is not always Thursday (day 4 when zero-indexed
+// Monday, i.e. JS day 3); the rotation also dips into the weekends.
+const CUDDLE_DAYS = [3, 4, 5, 2, 6, 1, 0];
+
+function bondingForWeek(weekIndex) {
+  return { day: CUDDLE_DAYS[weekIndex % CUDDLE_DAYS.length], block: blockTypes.BONDING_RITUAL, title: BONDING_RITUAL_TITLE };
+}
+
+// Pools of demo/curriculum titles reused for the culture-hook (Thu), the
+// Friday immersion slot and the weekend slots. All titles are guaranteed to
+// exist in `byTitle` (they come from the base or curriculum templates).
+const WEEKEND_TITLES = weekendTemplates.map((t) => t.title);
+
+const CULTURE_HOOK_POOL = [
+  'L\'Ognissanti e i Colori dell\'Autunno',
+  'Natale di parole',
+  'La Befana porta le lettere',
+  'Carnevale delle maschere',
+  'La Festa del Papà',
+  'Le Uova di Pasqua',
+  'Italian Storytime',
+  'Pasta Shapes Charades',
+  'Family Album Scrapbook',
+];
+
+const FRIDAY_IMMERSION_POOL = [
+  'Colour Hunt',
+  'Number Walk',
+  'Cartoon Dubbing',
+  'Italian Breakfast Ritual',
+  'Rime e Filastrocche delle Vocali',
+  'La Canzonetta Italiana',
+];
+
+// Core Tue/Wed rhythm used by the rotating academic months.
 const WEEK_RHYTHM = [
   { day: 0, block: blockTypes.ITALIAN_CULTURAL_ACTIVITY },
   { day: 1, block: blockTypes.ITALIAN_MICRO_IMMERSION },
@@ -710,23 +811,34 @@ const MONTH_WEEK_STARTS = {
 
 function rotatedWeeks(weekStartDates, titles) {
   const n = titles.length;
+  const c = CULTURE_HOOK_POOL.length;
+  const f = FRIDAY_IMMERSION_POOL.length;
+  const w = WEEKEND_TITLES.length;
   return weekStartDates.map((startDate, wi) => {
     const plan = WEEK_RHYTHM.map((slot, si) => ({
       day: slot.day,
       block: slot.block,
       title: titles[(wi + si) % n],
     }));
-    plan.push(BONDING_RITUAL);
+    plan.push(
+      { day: 3, block: blockTypes.ITALIAN_CULTURAL_ACTIVITY, title: CULTURE_HOOK_POOL[wi % c] },
+      { day: 4, block: blockTypes.ITALIAN_MICRO_IMMERSION, title: FRIDAY_IMMERSION_POOL[wi % f] },
+      { day: 5, block: blockTypes.ITALIAN_CULTURAL_ACTIVITY, title: WEEKEND_TITLES[(wi * 2) % w] },
+      { day: 6, block: blockTypes.ITALIAN_MICRO_IMMERSION, title: WEEKEND_TITLES[(wi * 2 + 1) % w] },
+      bondingForWeek(wi),
+    );
     return { startDate, plan };
   });
 }
 
 function lightWeeks(weekStartDates, culturalTitles, immersionTitles) {
+  const w = WEEKEND_TITLES.length;
   return weekStartDates.map((startDate, wi) => {
     const plan = [
       { day: 0, block: blockTypes.ITALIAN_CULTURAL_ACTIVITY, title: culturalTitles[wi % culturalTitles.length] },
       { day: 1, block: blockTypes.ITALIAN_MICRO_IMMERSION, title: immersionTitles[wi % immersionTitles.length] },
-      BONDING_RITUAL,
+      { day: 5, block: blockTypes.ITALIAN_CULTURAL_ACTIVITY, title: WEEKEND_TITLES[wi % w] },
+      bondingForWeek(wi),
     ];
     return { startDate, plan };
   });
@@ -779,12 +891,16 @@ async function seedCurriculum(parent) {
     byTitle[activity.title] = activity;
   }
 
-  // Merge in the demo (bridge) templates so bridge weeks can reuse them.
-  const allParentActivities = await Activity.findAll({ where: { userId: parent.id } });
-  for (const a of allParentActivities) byTitle[a.title] = byTitle[a.title] || a;
+  // Merge in the demo (bridge) + weekend templates so bridge/weekend slots can
+  // reuse them as activities.
+  const extraTemplates = [...templates, ...weekendTemplates];
+  for (const tmpl of extraTemplates) {
+    const activity = await upsertActivity(parent.id, tmpl);
+    byTitle[activity.title] = byTitle[activity.title] || activity;
+  }
 
   // Pre-built sample month: September 2026 (four weeks), 3 Italian blocks/week.
-  // Now with the Thursday bonding ritual added to every week.
+  // Every week also gets weekend activities and a rotating evening cuddle.
   const septemberWeeks = ['2026-08-31', '2026-09-07', '2026-09-14', '2026-09-21'];
   const sepPlan = [
     { day: 0, block: 'Italian Cultural Activity', title: 'Giochi con i Suoni e le Vocali' },
@@ -800,8 +916,15 @@ async function seedCurriculum(parent) {
     { day: 2, block: 'Italian Cultural Activity', title: 'Giochi con i Suoni e le Vocali' },
     { day: 4, block: 'Italian Cultural Activity', title: 'Scrivo le Lettere nell\'Aria' },
   ];
-  for (const startDate of septemberWeeks) {
-    await scheduleWeekInstances(parent.id, startDate, [...sepPlan, BONDING_RITUAL], byTitle);
+  const w = WEEKEND_TITLES.length;
+  for (let wi = 0; wi < septemberWeeks.length; wi++) {
+    const plan = [
+      ...sepPlan,
+      { day: 5, block: 'Italian Cultural Activity', title: WEEKEND_TITLES[(wi * 2) % w] },
+      { day: 6, block: 'Italian Micro-Immersion', title: WEEKEND_TITLES[(wi * 2 + 1) % w] },
+      bondingForWeek(wi),
+    ];
+    await scheduleWeekInstances(parent.id, septemberWeeks[wi], plan, byTitle);
   }
 
   // Generated months October 2026 – June 2027 (rotating weekly rhythm).

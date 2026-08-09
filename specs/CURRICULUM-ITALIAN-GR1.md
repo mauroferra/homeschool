@@ -60,19 +60,25 @@ A sustainable default (adapt to family calendar):
 | Mon | Italian Cultural Activity | Main reading/writing lesson of the week |
 | Tue | Italian Micro-Immersion  | Sound game, song, or rhythm round       |
 | Wed | Czech School Alignment   | Transfer skill to Czech school content  |
-| Thu | *(rest / bonding ritual)*|                                     |
-| Fri | Italian Cultural Activity | Story, recipe, or culture hook          |
+| Thu | Italian Cultural Activity | Culture hook (seasonal/holiday title)    |
+| Fri | Italian Micro-Immersion  | Extra immersion game or ritual          |
+| Sat | Weekend activity         | Weekend-specific family activity        |
+| Sun | Weekend activity         | Weekend-specific family activity        |
 
 The **whole year is pre-scheduled in the seed** (`backend/scripts/seed/seed_templates.js`).
-Each week carries 4 instances: Mon **Italian Cultural Activity**, Tue **Italian
-Micro-Immersion**, Wed **Czech School Alignment**, and Thu **Bonding Ritual**
-(the Evening Check-in Cuddle). September 2026 keeps its original handcrafted plan;
-October 2026 – June 2027 rotate each month's lesson templates across those three
-daily blocks. The boundaries also include light bridges: **August 2026** (pre-year
-warm-up, `Ponteggio 2026`) and **July–August 2027** (summer bridge, `Estate delle
-Parole 2027`). Everything stays available in the planner, so a family can resample
-or skip as the calendar requires. Inspect the generated grid with
-`cd backend && node scripts/verify-plan.js`.
+Each week carries 8 instances: Mon **Italian Cultural Activity**, Tue **Italian
+Micro-Immersion**, Wed **Czech School Alignment**, Thu **Italian Cultural Activity**
+(culture hook), Fri **Italian Micro-Immersion**, Sat and Sun **weekend-specific
+activities** (Weekend Walk, Weekend Garden Hunt, Lunch Table Words, …), plus the
+**Bonding Ritual** (Evening Check-in Cuddle) which **rotates across the week**
+(Thu, Fri, Wed, Tue, Sat, Sun, Mon…) so it does not always land on Thursday.
+September 2026 keeps its original handcrafted plan (also extended with weekend
+slots and a rotating cuddle); October 2026 – June 2027 rotate each month's lesson
+templates across the weekday blocks. The boundaries also include light bridges:
+**August 2026** (pre-year warm-up, `Ponteggio 2026`) and **July–August 2027**
+(summer bridge, `Estate delle Parole 2027`). Everything stays available in the
+planner, so a family can resample or skip as the calendar requires. Inspect the
+generated grid with `cd backend && node scripts/verify-plan.js`.
 
 ---
 
