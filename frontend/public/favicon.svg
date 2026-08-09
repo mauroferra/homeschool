@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="green" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#52DCA0"/>
+      <stop offset="0.5" stop-color="#1aa876"/>
+      <stop offset="1" stop-color="#0a6b48"/>
+    </linearGradient>
+    <linearGradient id="white" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#b9c6dc"/>
+    </linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff7070"/>
+      <stop offset="0.5" stop-color="#e2213b"/>
+      <stop offset="1" stop-color="#9c0f28"/>
+    </linearGradient>
+    <clipPath id="tile">
+      <path d="M30 0 H98 A30 30 0 0 1 128 30 V98 A30 30 0 0 1 98 128 H30 A30 30 0 0 1 0 98 V30 A30 30 0 0 1 30 0 Z"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#tile)">
+    <path d="M-8 -20 L44 -20 C30 22 62 44 52 76 C34 102 60 120 48 148 L-8 148 Z" fill="url(#green)"/>
+    <path d="M48 148 C60 120 34 102 52 76 C62 44 30 22 44 -20 L86 -20 C100 20 72 40 88 76 C102 100 74 120 86 148 Z" fill="url(#white)"/>
+    <path d="M86 148 C74 120 102 100 88 76 C72 40 100 20 86 -20 L136 -20 L136 148 Z" fill="url(#red)"/>
+
+    <circle cx="26" cy="102" r="3.2" fill="#ffffff" opacity="0.4"/>
+    <circle cx="38" cy="94" r="2" fill="#ffffff" opacity="0.5"/>
+    <circle cx="100" cy="96" r="2.6" fill="#ffffff" opacity="0.35"/>
+    <circle cx="92" cy="86" r="1.6" fill="#ffffff" opacity="0.45"/>
+
+    <rect x="-60" y="50" width="248" height="14" rx="7" transform="rotate(-8 66 58)" fill="#ffffff" opacity="0.16"/>
+    <rect x="-60" y="64" width="248" height="26" rx="13" transform="rotate(-8 66 80)" fill="#ffffff" opacity="0.28"/>
+    <path d="M-80 116 Q64 94 208 112 L208 124 Q64 104 -80 124 Z" fill="#ffffff" opacity="0.08"/>
+  </g>
+</svg>
