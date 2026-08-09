@@ -169,6 +169,14 @@ One-liner for a full edit-to-browser test cycle — rebuilds the image from your
 podman compose up --build --force-recreate
 ```
 
+To force a fresh image pull (ignoring any locally cached layer), add `--pull always`:
+
+```bash
+podman compose up -d --pull always
+```
+
+> Note: `docker compose` uses `--pull always` as well, while `podman-compose` supports `--always-fetch-images` on `pull`.
+
 ### Publishing to Docker Hub
 
 ```bash
