@@ -1,7 +1,6 @@
 # ---- Stage 1: build the frontend (pure-JS, alpine is fine)
 # Node >= 22.12 required: rolldown (vite 8) ships only prebuilt musl bindings and
-# old npm drops the optional libc-gated binding (npm/cli#4828); ghcr.io/eic mirror
-# is stuck at Node 22.4.1 so we pull the official image here.
+# old npm drops the optional libc-gated binding (npm/cli#4828).
 FROM docker.io/library/node:22-alpine AS frontend-build
 WORKDIR /build
 COPY frontend/package*.json ./
@@ -11,13 +10,13 @@ RUN npm run build
 
 # ---- Stage 2: backend production dependencies ----
 # node:20-slim (glibc) so the prebuilt sqlite3 binary installs without build tools.
-FROM ghcr.io/eic/node:20-slim AS backend-deps
+FROM docker.io/library/node:20-slim AS backend-deps
 WORKDIR /app/backend
 COPY backend/package*.json ./
 RUN npm ci --omit=dev --no-audit --no-fund
 
 # ---- Stage 3: runtime ----
-FROM ghcr.io/eic/node:20-slim AS runtime
+FROM docker.io/library/node:20-slim AS runtime
 ENV NODE_ENV=production \
     PORT=4000 \
     BASE_URL=http://localhost:4000 \

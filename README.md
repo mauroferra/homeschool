@@ -169,28 +169,28 @@ One-liner for a full edit-to-browser test cycle — rebuilds the image from your
 podman compose up --build --force-recreate
 ```
 
-### Publishing to GitHub Container Registry (GHCR)
+### Publishing to Docker Hub
 
 ```bash
 # Build with the registry-qualified tag
-podman build -t ghcr.io/mauroferra/homeschool:latest .
+podman build -t docker.io/mauroferra/homeschool:latest .
 
-# Log in to GHCR (use a Personal Access Token with package:write as the password)
-podman login ghcr.io
+# Log in to Docker Hub (use an access token with read/write permission as the password)
+podman login docker.io
 
 # Push the image
-podman push ghcr.io/mauroferra/homeschool:latest
+podman push docker.io/mauroferra/homeschool:latest
 ```
 
-`ghcr.io/mauroferra/homeschool:latest` is the image referenced by `docker-compose.yml` and `deploy/synology.yml`. On first push to a new repo the `:latest` tag is created; subsequent pushes overwrite it.
+`docker.io/mauroferra/homeschool:latest` is the image referenced by `docker-compose.yml` and `deploy/synology.yml`. On first push to a new repo the `:latest` tag is created; subsequent pushes overwrite it.
 
 ### One-shot build → push → redeploy
 
-`scripts/release.sh` builds the image, pushes it to GHCR, stops the compose stack if it's running, pulls the new image, and starts it again:
+`scripts/release.sh` builds the image, pushes it to Docker Hub, stops the compose stack if it's running, pulls the new image, and starts it again:
 
 ```bash
 ./scripts/release.sh           # build + push + restart compose
-./scripts/release.sh --no-push # build + restart compose only (skip ghcr push)
+./scripts/release.sh --no-push # build + restart compose only (skip Docker Hub push)
 ```
 
 Requires a working `docker` or `podman` with compose support (set `DOCKER=podman` for the latter). Opts out of the compose step with `--no-restart`.

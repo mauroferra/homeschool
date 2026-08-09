@@ -1,6 +1,6 @@
 services:
   curriculum:
-    image: ghcr.io/mauroferra/homeschool:latest
+    image: docker.io/mauroferra/homeschool:latest
     build: .
     container_name: homeschool-curriculum
     ports:
@@ -24,7 +24,7 @@ services:
     restart: unless-stopped
 
   postgres:
-    image: ghcr.io/eic/postgres:16-alpine
+    image: docker.io/library/postgres:16-alpine
     container_name: homeschool-postgres
     environment:
       POSTGRES_DB: ${DB_NAME:-homeschool}

@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
-# Build the image, push it to ghcr.io, then redeploy the docker compose stack.
+# Build the image, push it to Docker Hub, then redeploy the docker compose stack.
 #
 #   ./scripts/release.sh             # build + push + restart compose
-#   ./scripts/release.sh --no-push   # build + restart only (skip ghcr push)
+#   ./scripts/release.sh --no-push   # build + restart only (skip Docker Hub push)
 #   ./scripts/release.sh --no-restart# build + push only (no compose restart)
 #
 # Requires a working `docker` (or podman) with compose support and, unless
-# --no-push is given, a ghcr.io login: `docker login ghcr.io`.
+# --no-push is given, a Docker Hub login: `docker login`.
 
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
 : "${DOCKER:=docker}"
-IMAGE="${IMAGE:-ghcr.io/mauroferra/homeschool:latest}"
+IMAGE="${IMAGE:-docker.io/mauroferra/homeschool:latest}"
 
 PUSH=true
 RESTART=true
