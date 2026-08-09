@@ -5,14 +5,21 @@
 #   ./scripts/release.sh --no-push   # build + restart only (skip Docker Hub push)
 #   ./scripts/release.sh --no-restart# build + push only (no compose restart)
 #
-# Requires a working `docker` (or podman) with compose support and, unless
-# --no-push is given, a Docker Hub login: `docker login`.
+# Requires a working `docker` or `podman` with compose support and, unless
+# --no-push is given, a Docker Hub login: `docker login` / `podman login`.
 
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-: "${DOCKER:=docker}"
+if command -v docker >/dev/null 2>&1; then
+  DOCKER="${DOCKER:-docker}"
+elif command -v podman >/dev/null 2>&1; then
+  DOCKER="${DOCKER:-podman}"
+else
+  echo "Error: neither docker nor podman found" >&2
+  exit 1
+fi
 IMAGE="${IMAGE:-docker.io/mauroferra/homeschool:latest}"
 
 PUSH=true
