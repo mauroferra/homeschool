@@ -7,10 +7,10 @@ export default function MonthGrid({ anchorDate, instances = [], weeks = [], onOp
   const { t } = useTranslation();
   const L = useLocalized();
   const grid = getMonthGrid(anchorDate);
-  const weekByStart = weeks.reduce((map, w) => { map[w.start_date] = w; return map; }, {});
+  const weekById = weeks.reduce((map, w) => { map[w.id] = w; return map; }, {});
   const byDate = {};
   instances.forEach((inst) => {
-    const week = weekByStart[inst.week_id];
+    const week = weekById[inst.week_id];
     if (!week) return;
     const iso = dateOnlyISO(addDays(parseISO(week.start_date), inst.day_of_week));
     (byDate[iso] ||= []).push(inst);
