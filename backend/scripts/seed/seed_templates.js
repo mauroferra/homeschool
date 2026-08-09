@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import { User, Activity, Theme, Week, ActivityInstance } from '../../src/db/models/index.js';
-import { categories } from '../../src/utils/constants.js';
+import { categories, blockTypes } from '../../src/utils/constants.js';
 
 // Demo templates. Base title/description are English; Czech and Italian
 // translations are stored explicitly (English falls back to the base).
@@ -210,6 +210,24 @@ const curriculumThemes = [
     description_en: 'Consolidate the year with review games and assemble a personal mini-book (“il mio librino”).',
     description_cs: 'Upevnit celý rok opakovacími hrami a sestavit osobní mini-knížku („il mio librino“).',
     startDate: '2027-06-01', endDate: '2027-06-30',
+  },
+  {
+    name: 'Ponteggio 2026 · Ritorno in Italiano',
+    name_en: 'August 2026 · Getting Ready in Italian',
+    name_cs: 'Srpen 2026 · Návrat k italštině',
+    description: 'Ponte leggero di agosto: riprendiamo vocali, sillabe e parole amiche, così il primo giorno di elementare potrai partirmi tranquillo.',
+    description_en: 'A light August bridge: we pick up vowels, sounds and friendly words again, so you can start first grade relaxed.',
+    description_cs: 'Lehký srpnový most: vrátíme se k samohláskám, hláskám a přátelským slovům, abys do první třídy vstoupil v klidu.',
+    startDate: '2026-08-01', endDate: '2026-08-31',
+  },
+  {
+    name: 'Estate delle Parole 2027',
+    name_en: 'Summer of Words 2027',
+    name_cs: 'Léto slov 2027',
+    description: 'Ponte estivo: tenere vivo l’italiano con giochi, canzonette, gelato, storie e una piccola passeggiata ogni settimana. Niente stress, solo piacere.',
+    description_en: 'Summer bridge: keep Italian alive with games, little songs, gelato, stories and a short walk each week. No stress, only pleasure.',
+    description_cs: 'Letní mostíček: udržet italštinu při životě hrou, písničkami, zmrzlinou, příběhy a malou procházkou každý týden. Bez tlaku, jen s radostí.',
+    startDate: '2027-07-01', endDate: '2027-08-31',
   },
 ];
 
@@ -513,6 +531,100 @@ const curriculumTemplates = [
     description_cs: 'Lekce: malá slavnost na konci roku se slovy, malým občerstvením a výstavou knížeček.\nAktivita: pozveme rodinu, aby si poslechla naše slova.\nZdroje: jednoduché italské recepty k přípravě společně.',
     links: [],
   },
+
+  // --- Seasonal and cultural tangents (woven into the milestones) ---
+  {
+    title: 'L\'Ognissanti e i Colori dell\'Autunno',
+    title_en: 'All Saints Day and Autumn Colours',
+    title_cs: 'Dušičky a podzimní barvy',
+    category: categories[1], milestone: 'Milestone III · Sillabe Chiuse e Gruppi', estimatedDuration: 12,
+    description: 'Lezione: il primo novembre si celebra l\'Ognissanti; ricordiamo i nonni e la famiglia e proviamo le sillabe delle parole dell\'autunno (mel-la, pe-so, mon-ta-gna).\nAttività: raccolta di foglie e castagne: ogni cosa ha un colore e un nome in italiano.\nFonti: parole dell\'autunno illustrate.',
+    description_en: 'Lesson: on 1 November we talk about All Saints Day and remember family; we try the closed syllables of autumn words (mel-la, pe-so, mon-ta-gna).\nActivity: collect leaves and chestnuts; everything has an Italian colour and name.\nSources: illustrated autumn words.',
+    description_cs: 'Lekce: 1. listopadu si připomínáme Dušičky a rodinu; zkoušíme zavřené slabiky podzimních slov (mel-la, pe-so, mon-ta-gna).\nAktivita: sbírejme listí a kaštany; všechno má italskou barvu a název.\nZdroje: obrázková slova podzimu.',
+    links: [],
+  },
+  {
+    title: 'Natale di parole',
+    title_en: 'A Christmas of Words',
+    title_cs: 'Vánoce slov',
+    category: categories[1], milestone: 'Milestone IV · Prime Parole Bisillabe', estimatedDuration: 15,
+    description: 'Lezione: giochiamo con le parole del Natale: albero, stella, regalo, nonna — e aggiungiamo sempre l\'articolo giusto (lo, la, il).\nAttività: appendiamo le parole all\'immagine dell\'albero e ogni giorno scopriamo una parola nuova.\nFonti: il calendario dell\'avvento delle parole.',
+    description_en: 'Lesson: we play with Christmas words: albero, stella, regalo, nonna — and we always add the right article (lo, la, il).\nActivity: we hang the words on the tree picture and discover one new word each day.\nSources: an advent calendar of words.',
+    description_cs: 'Lekce: hrajeme si s vánočními slovy: albero, stella, regalo, nonna – a vždy přidáváme správný člen (lo, la, il).\nAktivita: zavěšujeme slova na obrázek stromečku a každý den objevíme nové slovo.\nZdroje: adventní kalendář slov.',
+    links: [],
+  },
+  {
+    title: 'La Befana porta le lettere',
+    title_en: 'Befana Brings the Letters',
+    title_cs: 'Befana přináší písmena',
+    category: categories[0], milestone: 'Milestone V · Scrittura', estimatedDuration: 15,
+    description: 'Lezione: raccontiamo la filastrocca "La Befana vien di notte" e scriviamo le lettere di BEFANA con il dito nell\'aria e nella sabbia.\nAttività: prepariamo la calza della Befana con i bigliettini delle lettere scritte.\nFonti: la filastrocca tradizionale della calza.',
+    description_en: 'Lesson: we tell the rhyme "La BEFANA vien di notte" and write the letters of B-E-F-A-N-A in the air and in the sand.\nActivity: we fill the Befana stocking with the little letters we have written.\nSources: the traditional stocking rhyme.',
+    description_cs: 'Lekce: vyprávíme tradiční říkadlo o Befaně a prstem píšeme písmena B-E-F-A-N-A ve vzduchu a v písku.\nAktivita: naplníme befánovu punčochu malými napsanými písmenky.\nZdroje: tradiční říkadlo o zimní návštěvě.',
+    links: [],
+  },
+  {
+    title: 'Carnevale delle maschere',
+    title_en: 'Carnival of Masks',
+    title_cs: 'Karneval masek',
+    category: categories[1], milestone: 'Milestone VI · Articoli e Genere', estimatedDuration: 15,
+    description: 'Lezione: Carnevale italiano: la maschera, il pagliaccio, la piuma e i personaggi Arlecchino e Colombina; giochiamo con gli articoli e i generi.\nAttività: creiamo una mascherina di casa e le diamo un nome con il suo articolo (la fata, il cavaliere).\nFonti: immagini delle masche tradizionali italiane.',
+    description_en: 'Lesson: Italian Carnival: la maschera, il pagliaccio and the mask characters Arlecchino and Colombina; we play with articles and gender.\nActivity: we make a home mask and give it a name with its article (la fata, il cavaliere).\nSources: pictures of traditional Italian masks.',
+    description_cs: 'Lekce: italský karnevel: la maschera, il pagliaccio a postavy Arlecchino a Colombina; hrajeme si se členy a rody.\nAktivita: vyrobíme si masku a dáme jí jméno s členem (la fata, il cavaliere).\nZdroje: obrázky tradičních italských masek.',
+    links: [],
+  },
+  {
+    title: 'La Festa del Papà',
+    title_en: 'Fathers Day',
+    title_cs: 'Den otců',
+    category: categories[1], milestone: 'Milestone VII · Singolare/Plurale e Frase', estimatedDuration: 12,
+    description: 'Lezione: il 19 marzo in Italia è la Festa del Papà; leggiamo e trasformiamo frasi semplici: "Il papà legge", "Il papà suona", "Il papà cucina".\nAttività: prepariamo un piccolo biglietto con la frase scritta e illustrata per papà.\nFonti: le foto di famiglia e la giostra delle frasi della giornata.',
+    description_en: 'Lesson: on 19 March in Italy we celebrate Fathers Day; we read and change short sentences: "Il papà legge", "Il papà suona", "Il papà cucina".\nActivity: we make a small card with a written and illustrated sentence for dad.\nSources: family photos and sentence games.',
+    description_cs: 'Lekce: 19. března se v Itálii oslavuje Den otců; čteme a měníme krátké věstky: "Il papà legge", "Il papà suona", "Il papà cucina".\nAktivita: vyrobíme kartičku s napsanou a obrázkovou větou pro tátu.\nZdroje: rodinné fotografie a věty ke hříčce.',
+    links: [],
+  },
+  {
+    title: 'Le Uova di Pasqua',
+    title_en: 'The Easter Eggs',
+    title_cs: 'Velikonoční vejce',
+    category: categories[1], milestone: 'Milestone VII · Singolare/Plurale e Frase', estimatedDuration: 15,
+    description: 'Lezione: a Pasqua cerchiamo le uova: un uovo, un cestino, tre uova, un coniglio; proviamo le frasi "Cerco l\'uovo!" e "Ho trovato l\'uovo!"\nAttività: mettiamo in giro per casa uova di carta con le lettere e le cerchiamo parlando in italiano.\nPiano: singolare, plurale e verbi in movimento.',
+    description_en: 'Lesson: at Easter we look for eggs: un uovo, un cestino, tre uova, un coniglio; we try "Cerco l\'uovo!" and "Ho trovato l\'uovo!"\nActivity: we hide paper eggs around the house and find them while speaking Italian.\nPlan: singular, plural and verbs in motion.',
+    description_cs: 'Lekce: o Velikonocích hledáme vejce: un uovo, un cestino, tre uova, un coniglio; zkoušíme věty "Cerco l\'uovo!" a "Ho trovato l\'uovo!"\nAktivita: schováváme po domě papírová vejce a hledáme je, přičemž mluvíme italsky.\nPlán: jednotné číslo, množné číslo a slovesa v pohybu.',
+    links: [],
+  },
+
+  // --- Summer 2027 bridge templates ---
+  {
+    title: 'Il Gelato e l\'Estate',
+    title_en: 'Ice Cream and Summer',
+    title_cs: 'Zmrzlina a léto',
+    category: categories[1], milestone: 'Estate delle Parole 2027', estimatedDuration: 12,
+    description: 'Lezione: il gelato è italiano: la fragola, il limone, il cioccolato, il cono; al bar si dice "Un cono di fragola, per favore!"\nAttività: al chiosco o a casa diamo il nome al gelato in italiano e diciamo grazie.\nFonti: il piccolo menù del gelato.',
+    description_en: 'Lesson: gelato is Italian: fragola, limone, cioccolato, cono; at the bar we order in Italian.\nActivity: at the kiosk or at home we order gelato in Italian and say thanks.\nSources: the gelato menu.',
+    description_cs: 'Lekce: zmrzlina je italská: fragola, limone, cioccolato, cono; ve zmrzlinárně řekneme objednávku italsky.\nAktivita: u stánku nebo doma si objednáme zmrzlinu italsky a poděkujeme.\nZdroje: lístek zmrzlinárny.',
+    links: [],
+  },
+  {
+    title: 'Il Picnic Italiano',
+    title_en: 'An Italian Picnic',
+    title_cs: 'Italský piknik',
+    category: categories[2], milestone: 'Estate delle Parole 2027', estimatedDuration: 20,
+    description: 'Lezione: prepariamo il picnic: la mela, il pane, il formaggio, l\'acqua — ogni cibo ha un nome e un articolo.\nAttività: andiamo dal giardino al prato e proviamo a nominare le cose lungo il camino.\nFonti: la nostra cucina come vocabolario vivente.',
+    description_en: 'Lesson: we prepare the picnic: la mela, il pane, il formaggio, l\'acqua — every food has a name and an article.\nActivity: we walk from the garden to the lawn and name things along the way in Italian.\nSources: the kitchen as a living vocabulary.',
+    description_cs: 'Lekce: připravíme piknik: la mela, il pane, il formaggio, l\'acqua – každé jídlo má jméno a člen.\nAktivita: jdeme ze zahrady na louku a po cestě pojmenováváme věci italsky pojmenováváme věci italsky.\nZdroje: kuchyně jako živý slovníček.',
+    links: [],
+  },
+  {
+    title: 'La Canzonetta Italiana',
+    title_en: 'The Italian Little Song',
+    title_cs: 'Italská písnička',
+    category: categories[0], milestone: 'Estate delle Parole 2027', estimatedDuration: 10,
+    description: 'Lezioni: cantiamo insieme una canzonetta corta in italiano (es. \"Girotondo\") e la animiamo con i gesti e il ritmo delle mani.\nAttività: la canzonetta della settimana si aggiunge al nostro libro dei canti.\nFonti: canzoni per bambini italiane (RaiPlay, YouTube Kids).',
+    description_en: 'Lesson: we sing a short Italian song together (e.g. \"Girotondo\") and animate it with gestures and a hand beat.\nActivity: the song of the week goes into our family songbook.\nSources: Italian children\'s songs (RaiPlay, YouTube Kids).',
+    description_cs: 'Lekce: zpíváme společně krátkou italskou písničku (např. \"Girotondo\") a doplníme ji gesty a rytmem.\nAktivita: píseň týdne si zavedeme do zpěvníčku.\nZdroje: italské dětské písně (RaiPlay, YouTube Kids).',
+    links: ['https://www.raiplay.it'],
+  },
 ];
 
 async function createUserIfMissing(email, password, role) {
@@ -564,6 +676,95 @@ async function upsertActivity(userId, tmpl, themeId = null) {
   return activity;
 }
 
+// ---------------------------------------------------------------------------
+// Full-year scheduler. Per week (Monday start): Mon = main lesson,
+// Tue = micro-immersion, Wed = Czech-school alignment, Thu = bonding ritual.
+// September keeps its handcrafted plan; Oct 2026 – Jun 2027 rotate each
+// month's lesson templates; August 2026 and summer 2027 are light bridges.
+// ---------------------------------------------------------------------------
+
+const BONDING_RITUAL = {
+  day: 3,
+  block: blockTypes.BONDING_RITUAL,
+  title: 'Evening Check-in Cuddle',
+};
+
+const WEEK_RHYTHM = [
+  { day: 0, block: blockTypes.ITALIAN_CULTURAL_ACTIVITY },
+  { day: 1, block: blockTypes.ITALIAN_MICRO_IMMERSION },
+  { day: 2, block: blockTypes.CZECH_SCHOOL_ALIGNMENT },
+];
+
+// October 2026 → June 2027, Monday-start weeks per milestone (from the syllabus).
+const MONTH_WEEK_STARTS = {
+  'Milestone II · Sillabe Aperte': ['2026-09-28', '2026-10-05', '2026-10-12', '2026-10-19', '2026-10-26'],
+  'Milestone III · Sillabe Chiuse e Gruppi': ['2026-11-02', '2026-11-09', '2026-11-16', '2026-11-23'],
+  'Milestone IV · Prime Parole Bisillabe': ['2026-11-30', '2026-12-07', '2026-12-14', '2026-12-21'],
+  'Milestone V · Scrittura': ['2027-01-04', '2027-01-11', '2027-01-18', '2027-01-25'],
+  'Milestone VI · Articoli e Genere': ['2027-02-01', '2027-02-08', '2027-02-15', '2027-02-22'],
+  'Milestone VII · Singolare/Plurale e Frase': ['2027-03-01', '2027-03-08', '2027-03-15', '2027-03-22', '2027-03-29'],
+  'Milestone VIII · Verbi': ['2027-04-05', '2027-04-12', '2027-04-19', '2027-04-26'],
+  'Milestone IX · Lettura e Comprensione': ['2027-05-03', '2027-05-10', '2027-05-17', '2027-05-24'],
+  'Milestone X · Revisione e Librino': ['2027-05-31', '2027-06-07', '2027-06-14', '2027-06-21', '2027-06-28'],
+};
+
+function rotatedWeeks(weekStartDates, titles) {
+  const n = titles.length;
+  return weekStartDates.map((startDate, wi) => {
+    const plan = WEEK_RHYTHM.map((slot, si) => ({
+      day: slot.day,
+      block: slot.block,
+      title: titles[(wi + si) % n],
+    }));
+    plan.push(BONDING_RITUAL);
+    return { startDate, plan };
+  });
+}
+
+function lightWeeks(weekStartDates, culturalTitles, immersionTitles) {
+  return weekStartDates.map((startDate, wi) => {
+    const plan = [
+      { day: 0, block: blockTypes.ITALIAN_CULTURAL_ACTIVITY, title: culturalTitles[wi % culturalTitles.length] },
+      { day: 1, block: blockTypes.ITALIAN_MICRO_IMMERSION, title: immersionTitles[wi % immersionTitles.length] },
+      BONDING_RITUAL,
+    ];
+    return { startDate, plan };
+  });
+}
+
+// August 2026 warm-up (the seed's own demo week uses 2026-08-03, so start after
+// it) and the July–August 2027 summer bridge.
+const PONTEGGIO_PLAN = lightWeeks(
+  ['2026-08-10', '2026-08-17', '2026-08-24'],
+  ['Giochi con i Suoni e le Vocali', 'Italian Storytime', 'Caccia alle Vocali in Casa'],
+  ['Rime e Filastrocche delle Vocali', 'Colour Hunt', 'Number Walk'],
+);
+
+const ESTATE_PLAN = lightWeeks(
+  ['2027-07-05', '2027-07-12', '2027-07-19', '2027-07-26', '2027-08-02', '2027-08-09', '2027-08-16', '2027-08-23', '2027-08-30'],
+  ['Il Gelato e l\'Estate', 'Il Picnic Italiano', 'La Canzonetta Italiana', 'Italian Storytime', 'Pasta Shapes Charades'],
+  ['Cartoon Dubbing', 'Colour Hunt', 'Italian Breakfast Ritual', 'Number Walk', 'Family Album Scrapbook'],
+);
+
+async function scheduleWeekInstances(userId, startDate, plan, byTitle) {
+  const [week] = await Week.findOrCreate({
+    where: { startDate, userId },
+    defaults: { startDate, userId },
+  });
+  for (const p of plan) {
+    const activity = byTitle[p.title];
+    if (!activity) {
+      console.warn(`[seed] curriculum activity not found: ${p.title}`);
+      continue;
+    }
+    await ActivityInstance.findOrCreate({
+      where: { weekId: week.id, dayOfWeek: p.day, blockType: p.block, activityId: activity.id, homeTag: 'Home A' },
+      defaults: { weekId: week.id, dayOfWeek: p.day, blockType: p.block, activityId: activity.id, homeTag: 'Home A' },
+    });
+  }
+  return week;
+}
+
 async function seedCurriculum(parent) {
   const themes = {};
   for (const t of curriculumThemes) {
@@ -578,7 +779,12 @@ async function seedCurriculum(parent) {
     byTitle[activity.title] = activity;
   }
 
+  // Merge in the demo (bridge) templates so bridge weeks can reuse them.
+  const allParentActivities = await Activity.findAll({ where: { userId: parent.id } });
+  for (const a of allParentActivities) byTitle[a.title] = byTitle[a.title] || a;
+
   // Pre-built sample month: September 2026 (four weeks), 3 Italian blocks/week.
+  // Now with the Thursday bonding ritual added to every week.
   const septemberWeeks = ['2026-08-31', '2026-09-07', '2026-09-14', '2026-09-21'];
   const sepPlan = [
     { day: 0, block: 'Italian Cultural Activity', title: 'Giochi con i Suoni e le Vocali' },
@@ -594,23 +800,21 @@ async function seedCurriculum(parent) {
     { day: 2, block: 'Italian Cultural Activity', title: 'Giochi con i Suoni e le Vocali' },
     { day: 4, block: 'Italian Cultural Activity', title: 'Scrivo le Lettere nell\'Aria' },
   ];
-
   for (const startDate of septemberWeeks) {
-    const [week] = await Week.findOrCreate({
-      where: { startDate, userId: parent.id },
-      defaults: { startDate, userId: parent.id },
-    });
-    for (const p of sepPlan) {
-      const activity = byTitle[p.title];
-      if (!activity) {
-        console.warn(`[seed] curriculum activity not found: ${p.title}`);
-        continue;
-      }
-      await ActivityInstance.findOrCreate({
-        where: { weekId: week.id, dayOfWeek: p.day, blockType: p.block, activityId: activity.id, homeTag: 'Home A' },
-        defaults: { weekId: week.id, dayOfWeek: p.day, blockType: p.block, activityId: activity.id, homeTag: 'Home A' },
-      });
+    await scheduleWeekInstances(parent.id, startDate, [...sepPlan, BONDING_RITUAL], byTitle);
+  }
+
+  // Generated months October 2026 – June 2027 (rotating weekly rhythm).
+  for (const [milestoneName, weekStartDates] of Object.entries(MONTH_WEEK_STARTS)) {
+    const titles = curriculumTemplates.filter((t) => t.milestone === milestoneName).map((t) => t.title);
+    for (const { startDate, plan } of rotatedWeeks(weekStartDates, titles)) {
+      await scheduleWeekInstances(parent.id, startDate, plan, byTitle);
     }
+  }
+
+  // August 2026 warm-up and summer 2027 bridge (light weeks).
+  for (const { startDate, plan } of [...PONTEGGIO_PLAN, ...ESTATE_PLAN]) {
+    await scheduleWeekInstances(parent.id, startDate, plan, byTitle);
   }
 
   return { themes, activities: byTitle };
