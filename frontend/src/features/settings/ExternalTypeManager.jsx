@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
+import { useLocalized } from '../../utils/localize';
 
 export default function ExternalTypeManager({ types, onAdd, onRename, onDelete }) {
   const { t } = useTranslation();
+  const L = useLocalized();
   const [name, setName] = useState('');
   const [editingId, setEditingId] = useState(null);
   const [editingName, setEditingName] = useState('');
@@ -48,7 +50,7 @@ export default function ExternalTypeManager({ types, onAdd, onRename, onDelete }
               </div>
             ) : (
               <>
-                <span className="chip-chip">{type.name}</span>
+                <span className="chip-chip">{L(type, 'name')}</span>
                 <span className="chip-actions">
                   <button
                     type="button"
@@ -63,7 +65,7 @@ export default function ExternalTypeManager({ types, onAdd, onRename, onDelete }
                     className="btn-icon"
                     aria-label={t('settingsPage.deleteExternalType')}
                     onClick={() => {
-                      if (window.confirm(t('settingsPage.deleteExternalTypeConfirm', { name: type.name }))) onDelete(type.id);
+                      if (window.confirm(t('settingsPage.deleteExternalTypeConfirm', { name: L(type, 'name') }))) onDelete(type.id);
                     }}
                   >
                     ×
