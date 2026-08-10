@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { WEEKDAYS } from '../../utils/constants';
-import { dayOffset, formatDate, isSameDay } from '../../utils/dateHelpers';
+import { dayOffset, formatDate, isSameDay, sortInstancesByTime } from '../../utils/dateHelpers';
 import { useLocalized } from '../../utils/localize';
 
 export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd, onOpenDay }) {
@@ -39,13 +39,12 @@ export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd, 
               </button>
             </div>
             <div className="grid-blocks">
-              {dayInstances.length === 0 && <p className="block-empty">{t('week.noActivity')}</p>}
-              {dayInstances.map((inst) => (
+{dayInstances.length === 0 && <p className="block-empty">{t('week.noActivity')}</p>}
+              {sortInstancesByTime(dayInstances).map((inst) => (
                 <button key={inst.id} type="button" className={`instance-chip ${inst.is_external ? 'chip-external' : `chip-type-${kebab(inst.block_type)}`}`} onClick={() => onOpenInstance(inst)}>
                   {!inst.is_external && <span className={`status-dot status-${inst.status.toLowerCase().replace(/\s+/g, '-')}`} />}
                   {L(inst.activity, 'title')}
                   <span className="instance-type">{t(`domain.blockShort.${inst.block_type}`)}</span>
-                  {inst.home_tag !== 'Home A' && <span className="home-chip">{inst.home_tag === 'Both' ? 'A+B' : 'B'}</span>}
                 </button>
               ))}
             </div>

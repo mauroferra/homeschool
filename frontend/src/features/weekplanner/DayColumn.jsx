@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import ActivityInstanceCard from './ActivityInstanceCard';
 import { WEEKDAYS } from '../../utils/constants';
-import { formatDate, isSameDay } from '../../utils/dateHelpers';
+import { formatDate, isSameDay, sortInstancesByTime } from '../../utils/dateHelpers';
 
 export default function DayColumn({ date, dayIndex, instances, onOpenInstance, onAdd, onOpenDay }) {
   const { t } = useTranslation();
@@ -33,8 +33,8 @@ export default function DayColumn({ date, dayIndex, instances, onOpenInstance, o
         </button>
       </div>
       <div className="day-blocks">
-        {dayInstances.length === 0 && <p className="block-empty">{t('week.noActivity')}</p>}
-        {dayInstances.map((inst) => (
+{dayInstances.length === 0 && <p className="block-empty">{t('week.noActivity')}</p>}
+        {sortInstancesByTime(dayInstances).map((inst) => (
           <ActivityInstanceCard key={inst.id} instance={inst} onOpen={onOpenInstance} />
         ))}
       </div>

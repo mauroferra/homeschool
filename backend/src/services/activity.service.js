@@ -3,6 +3,15 @@ import { notFound, badRequest } from '../utils/error.js';
 import { categories } from '../utils/constants.js';
 import { sanitizeLinks } from '../utils/formatting.js';
 
+const TIME_PATTERN = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
+
+export function toTime(value) {
+  if (value === undefined || value === null || value === '') return null;
+  const t = String(value).trim();
+  if (!TIME_PATTERN.test(t)) throw badRequest('Invalid time, use HH:MM', 'VALIDATION');
+  return t;
+}
+
 export function dto(a) {
   const j = a.toJSON();
   return {
@@ -17,6 +26,8 @@ export function dto(a) {
     description_cs: j.description_cs,
     description_it: j.description_it,
     estimated_duration: j.estimatedDuration,
+    start_time: j.startTime,
+    end_time: j.endTime,
     links: j.links || [],
     attachments: j.attachments || [],
     theme_id: j.themeId,
@@ -45,6 +56,8 @@ export async function createActivity(userId, data) {
     category: data.category,
     description: data.description || null,
     estimatedDuration: data.estimated_duration ?? null,
+    startTime: toTime(data.start_time),
+    endTime: toTime(data.end_time),
     links: sanitizeLinks(data.links),
     attachments: Array.isArray(data.attachments) ? data.attachments : [],
     themeId: data.theme_id || null,
@@ -63,6 +76,8 @@ export async function updateActivity(userId, id, data) {
   }
   if (data.description !== undefined) activity.description = data.description;
   if (data.estimated_duration !== undefined) activity.estimatedDuration = data.estimated_duration;
+  if (data.start_time !== undefined) activity.startTime = toTime(data.start_time);
+  if (data.end_time !== undefined) activity.endTime = toTime(data.end_time);
   if (data.links !== undefined) activity.links = sanitizeLinks(data.links);
   if (data.theme_id !== undefined) activity.themeId = data.theme_id;
   await activity.save();

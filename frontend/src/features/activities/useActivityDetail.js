@@ -11,7 +11,6 @@ export function useActivityDetail(instanceId, { onChanged, onRemoved } = {}) {
   const [instance, setInstance] = useState(null);
   const [status, setStatus] = useState('');
   const [reflection, setReflection] = useState('');
-  const [homeTag, setHomeTag] = useState('Home A');
   const [blockType, setBlockType] = useState('');
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -29,7 +28,6 @@ export function useActivityDetail(instanceId, { onChanged, onRemoved } = {}) {
         setInstance(found);
         setStatus(found.status || '');
         setReflection(found.reflection_text || '');
-        setHomeTag(found.home_tag || 'Home A');
         setBlockType(found.block_type || '');
       } catch (err) {
         if (!cancelled) setError(err.message);
@@ -48,8 +46,8 @@ export function useActivityDetail(instanceId, { onChanged, onRemoved } = {}) {
     setSaved(false);
     setError('');
     try {
-      await weekService.updateInstance(instance.id, { status, reflection_text: reflection, home_tag: homeTag, block_type: blockType });
-      setInstance({ ...instance, status, reflection_text: reflection, home_tag: homeTag, block_type: blockType });
+await weekService.updateInstance(instance.id, { status, reflection_text: reflection, block_type: blockType });
+      setInstance({ ...instance, status, reflection_text: reflection, block_type: blockType });
       await refreshAfterChange();
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
@@ -68,7 +66,7 @@ export function useActivityDetail(instanceId, { onChanged, onRemoved } = {}) {
   };
 
   return {
-    instance, status, reflection, homeTag, blockType, saving, saved, error,
-    setStatus, setReflection, setHomeTag, setBlockType, save, remove,
+instance, status, reflection, blockType, saving, saved, error,
+    setStatus, setReflection, setBlockType, save, remove,
   };
 }

@@ -307,15 +307,15 @@ a { color: var(--primary); text-decoration: none; }
 .inst-type-bonding-ritual { background: var(--block-br); border-color: var(--block-br-acc); }
 .instance-main { display: flex; align-items: center; gap: 6px; }
 .instance-title { font-size: 13px; font-weight: 600; line-height: 1.25; flex: 1; }
+.instance-time {
+  font-size: 11px; font-weight: 700; color: var(--primary);
+  background: var(--primary-soft, #e7edf6);
+  border-radius: 4px; padding: 1px 5px; flex-shrink: 0;
+}
 .instance-type {
   font-size: 10px; color: var(--text-muted);
   background: var(--surface-2); padding: 1px 6px; border-radius: 4px;
   flex-shrink: 0; white-space: nowrap;
-}
-.home-chip {
-  font-size: 10px; font-weight: 700; color: var(--primary);
-  background: var(--primary-soft, #e7edf6);
-  border-radius: 4px; padding: 1px 5px;
 }
 .instance-meta { display: flex; align-items: center; gap: 6px; }
 .instance-status { font-size: 11px; color: var(--text-muted); }
@@ -342,7 +342,15 @@ a { color: var(--primary); text-decoration: none; }
   border-radius: 6px;
   font-size: 11px; padding: 5px 6px; cursor: pointer;
 }
-.instance-chip .home-chip { margin-left: auto; flex-shrink: 0; }
+.instance-chip {
+  width: 100%; text-align: left;
+  display: flex; align-items: center; gap: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid;
+  border-radius: 6px;
+  font-size: 11px; padding: 5px 6px; cursor: pointer;
+}
 .instance-chip span:not(.status-dot):not(.home-chip):not(.instance-type) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .instance-chip .instance-type {
   font-size: 9px; padding: 0 4px; border-radius: 3px;

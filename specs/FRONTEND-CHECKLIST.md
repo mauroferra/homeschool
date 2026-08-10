@@ -159,17 +159,6 @@ A full implementation roadmap for the Czech–Italian hybrid curriculum web app.
 
 ---
 
-### **Household Module**
-#### HouseholdTagSelector
-- Dropdown: Home A / Home B / Both.  
-- Used in ActivityDetailPage.
-
-#### HouseholdFilterToggle
-- Toggle filter for week view.  
-- Update weekStore filter state.
-
----
-
 ## 4. Reusable UI Components
 
 ### **Button**

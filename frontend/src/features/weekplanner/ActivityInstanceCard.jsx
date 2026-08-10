@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import Icon from '../../components/ui/Icon';
 import { useLocalized } from '../../utils/localize';
+import { formatTimeRange } from '../../utils/formattingHelpers';
 
 const statusClassFrom = (status = '') => `status-dot status-${status.toLowerCase().replace(/\s+/g, '-')}`;
 
@@ -9,15 +10,14 @@ export default function ActivityInstanceCard({ instance, onOpen }) {
   const L = useLocalized();
   const { activity, status } = instance;
   const isExternal = instance.is_external === true;
-  const typeClass = isExternal ? '' : `inst-type-${kebab(instance.block_type)}`;
+const typeClass = isExternal ? '' : `inst-type-${kebab(instance.block_type)}`;
+  const time = formatTimeRange(activity?.start_time, activity?.end_time);
   return (
     <button type="button" className={`instance-card ${typeClass} ${isExternal ? 'instance-external' : ''}`} onClick={() => onOpen(instance)}>
       <div className="instance-main">
         <span className="instance-type">{t(`domain.block.${instance.block_type}`)}</span>
         <span className="instance-title">{L(activity, 'title')}</span>
-        {instance.home_tag !== 'Home A' && (
-          <span className="home-chip">{instance.home_tag === 'Both' ? 'A+B' : 'B'}</span>
-        )}
+{time && <span className="instance-time">{time}</span>}
       </div>
       <div className="instance-meta">
         {isExternal ? (

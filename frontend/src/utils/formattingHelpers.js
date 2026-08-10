@@ -18,6 +18,11 @@ export function formatDuration(minutes) {
   return m ? `${h}${hour} ${m}${min}` : `${h}${hour}`;
 }
 
+export function formatTimeRange(start, end) {
+  if (!start) return end || '';
+  return end ? `${start}–${end}` : start;
+}
+
 export function initialsFromEmail(email = '') {
   const name = email.split('@')[0] || '';
   return name.slice(0, 2).toUpperCase();

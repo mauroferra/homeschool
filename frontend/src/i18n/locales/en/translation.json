@@ -100,6 +100,8 @@
     "title": "Title",
     "category": "Category",
     "durationMin": "Duration (min)",
+    "startTime": "Start time",
+    "endTime": "End time",
     "theme": "Theme",
     "noTheme": "No theme",
     "description": "Description",
@@ -167,13 +169,6 @@
     "weekly": "weekly",
     "activity": "activity",
     "weekOf": "Week of {{date}}"
-  },
-  "household": {
-    "label": "Household",
-    "all": "All",
-    "homeA": "Home A",
-    "homeB": "Home B",
-    "both": "Both"
   },
   "settingsPage": {
     "title": "Settings",
@@ -268,12 +263,6 @@
       "Fri": "Fri",
       "Sat": "Sat",
       "Sun": "Sun"
-    },
-    "household": {
-      "All": "All",
-      "Home A": "Home A",
-      "Home B": "Home B",
-      "Both": "Both"
     }
   }
 }
