@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import BlockCard from './BlockCard';
 import { BLOCK_TYPES, WEEKDAYS } from '../../utils/constants';
-import { formatDate, isSameDay } from '../../utils/dateHelpers';
+import { formatDate, isSameDay, sortInstancesByTime } from '../../utils/dateHelpers';
 
 export default function DayColumn({ date, dayIndex, instances, onOpenInstance, onAdd }) {
   const { t } = useTranslation();
@@ -17,7 +17,7 @@ export default function DayColumn({ date, dayIndex, instances, onOpenInstance, o
           <BlockCard
             key={block}
             blockType={block}
-            instances={instances.filter((i) => i.day_of_week === dayIndex && i.block_type === block)}
+            instances={sortInstancesByTime(instances.filter((i) => i.day_of_week === dayIndex && i.block_type === block))}
             onOpenInstance={onOpenInstance}
             onAdd={(blk) => onAdd(blk, date)}
           />

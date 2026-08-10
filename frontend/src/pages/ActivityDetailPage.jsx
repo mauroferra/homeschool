@@ -9,7 +9,7 @@ import { Select, TextArea } from '../components/ui/Input';
 import { weekService } from '../services/weekService';
 import { useWeekStore } from '../store/weekStore';
 import { STATUSES } from '../utils/constants';
-import { formatDuration } from '../utils/formattingHelpers';
+import { formatDuration, formatTimeRange } from '../utils/formattingHelpers';
 import { formatDate } from '../utils/dateHelpers';
 import { useLocalized } from '../utils/localize';
 
@@ -99,6 +99,7 @@ export default function ActivityDetailPage() {
 
       <Card className="detail-info">
         <div className="detail-meta">
+          {formatTimeRange(a?.start_time, a?.end_time) && <span><Icon name="clock" size={16} /> {formatTimeRange(a?.start_time, a?.end_time)}</span>}
           {a?.estimated_duration && <span><Icon name="clock" size={16} /> {formatDuration(a.estimated_duration)}</span>}
           <span>{t(`domain.block.${instance.block_type}`)}</span>
           <span>{t('activity.created', { date: formatDate(instance.created_at) })}</span>

@@ -98,6 +98,8 @@
     "title": "Název",
     "category": "Kategorie",
     "durationMin": "Délka (min)",
+    "startTime": "Čas začátku",
+    "endTime": "Čas konce",
     "theme": "Téma",
     "noTheme": "Bez tématu",
     "description": "Popis",

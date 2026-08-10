@@ -70,15 +70,22 @@ test('theme CRUD', async () => {
 
 test('activity CRUD', async () => {
   const token = await login();
-  const created = await api('/activities', { method: 'POST', token, body: { title: 'Italian Storytime', category: 'Language', estimated_duration: 10, links: ['https://example.com'] } });
+  const created = await api('/activities', { method: 'POST', token, body: { title: 'Italian Storytime', category: 'Language', estimated_duration: 10, start_time: '17:30', end_time: '18:00', links: ['https://example.com'] } });
   assert.equal(created.status, 201);
   assert.equal(created.data.links.length, 1);
+  assert.equal(created.data.start_time, '17:30');
+  assert.equal(created.data.end_time, '18:00');
 
-  const updated = await api(`/activities/${created.data.id}`, { method: 'PATCH', token, body: { title: 'Storytime Plus' } });
+  const updated = await api(`/activities/${created.data.id}`, { method: 'PATCH', token, body: { title: 'Storytime Plus', start_time: null } });
   assert.equal(updated.data.title, 'Storytime Plus');
+  assert.equal(updated.data.start_time, null);
+  assert.equal(updated.data.end_time, '18:00');
 
   const bad = await api('/activities', { method: 'POST', token, body: { title: 'X', category: 'Nope' } });
   assert.equal(bad.status, 400);
+
+  const badTime = await api('/activities', { method: 'POST', token, body: { title: 'Y', category: 'Language', start_time: '99:99' } });
+  assert.equal(badTime.status, 400);
 });
 
 test('week + instances + progress flow', async () => {
@@ -87,7 +94,7 @@ test('week + instances + progress flow', async () => {
   assert.equal(week.status, 201);
   const weekId = week.data.id;
 
-  const act = await api('/activities', { method: 'POST', token, body: { title: 'Song', category: 'Language' } });
+  const act = await api('/activities', { method: 'POST', token, body: { title: 'Song', category: 'Language', start_time: '09:00', end_time: '09:30' } });
 
   const inst = await api(`/weeks/${weekId}/instances`, {
     method: 'POST',
@@ -95,6 +102,8 @@ test('week + instances + progress flow', async () => {
     body: { day_of_week: 1, block_type: 'Italian Micro-Immersion', activity_id: act.data.id, home_tag: 'Home B' },
   });
   assert.equal(inst.status, 201);
+  assert.equal(inst.data.activity.start_time, '09:00');
+  assert.equal(inst.data.activity.end_time, '09:30');
 
   const updated = await api(`/instances/${inst.data.id}`, { method: 'PATCH', token, body: { status: 'Completed', reflection_text: 'Great day' } });
   assert.equal(updated.data.status, 'Completed');

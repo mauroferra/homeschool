@@ -14,6 +14,8 @@ const templates = [
     description_it: 'Leggete insieme un breve libro illustrato in italiano e fate una domanda su di esso.',
     description_cs: 'Přečtěte společně krátkou italskou obrázkovou knížku a položte o ní jednu otázku.',
     estimatedDuration: 10,
+    startTime: '17:30',
+    endTime: '18:00',
     links: ['https://example.com/story-books'],
   },
   {
@@ -25,6 +27,8 @@ const templates = [
     description_it: 'Condividete una semplice colazione italiana e nominate i cibi in italiano.',
     description_cs: 'Sdílejte jednoduchou italskou snidan a pojmenujte jídlo italsky.',
     estimatedDuration: 15,
+    startTime: '08:00',
+    endTime: '08:30',
   },
   {
     title: 'Colour Hunt',
@@ -65,6 +69,8 @@ const templates = [
     description_it: 'Cinque minuti di calma e una cosa bella di oggi per ciascuno.',
     description_cs: 'Pět minut klidu, každý řekne jednu dobrou věc, která se dnes stala.',
     estimatedDuration: 5,
+    startTime: '19:00',
+    endTime: '19:10',
   },
   {
     title: 'Cartoon Dubbing',
@@ -743,6 +749,8 @@ async function upsertActivity(userId, tmpl, themeId = null) {
       description: tmpl.description,
       description_en: tmpl.description_en, description_cs: tmpl.description_cs, description_it: tmpl.description_it,
       estimatedDuration: tmpl.estimatedDuration,
+      startTime: tmpl.startTime ?? null,
+      endTime: tmpl.endTime ?? null,
       links: tmpl.links || [],
       themeId,
       userId,
@@ -754,6 +762,8 @@ async function upsertActivity(userId, tmpl, themeId = null) {
     description: tmpl.description,
     description_en: tmpl.description_en, description_cs: tmpl.description_cs, description_it: tmpl.description_it,
     estimatedDuration: tmpl.estimatedDuration,
+    startTime: tmpl.startTime,
+    endTime: tmpl.endTime,
     links: tmpl.links || [],
     themeId,
   });

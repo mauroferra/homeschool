@@ -98,6 +98,8 @@
     "title": "Titolo",
     "category": "Categoria",
     "durationMin": "Durata (min)",
+    "startTime": "Ora di inizio",
+    "endTime": "Ora di fine",
     "theme": "Tema",
     "noTheme": "Nessun tema",
     "description": "Descrizione",

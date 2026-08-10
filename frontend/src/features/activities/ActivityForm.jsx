@@ -15,6 +15,8 @@ export default function ActivityForm({ initial = {}, themes = [], onSubmit, onCa
     category: initial.category || CATEGORIES[0],
     description: initial.description || '',
     estimated_duration: initial.estimated_duration ?? '',
+    start_time: initial.start_time || '',
+    end_time: initial.end_time || '',
     links: initial.links || [],
     theme_id: initial.theme_id ?? '',
     home_tag: initial.home_tag || 'Home A',
@@ -50,6 +52,8 @@ export default function ActivityForm({ initial = {}, themes = [], onSubmit, onCa
         category: form.category,
         description: form.description || null,
         estimated_duration: form.estimated_duration ? Number(form.estimated_duration) : null,
+        start_time: form.start_time || null,
+        end_time: form.end_time || null,
         links: form.links.filter(Boolean),
         theme_id: form.theme_id || null,
         home_tag: form.home_tag,
@@ -74,6 +78,10 @@ export default function ActivityForm({ initial = {}, themes = [], onSubmit, onCa
           options={CATEGORIES.map((c) => ({ value: c, label: t(`domain.category.${c}`) }))}
         />
         <Input name="estimated_duration" label={t('activityForm.durationMin')} type="number" min="1" value={form.estimated_duration} onChange={set('estimated_duration')} />
+      </div>
+      <div className="form-row">
+        <Input name="start_time" label={t('activityForm.startTime')} type="time" value={form.start_time} onChange={set('start_time')} />
+        <Input name="end_time" label={t('activityForm.endTime')} type="time" value={form.end_time} onChange={set('end_time')} />
       </div>
       {extraFields}
       {themes.length > 0 && (

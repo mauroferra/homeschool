@@ -13,6 +13,8 @@ const Activity = getSequelize().define('Activity', {
   description_cs: { type: DataTypes.TEXT },
   description_it: { type: DataTypes.TEXT },
   estimatedDuration: { type: DataTypes.INTEGER, field: 'estimated_duration' },
+  startTime: { type: DataTypes.STRING(5), field: 'start_time', validate: { is: /^(?:[01]\d|2[0-3]):[0-5]\d$/ } },
+  endTime: { type: DataTypes.STRING(5), field: 'end_time', validate: { is: /^(?:[01]\d|2[0-3]):[0-5]\d$/ } },
   links: { type: DataTypes.JSON, allowNull: false, defaultValue: [] },
   attachments: { type: DataTypes.JSON, allowNull: false, defaultValue: [] },
   themeId: { type: DataTypes.INTEGER, field: 'theme_id', allowNull: true },

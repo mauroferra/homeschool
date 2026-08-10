@@ -47,6 +47,8 @@ return {
       description_cs: activity.description_cs,
       description_it: activity.description_it,
       estimated_duration: j.adHocDuration ?? activity.estimatedDuration,
+      start_time: activity.startTime || null,
+      end_time: activity.endTime || null,
       links: (j.adHocLinks && j.adHocLinks.length ? j.adHocLinks : activity.links) || [],
       theme_name: activity.Theme ? activity.Theme.name : null,
     },

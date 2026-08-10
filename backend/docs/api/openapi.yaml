@@ -451,6 +451,12 @@ components:
           type: string
         estimated_duration:
           type: integer
+        start_time:
+          type: string
+          description: Optional HH:MM start time (local wall-clock)
+        end_time:
+          type: string
+          description: Optional HH:MM end time (local wall-clock)
         links:
           type: array
           items:
@@ -469,6 +475,12 @@ components:
           type: string
         estimated_duration:
           type: integer
+        start_time:
+          type: string
+          description: Optional HH:MM start time (local wall-clock)
+        end_time:
+          type: string
+          description: Optional HH:MM end time (local wall-clock)
         links:
           type: array
           items:

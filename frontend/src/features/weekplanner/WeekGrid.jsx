@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { WEEKDAYS } from '../../utils/constants';
-import { dayOffset, formatDate, isSameDay } from '../../utils/dateHelpers';
+import { dayOffset, formatDate, isSameDay, sortInstancesByTime } from '../../utils/dateHelpers';
 import { useLocalized } from '../../utils/localize';
 
 const BLOCK_TYPES = [
@@ -35,8 +35,8 @@ export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd }
                     </button>
                   </div>
                   <div className="block-body">
-                    {instances
-                      .filter((inst) => inst.day_of_week === i && inst.block_type === block)
+                    {sortInstancesByTime(instances
+                      .filter((inst) => inst.day_of_week === i && inst.block_type === block))
                       .map((inst) => (
                         <button key={inst.id} type="button" className={`instance-chip ${inst.is_external ? 'chip-external' : ''}`} onClick={() => onOpenInstance(inst)}>
                           {!inst.is_external && <span className={`status-dot status-${inst.status.toLowerCase().replace(/\s+/g, '-')}`} />}

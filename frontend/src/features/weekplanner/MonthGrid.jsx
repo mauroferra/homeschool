@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { WEEKDAY_SHORT, BLOCK_TYPES } from '../../utils/constants';
-import { getMonthGrid, dateOnlyISO, isSameDay, isSameMonth, addDays, parseISO } from '../../utils/dateHelpers';
+import { getMonthGrid, dateOnlyISO, isSameDay, isSameMonth, addDays, parseISO, sortInstancesByTime } from '../../utils/dateHelpers';
 import { useLocalized } from '../../utils/localize';
 
 export default function MonthGrid({ anchorDate, instances = [], weeks = [], onOpenInstance, onAdd }) {
@@ -44,7 +44,7 @@ export default function MonthGrid({ anchorDate, instances = [], weeks = [], onOp
                   </button>
                 </div>
                 <div className="month-instances">
-                  {dayInstances.map((inst) => (
+                  {sortInstancesByTime(dayInstances).map((inst) => (
                     <button key={inst.id} type="button" className={`month-instance ${inst.is_external ? 'month-external' : `cat-${kebab(inst.activity?.category)}`}`} onClick={() => onOpenInstance(inst)}>
                       {L(inst.activity, 'title')}
                     </button>
