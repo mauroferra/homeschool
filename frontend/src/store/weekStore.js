@@ -101,7 +101,6 @@ export const useWeekStore = create((set, get) => ({
     const week = get().currentWeek;
     const created = await weekService.createExternalInstance(week.id, {
       day_of_week: payload.day_of_week,
-      home_tag: payload.home_tag || 'Home A',
       external_type_id: payload.external_type_id || null,
       title: payload.title || null,
     });

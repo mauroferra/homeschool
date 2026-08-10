@@ -76,6 +76,7 @@
     "externalNameRequired": "Název aktivity je povinný",
     "template": "Šablona",
     "chooseTemplate": "Vyberte šablonu",
+    "type": "Typ",
     "cancel": "Zrušit",
     "add": "Přidat"
   },
@@ -99,6 +100,8 @@
     "title": "Název",
     "category": "Kategorie",
     "durationMin": "Délka (min)",
+    "startTime": "Čas začátku",
+    "endTime": "Čas konce",
     "theme": "Téma",
     "noTheme": "Bez tématu",
     "description": "Popis",
@@ -166,13 +169,6 @@
     "weekly": "týdenní",
     "activity": "aktivita",
     "weekOf": "Týden od {{date}}"
-  },
-  "household": {
-    "label": "Domácnost",
-    "all": "Vše",
-    "homeA": "Domov A",
-    "homeB": "Domov B",
-    "both": "Obojí"
   },
   "settingsPage": {
     "title": "Nastavení",
@@ -267,12 +263,6 @@
       "Fri": "Pá",
       "Sat": "So",
       "Sun": "Ne"
-    },
-    "household": {
-      "All": "Vše",
-      "Home A": "Domov A",
-      "Home B": "Domov B",
-      "Both": "Obojí"
     }
   }
 }

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import Card from '../../components/ui/Card';
 import Icon from '../../components/ui/Icon';
-import { formatDuration } from '../../utils/formattingHelpers';
+import { formatDuration, formatTimeRange } from '../../utils/formattingHelpers';
 import { useLocalized } from '../../utils/localize';
 
 export default function ActivityTemplateCard({ activity, onEdit, onDelete }) {
@@ -19,6 +19,9 @@ export default function ActivityTemplateCard({ activity, onEdit, onDelete }) {
         <h3 className="activity-card-title">{title}</h3>
         {description && <p className="activity-card-desc">{description}</p>}
         <div className="activity-card-meta">
+          {formatTimeRange(activity.start_time, activity.end_time) && (
+            <span className="meta-item"><Icon name="clock" size={16} /> {formatTimeRange(activity.start_time, activity.end_time)}</span>
+          )}
           {activity.estimated_duration && (
             <span className="meta-item"><Icon name="clock" size={16} /> {formatDuration(activity.estimated_duration)}</span>
           )}

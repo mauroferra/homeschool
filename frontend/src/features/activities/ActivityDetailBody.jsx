@@ -4,8 +4,8 @@ import Card from '../../components/ui/Card';
 import Tabs from '../../components/ui/Tabs';
 import Icon from '../../components/ui/Icon';
 import { Select, TextArea } from '../../components/ui/Input';
-import { STATUSES } from '../../utils/constants';
-import { formatDuration } from '../../utils/formattingHelpers';
+import { STATUSES, CURRICULUM_BLOCK_TYPES } from '../../utils/constants';
+import { formatDuration, formatTimeRange } from '../../utils/formattingHelpers';
 import { formatDate } from '../../utils/dateHelpers';
 import { useLocalized } from '../../utils/localize';
 import { useActivityDetail } from './useActivityDetail';
@@ -14,8 +14,8 @@ export default function ActivityDetailBody({ instanceId, onChanged, onRemoved, o
   const { t } = useTranslation();
   const L = useLocalized();
   const {
-    instance, status, reflection, saving, saved, error,
-    setStatus, setReflection, save, remove,
+    instance, status, reflection, blockType, saving, saved, error,
+    setStatus, setReflection, setBlockType, save, remove,
   } = useActivityDetail(instanceId, { onChanged, onRemoved });
 
   if (error && !instance) {
@@ -47,6 +47,7 @@ export default function ActivityDetailBody({ instanceId, onChanged, onRemoved, o
 
       <Card className="detail-info">
         <div className="detail-meta">
+          {formatTimeRange(a?.start_time, a?.end_time) && <span><Icon name="clock" size={16} /> {formatTimeRange(a?.start_time, a?.end_time)}</span>}
           {a?.estimated_duration && <span><Icon name="clock" size={16} /> {formatDuration(a.estimated_duration)}</span>}
           <span>{t(`domain.block.${instance.block_type}`)}</span>
           <span>{t('activity.created', { date: formatDate(instance.created_at) })}</span>
@@ -67,6 +68,7 @@ export default function ActivityDetailBody({ instanceId, onChanged, onRemoved, o
 
           <div className="form-stack">
             <Select label={t('activity.status')} name="status" value={status} onChange={(e) => setStatus(e.target.value)} options={STATUSES.map((s) => ({ value: s, label: t(`domain.status.${s}`) }))} />
+            <Select label={t('week.type')} name="block_type" value={blockType} onChange={(e) => setBlockType(e.target.value)} options={CURRICULUM_BLOCK_TYPES.map((bt) => ({ value: bt, label: t(`domain.block.${bt}`) }))} />
             <TextArea label={t('activity.reflection')} name="reflection" rows={4} placeholder={t('activity.howDidItGo')} value={reflection} onChange={(e) => setReflection(e.target.value)} />
             {saved && <div className="alert alert-success">{t('activity.saved')}</div>}
             {error && <div className="alert alert-error">{error}</div>}

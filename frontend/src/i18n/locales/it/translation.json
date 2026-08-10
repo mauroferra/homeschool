@@ -76,6 +76,7 @@
     "externalNameRequired": "Il nome dell'attività è obbligatorio",
     "template": "Modello",
     "chooseTemplate": "Scegli un modello",
+    "type": "Tipo",
     "cancel": "Annulla",
     "add": "Aggiungi"
   },
@@ -99,6 +100,8 @@
     "title": "Titolo",
     "category": "Categoria",
     "durationMin": "Durata (min)",
+    "startTime": "Ora di inizio",
+    "endTime": "Ora di fine",
     "theme": "Tema",
     "noTheme": "Nessun tema",
     "description": "Descrizione",
@@ -166,13 +169,6 @@
     "weekly": "settimanale",
     "activity": "attività",
     "weekOf": "Settimana del {{date}}"
-  },
-  "household": {
-    "label": "Nucleo familiare",
-    "all": "Tutti",
-    "homeA": "Casa A",
-    "homeB": "Casa B",
-    "both": "Entrambi"
   },
   "settingsPage": {
     "title": "Impostazioni",
@@ -267,12 +263,6 @@
       "Fri": "Ven",
       "Sat": "Sab",
       "Sun": "Dom"
-    },
-    "household": {
-      "All": "Tutti",
-      "Home A": "Casa A",
-      "Home B": "Casa B",
-      "Both": "Entrambi"
     }
   }
 }

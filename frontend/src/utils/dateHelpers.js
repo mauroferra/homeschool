@@ -103,3 +103,18 @@ export function parseISO(iso) {
 export function dayOffset(startDate, dayIndex) {
   return addDays(startOfWeek(startDate), dayIndex);
 }
+
+export function instanceStartTime(instance) {
+  return instance?.activity?.start_time || null;
+}
+
+export function sortInstancesByTime(instances = []) {
+  return [...instances].sort((a, b) => {
+    const at = instanceStartTime(a);
+    const bt = instanceStartTime(b);
+    if (at && !bt) return -1;
+    if (!at && bt) return 1;
+    if (at && bt) return at.localeCompare(bt);
+    return 0;
+  });
+}

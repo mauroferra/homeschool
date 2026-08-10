@@ -1,15 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { WEEKDAYS } from '../../utils/constants';
-import { dayOffset, formatDate, isSameDay } from '../../utils/dateHelpers';
+import { dayOffset, formatDate, isSameDay, sortInstancesByTime } from '../../utils/dateHelpers';
 import { useLocalized } from '../../utils/localize';
-
-const BLOCK_TYPES = [
-  'Italian Micro-Immersion',
-  'Czech School Alignment',
-  'Italian Cultural Activity',
-  'Bonding Ritual',
-  'External Activity',
-];
 
 export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd, onOpenDay }) {
   const { t } = useTranslation();
@@ -23,6 +15,7 @@ export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd, 
       {Array.from({ length: 7 }).map((_, i) => {
         const date = dayOffset(startDate, i);
         const isToday = isSameDay(date, new Date());
+        const dayInstances = instances.filter((inst) => inst.day_of_week === i);
         return (
           <div
             key={i}
@@ -36,33 +29,23 @@ export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd, 
                   <span className="day-date">{formatDate(date)}</span>
                 </button>
               ) : (
-                <>
+                <div className="day-header-meta">
                   <span className="day-name">{t(`domain.weekday.${WEEKDAYS[i]}`)}</span>
                   <span className="day-date">{formatDate(date)}</span>
-                </>
+                </div>
               )}
+              <button type="button" className="btn-icon block-add" onClick={() => onAdd(date)} aria-label={t('week.addActivity')}>
+                +
+              </button>
             </div>
             <div className="grid-blocks">
-              {BLOCK_TYPES.map((block) => (
-                <div key={block} className={`grid-block block-${kebab(block)}`}>
-                  <div className="block-header">
-                    <span className="block-title">{t(`domain.blockShort.${block}`)}</span>
-                    <button type="button" className="btn-icon block-add" onClick={() => onAdd(block, date)} aria-label={t('week.addTo', { block: t(`domain.blockShort.${block}`) })}>
-                      +
-                    </button>
-                  </div>
-                  <div className="block-body">
-                    {instances
-                      .filter((inst) => inst.day_of_week === i && inst.block_type === block)
-                      .map((inst) => (
-                        <button key={inst.id} type="button" className={`instance-chip ${inst.is_external ? 'chip-external' : ''}`} onClick={() => onOpenInstance(inst)}>
-                          {!inst.is_external && <span className={`status-dot status-${inst.status.toLowerCase().replace(/\s+/g, '-')}`} />}
-                          {L(inst.activity, 'title')}
-                          {inst.home_tag !== 'Home A' && <span className="home-chip">{inst.home_tag === 'Both' ? 'A+B' : 'B'}</span>}
-                        </button>
-                      ))}
-                  </div>
-                </div>
+{dayInstances.length === 0 && <p className="block-empty">{t('week.noActivity')}</p>}
+              {sortInstancesByTime(dayInstances).map((inst) => (
+                <button key={inst.id} type="button" className={`instance-chip ${inst.is_external ? 'chip-external' : `chip-type-${kebab(inst.block_type)}`}`} onClick={() => onOpenInstance(inst)}>
+                  {!inst.is_external && <span className={`status-dot status-${inst.status.toLowerCase().replace(/\s+/g, '-')}`} />}
+                  {L(inst.activity, 'title')}
+                  <span className="instance-type">{t(`domain.blockShort.${inst.block_type}`)}</span>
+                </button>
               ))}
             </div>
           </div>
