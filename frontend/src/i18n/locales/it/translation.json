@@ -76,6 +76,7 @@
     "externalNameRequired": "Il nome dell'attività è obbligatorio",
     "template": "Modello",
     "chooseTemplate": "Scegli un modello",
+    "type": "Tipo",
     "cancel": "Annulla",
     "add": "Aggiungi"
   },

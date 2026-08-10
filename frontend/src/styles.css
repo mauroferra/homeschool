@@ -279,41 +279,39 @@ a { color: var(--primary); text-decoration: none; }
 }
 .grid-col { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .grid-col.is-today .day-name { color: var(--primary); font-weight: 700; }
-.day-header { display: flex; flex-direction: column; }
+.day-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; }
+.day-header-meta { display: flex; flex-direction: column; min-width: 0; }
 .day-name { font-size: 12px; font-weight: 700; color: var(--text); text-transform: uppercase; }
 .day-date { font-size: 12px; color: var(--text-muted); }
 .grid-blocks { display: flex; flex-direction: column; gap: 6px; }
 
-/* ---------- Blocks ---------- */
-.block-card, .k-block, .grid-block { border-radius: 10px; overflow: hidden; }
-.k-block { margin-bottom: 8px; }
-.block-italian-micro-immersion { background: var(--block-imi); }
-.block-czech-school-alignment { background: var(--block-csa); }
-.block-italian-cultural-activity { background: var(--block-ica); }
-.block-bonding-ritual { background: var(--block-br); }
-.block-external-activity { background: var(--block-ext); }
-.block-header {
-  display: flex; align-items: center; justify-content: space-between; gap: 4px;
-  padding: 5px 6px;
-}
-.block-title { font-size: 11px; font-weight: 700; line-height: 1.2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* ---------- Add buttons ---------- */
 .block-add { width: 20px; height: 20px; font-size: 14px; line-height: 1; color: var(--primary); border: 0; background: rgba(255,255,255,0.5); border-radius: 6px; flex-shrink: 0; }
 .block-empty { font-size: 11px; color: var(--text-muted); padding: 4px 6px; }
-.block-body { padding: 0 4px 4px; display: flex; flex-direction: column; gap: 4px; }
 
 /* ---------- Instance cards ---------- */
 .instance-card {
   width: 100%; text-align: left;
   background: var(--surface);
   border: 1px solid var(--border);
+  border-left: 3px solid;
   border-radius: 8px;
   padding: 8px 9px;
   display: flex; flex-direction: column; gap: 5px;
   cursor: pointer;
 }
 .instance-card:hover { border-color: var(--primary); }
+.inst-type-italian-micro-immersion { background: var(--block-imi); border-color: var(--block-imi-acc); }
+.inst-type-czech-school-alignment { background: var(--block-csa); border-color: var(--block-csa-acc); }
+.inst-type-italian-cultural-activity { background: var(--block-ica); border-color: var(--block-ica-acc); }
+.inst-type-bonding-ritual { background: var(--block-br); border-color: var(--block-br-acc); }
 .instance-main { display: flex; align-items: center; gap: 6px; }
 .instance-title { font-size: 13px; font-weight: 600; line-height: 1.25; flex: 1; }
+.instance-type {
+  font-size: 10px; color: var(--text-muted);
+  background: var(--surface-2); padding: 1px 6px; border-radius: 4px;
+  flex-shrink: 0; white-space: nowrap;
+}
 .home-chip {
   font-size: 10px; font-weight: 700; color: var(--primary);
   background: var(--primary-soft, #e7edf6);
@@ -340,12 +338,21 @@ a { color: var(--primary); text-decoration: none; }
   display: flex; align-items: center; gap: 4px;
   background: var(--surface);
   border: 1px solid var(--border);
+  border-left: 3px solid;
   border-radius: 6px;
   font-size: 11px; padding: 5px 6px; cursor: pointer;
 }
 .instance-chip .home-chip { margin-left: auto; flex-shrink: 0; }
-.instance-chip span:not(.status-dot):not(.home-chip) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
-.instance-chip .instance-title { }
+.instance-chip span:not(.status-dot):not(.home-chip):not(.instance-type) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.instance-chip .instance-type {
+  font-size: 9px; padding: 0 4px; border-radius: 3px;
+  background: var(--surface); color: var(--text-muted);
+  flex-shrink: 0; white-space: nowrap;
+}
+.chip-type-italian-micro-immersion { border-color: var(--block-imi-acc); background: var(--block-imi); }
+.chip-type-czech-school-alignment { border-color: var(--block-csa-acc); background: var(--block-csa); }
+.chip-type-italian-cultural-activity { border-color: var(--block-ica-acc); background: var(--block-ica); }
+.chip-type-bonding-ritual { border-color: var(--block-br-acc); background: var(--block-br); }
 .chip-external {
   border-style: dashed;
   border-color: var(--block-ext-acc);
@@ -416,12 +423,10 @@ a { color: var(--primary); text-decoration: none; }
   border-radius: 5px; font-size: 11px; padding: 3px 5px; cursor: pointer;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.month-instance.cat-language { border-left-color: var(--block-imi-acc); }
-.month-instance.cat-culture { border-left-color: var(--block-ica-acc); }
-.month-instance.cat-school-alignment { border-left-color: var(--block-csa-acc); }
-.month-instance.cat-ritual { border-left-color: var(--block-br-acc); }
-.month-instance.cat-project,
-.month-instance.cat-professional { border-left-color: #7a6f9e; }
+.month-instance.type-italian-micro-immersion { border-left-color: var(--block-imi-acc); }
+.month-instance.type-czech-school-alignment { border-left-color: var(--block-csa-acc); }
+.month-instance.type-italian-cultural-activity { border-left-color: var(--block-ica-acc); }
+.month-instance.type-bonding-ritual { border-left-color: var(--block-br-acc); }
 .month-external {
   border-left: 3px dashed var(--block-ext-acc);
   font-weight: 600;

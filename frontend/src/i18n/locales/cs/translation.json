@@ -76,6 +76,7 @@
     "externalNameRequired": "Název aktivity je povinný",
     "template": "Šablona",
     "chooseTemplate": "Vyberte šablonu",
+    "type": "Typ",
     "cancel": "Zrušit",
     "add": "Přidat"
   },

@@ -9,9 +9,11 @@ export default function ActivityInstanceCard({ instance, onOpen }) {
   const L = useLocalized();
   const { activity, status } = instance;
   const isExternal = instance.is_external === true;
+  const typeClass = isExternal ? '' : `inst-type-${kebab(instance.block_type)}`;
   return (
-    <button type="button" className={`instance-card ${isExternal ? 'instance-external' : ''}`} onClick={() => onOpen(instance)}>
+    <button type="button" className={`instance-card ${typeClass} ${isExternal ? 'instance-external' : ''}`} onClick={() => onOpen(instance)}>
       <div className="instance-main">
+        <span className="instance-type">{t(`domain.block.${instance.block_type}`)}</span>
         <span className="instance-title">{L(activity, 'title')}</span>
         {instance.home_tag !== 'Home A' && (
           <span className="home-chip">{instance.home_tag === 'Both' ? 'A+B' : 'B'}</span>
@@ -31,4 +33,8 @@ export default function ActivityInstanceCard({ instance, onOpen }) {
       </div>
     </button>
   );
+}
+
+function kebab(str = '') {
+  return str.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 }

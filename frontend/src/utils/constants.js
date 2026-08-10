@@ -8,6 +8,8 @@ export const BLOCK_TYPES = [
   'External Activity',
 ];
 
+export const CURRICULUM_BLOCK_TYPES = BLOCK_TYPES.filter((bt) => bt !== 'External Activity');
+
 export const STATUSES = ['Not started', 'In progress', 'Completed', 'Skipped'];
 
 export const WEEKDAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];

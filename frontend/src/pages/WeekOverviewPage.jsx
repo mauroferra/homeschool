@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useWeekStore, EXTERNAL_BLOCK } from '../store/weekStore';
+import { useWeekStore } from '../store/weekStore';
 import { useActivityStore } from '../store/activityStore';
 import { useThemeStore } from '../store/themeStore';
 import { useExternalTypeStore } from '../store/externalTypeStore';
+import { CURRICULUM_BLOCK_TYPES } from '../utils/constants';
 import WeekNavigation from '../features/weekplanner/WeekNavigation';
 import WeekGrid from '../features/weekplanner/WeekGrid';
 import DayColumn from '../features/weekplanner/DayColumn';
@@ -41,6 +42,7 @@ export default function WeekOverviewPage() {
   const [addModal, setAddModal] = useState(null);
   const [tab, setTab] = useState(0);
   const [pickedTemplate, setPickedTemplate] = useState('');
+  const [pickedType, setPickedType] = useState(CURRICULUM_BLOCK_TYPES[0]);
 
   useEffect(() => {
     (async () => {
@@ -103,9 +105,10 @@ export default function WeekOverviewPage() {
       : instances.length;
 
   const openInstance = (inst) => navigate(`/activity/${inst.id}`);
-  const openAdd = (blockType, date) => {
+  const openAdd = (date) => {
     setPickedTemplate('');
-    setAddModal({ date, dayOfWeek: weekdayIndex(date), blockType });
+    setPickedType(CURRICULUM_BLOCK_TYPES[0]);
+    setAddModal({ date, dayOfWeek: weekdayIndex(date) });
   };
 
   const refreshMonth = async () => {
@@ -117,7 +120,7 @@ export default function WeekOverviewPage() {
     await ensureWeekForDate(addModal.date);
     await addInstance({
       day_of_week: addModal.dayOfWeek,
-      block_type: addModal.blockType,
+      block_type: pickedType,
       activity_id: Number(pickedTemplate),
       home_tag: 'Home A',
     });
@@ -129,7 +132,7 @@ export default function WeekOverviewPage() {
     await ensureWeekForDate(addModal.date);
     await addAdHocInstance({
       day_of_week: addModal.dayOfWeek,
-      block_type: addModal.blockType,
+      block_type: pickedType,
       home_tag: payload.home_tag || 'Home A',
       title: payload.title,
       category: payload.category,
@@ -210,33 +213,48 @@ export default function WeekOverviewPage() {
         />
       )}
 
-      <Modal open={!!addModal} title={addModal ? (addModal.blockType === EXTERNAL_BLOCK ? t('week.addExternalActivityTitle') : t('week.addActivityTitle', { block: t(`domain.block.${addModal.blockType}`) })) : ''} onClose={() => setAddModal(null)} size="md">
-        {addModal?.blockType === EXTERNAL_BLOCK ? (
+      <Modal open={!!addModal} title={t('week.addActivity')} onClose={() => setAddModal(null)} size="md">
+        <Tabs tabs={[{ label: t('week.fromTemplate') }, { label: t('week.newActivity') }, { label: t('week.external') }]} active={tab} onChange={setTab} />
+        {tab === 0 ? (
+          <div className="form-stack">
+            <Select
+              label={t('week.type')}
+              name="block_type"
+              value={pickedType}
+              onChange={(e) => setPickedType(e.target.value)}
+              options={CURRICULUM_BLOCK_TYPES.map((bt) => ({ value: bt, label: t(`domain.block.${bt}`) }))}
+            />
+            <Select
+              label={t('week.template')}
+              name="template"
+              value={pickedTemplate}
+              onChange={(e) => setPickedTemplate(e.target.value)}
+              options={templates.map((tpl) => ({ value: tpl.id, label: `${L(tpl, 'title')} · ${t(`domain.category.${tpl.category}`)}` }))}
+              placeholder={t('week.chooseTemplate')}
+            />
+            <div className="form-actions">
+              <Button type="button" variant="secondary" onClick={() => setAddModal(null)}>{t('week.cancel')}</Button>
+              <Button disabled={!pickedTemplate} onClick={addFromTemplate}>{t('week.add')}</Button>
+            </div>
+          </div>
+        ) : tab === 2 ? (
           <ExternalActivityForm onSubmit={createExternal} onCancel={() => setAddModal(null)} />
         ) : (
-          <>
-            <Tabs tabs={[{ label: t('week.fromTemplate') }, { label: t('week.newActivity') }, { label: t('week.external') }]} active={tab} onChange={setTab} />
-            {tab === 0 ? (
-              <div className="form-stack">
-                <Select
-                  label={t('week.template')}
-                  name="template"
-                  value={pickedTemplate}
-                  onChange={(e) => setPickedTemplate(e.target.value)}
-                  options={templates.map((tpl) => ({ value: tpl.id, label: `${L(tpl, 'title')} · ${t(`domain.category.${tpl.category}`)}` }))}
-                  placeholder={t('week.chooseTemplate')}
-                />
-                <div className="form-actions">
-                  <Button type="button" variant="secondary" onClick={() => setAddModal(null)}>{t('week.cancel')}</Button>
-                  <Button disabled={!pickedTemplate} onClick={addFromTemplate}>{t('week.add')}</Button>
-                </div>
-              </div>
-            ) : tab === 2 ? (
-              <ExternalActivityForm onSubmit={createExternal} onCancel={() => setAddModal(null)} />
-            ) : (
-              <ActivityForm themes={themes} submitLabel={t('week.addActivity')} onSubmit={createAdHoc} onCancel={() => setAddModal(null)} />
-            )}
-          </>
+          <ActivityForm
+            themes={themes}
+            submitLabel={t('week.addActivity')}
+            onSubmit={createAdHoc}
+            onCancel={() => setAddModal(null)}
+            extraFields={
+              <Select
+                label={t('week.type')}
+                name="block_type"
+                value={pickedType}
+                onChange={(e) => setPickedType(e.target.value)}
+                options={CURRICULUM_BLOCK_TYPES.map((bt) => ({ value: bt, label: t(`domain.block.${bt}`) }))}
+              />
+            }
+          />
         )}
       </Modal>
     </div>

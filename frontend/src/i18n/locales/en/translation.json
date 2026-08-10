@@ -76,6 +76,7 @@
     "externalNameRequired": "Activity name is required",
     "template": "Template",
     "chooseTemplate": "Choose a template",
+    "type": "Type",
     "cancel": "Cancel",
     "add": "Add"
   },

@@ -8,7 +8,7 @@ import Icon from '../components/ui/Icon';
 import { Select, TextArea } from '../components/ui/Input';
 import { weekService } from '../services/weekService';
 import { useWeekStore } from '../store/weekStore';
-import { STATUSES } from '../utils/constants';
+import { STATUSES, CURRICULUM_BLOCK_TYPES } from '../utils/constants';
 import { formatDuration } from '../utils/formattingHelpers';
 import { formatDate } from '../utils/dateHelpers';
 import { useLocalized } from '../utils/localize';
@@ -25,6 +25,7 @@ export default function ActivityDetailPage() {
   const [status, setStatus] = useState('');
   const [reflection, setReflection] = useState('');
   const [homeTag, setHomeTag] = useState('Home A');
+  const [blockType, setBlockType] = useState('');
   const [tab, setTab] = useState(0);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -38,6 +39,7 @@ export default function ActivityDetailPage() {
         setStatus(found.status || '');
         setReflection(found.reflection_text || '');
         setHomeTag(found.home_tag || 'Home A');
+        setBlockType(found.block_type || '');
       } catch (err) {
         setError(err.message);
       }
@@ -49,8 +51,8 @@ export default function ActivityDetailPage() {
     setSaved(false);
     setError('');
     try {
-      await weekService.updateInstance(instance.id, { status, reflection_text: reflection, home_tag: homeTag });
-      setInstance({ ...instance, status, reflection_text: reflection, home_tag: homeTag });
+      await weekService.updateInstance(instance.id, { status, reflection_text: reflection, home_tag: homeTag, block_type: blockType });
+      setInstance({ ...instance, status, reflection_text: reflection, home_tag: homeTag, block_type: blockType });
       if (currentWeek) await refresh(currentWeek.id);
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
@@ -119,6 +121,7 @@ export default function ActivityDetailPage() {
 
           <div className="form-stack">
             <Select label={t('activity.status')} name="status" value={status} onChange={(e) => setStatus(e.target.value)} options={STATUSES.map((s) => ({ value: s, label: t(`domain.status.${s}`) }))} />
+            <Select label={t('week.type')} name="block_type" value={blockType} onChange={(e) => setBlockType(e.target.value)} options={CURRICULUM_BLOCK_TYPES.map((bt) => ({ value: bt, label: t(`domain.block.${bt}`) }))} />
             <TextArea label={t('activity.reflection')} name="reflection" rows={4} placeholder={t('activity.howDidItGo')} value={reflection} onChange={(e) => setReflection(e.target.value)} />
             {saved && <div className="alert alert-success">{t('activity.saved')}</div>}
             {error && <div className="alert alert-error">{error}</div>}
