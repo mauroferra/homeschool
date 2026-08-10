@@ -339,6 +339,90 @@ paths:
         '201':
           description: Activity instance created
 
+  /weeks/{week_id}/instances/external:
+    post:
+      summary: Create an external placeholder activity (e.g. swimming, therapy)
+      description: >
+        Creates a reference-only placeholder for an activity scheduled outside the
+        plan (swimming class, speech therapy, physiotherapy…). The type refers to
+        a user-defined entry from /external-types. It occupies a day slot so other
+        activities aren't planned over it, but is excluded from progress/reflection
+        tracking.
+      tags: [ActivityInstances]
+      parameters:
+        - in: path
+          name: week_id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivityInstanceExternal'
+      responses:
+        '201':
+          description: External placeholder created
+
+  /external-types:
+    get:
+      summary: List external activity types
+      tags: [ExternalActivityTypes]
+      responses:
+        '200':
+          description: External activity type list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExternalActivityType'
+    post:
+      summary: Create an external activity type
+      tags: [ExternalActivityTypes]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalActivityTypeUpsert'
+      responses:
+        '201':
+          description: External activity type created
+
+  /external-types/{id}:
+    patch:
+      summary: Rename an external activity type
+      tags: [ExternalActivityTypes]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalActivityTypeUpsert'
+      responses:
+        '200':
+          description: External activity type updated
+    delete:
+      summary: Delete an external activity type
+      tags: [ExternalActivityTypes]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: External activity type deleted
+
   /instances/{id}:
     patch:
       summary: Update activity instance
@@ -520,6 +604,41 @@ components:
         status:
           type: string
         reflection_text:
+          type: string
+        is_external:
+          type: boolean
+        external_type_id:
+          type: integer
+
+    ActivityInstanceExternal:
+      type: object
+      properties:
+        day_of_week:
+          type: integer
+        home_tag:
+          type: string
+        external_type_id:
+          type: integer
+        title:
+          type: string
+          description: Free-text fallback when no type is chosen
+
+    ExternalActivityType:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+
+    ExternalActivityTypeUpsert:
+      type: object
+      properties:
+        name:
           type: string
 
     ActivityInstanceCreate:

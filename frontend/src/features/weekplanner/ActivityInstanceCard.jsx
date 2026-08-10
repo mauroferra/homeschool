@@ -8,8 +8,9 @@ export default function ActivityInstanceCard({ instance, onOpen }) {
   const { t } = useTranslation();
   const L = useLocalized();
   const { activity, status } = instance;
+  const isExternal = instance.is_external === true;
   return (
-    <button type="button" className="instance-card" onClick={() => onOpen(instance)}>
+    <button type="button" className={`instance-card ${isExternal ? 'instance-external' : ''}`} onClick={() => onOpen(instance)}>
       <div className="instance-main">
         <span className="instance-title">{L(activity, 'title')}</span>
         {instance.home_tag !== 'Home A' && (
@@ -17,10 +18,16 @@ export default function ActivityInstanceCard({ instance, onOpen }) {
         )}
       </div>
       <div className="instance-meta">
-        <span className={statusClassFrom(status)} title={t(`domain.status.${status}`)} />
-        <span className="instance-status">{t(`domain.status.${status}`)}</span>
-        {instance.reflection_text && <Icon name="edit" size={14} className="instance-reflect-icon" />}
-        <span className="instance-cat">{t(`domain.category.${activity.category}`)}</span>
+        {isExternal ? (
+          <span className="external-badge">{t('week.external')}</span>
+        ) : (
+          <>
+            <span className={statusClassFrom(status)} title={t(`domain.status.${status}`)} />
+            <span className="instance-status">{t(`domain.status.${status}`)}</span>
+            {instance.reflection_text && <Icon name="edit" size={14} className="instance-reflect-icon" />}
+            <span className="instance-cat">{t(`domain.category.${activity.category}`)}</span>
+          </>
+        )}
       </div>
     </button>
   );

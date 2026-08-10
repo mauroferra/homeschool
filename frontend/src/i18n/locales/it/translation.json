@@ -63,6 +63,16 @@
     "addActivityTitle": "Aggiungi attività · {{block}}",
     "fromTemplate": "Da modello",
     "newActivity": "Nuova attività",
+    "external": "Esterna",
+    "externalTitle": "Attività esterna (es. nuoto, terapia)",
+    "externalHint": "Programmata fuori dal piano e mostrata solo come riferimento.",
+    "externalType": "Tipo di attività",
+    "chooseType": "Scegli un tipo",
+    "defineType": "Definisci un nuovo tipo…",
+    "hideCustomType": "Fatto con il nuovo tipo",
+    "externalTypeCustomPlaceholder": "es. Corso di nuoto",
+    "externalName": "Nome attività",
+    "externalNameRequired": "Il nome dell'attività è obbligatorio",
     "template": "Modello",
     "chooseTemplate": "Scegli un modello",
     "cancel": "Annulla",
@@ -167,6 +177,7 @@
     "subtitle": "Profilo, password e modelli di attività riutilizzabili.",
     "account": "Account",
     "templates": "Modelli ({{count}})",
+    "externalTypes": "Tipi esterni ({{count}})",
     "profileTitle": "Profilo",
     "signedInAs": "Connesso come",
     "role": "Ruolo",
@@ -184,7 +195,16 @@
     "editTitle": "Modifica modello",
     "newTitle": "Nuovo modello",
     "createTemplate": "Crea modello",
-    "saveChanges": "Salva modifiche"
+    "saveChanges": "Salva modifiche",
+    "subtitleExtTypes": "Tipi di attività programmate all'esterno (es. nuoto, terapia) mostrate sul calendario.",
+    "externalTypesTitle": "Tipi di attività esterne",
+    "newExternalType": "Nuovo tipo",
+    "noExternalTypes": "Nessun tipo di attività esterna. Aggiungi il primo qui sopra.",
+    "renameExternalType": "Rinomina tipo",
+    "deleteExternalType": "Elimina tipo",
+    "deleteExternalTypeConfirm": "Eliminare il tipo \"{{name}}\"? I segnaposto che lo usano restano sul calendario.",
+    "externalTypeName": "Nome del tipo",
+    "externalTypePlaceholder": "es. Corso di nuoto"
   },
   "fileUploader": {
     "attachments": "Allegati",
@@ -204,13 +224,15 @@
       "Italian Micro-Immersion": "Micro-immersione italiana",
       "Czech School Alignment": "Allineamento con la scuola ceca",
       "Italian Cultural Activity": "Attività culturale italiana",
-      "Bonding Ritual": "Rituale di legame"
+      "Bonding Ritual": "Rituale di legame",
+      "External Activity": "Attività esterna"
     },
     "blockShort": {
       "Italian Micro-Immersion": "IMI",
       "Czech School Alignment": "CSA",
       "Italian Cultural Activity": "ICA",
-      "Bonding Ritual": "BR"
+      "Bonding Ritual": "BR",
+      "External Activity": "EXT"
     },
     "category": {
       "Language": "Lingua",

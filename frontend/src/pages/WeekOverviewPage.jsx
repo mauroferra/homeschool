@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useWeekStore } from '../store/weekStore';
+import { useWeekStore, EXTERNAL_BLOCK } from '../store/weekStore';
 import { useActivityStore } from '../store/activityStore';
 import { useThemeStore } from '../store/themeStore';
+import { useExternalTypeStore } from '../store/externalTypeStore';
 import WeekNavigation from '../features/weekplanner/WeekNavigation';
 import WeekGrid from '../features/weekplanner/WeekGrid';
 import DayColumn from '../features/weekplanner/DayColumn';
@@ -14,6 +15,7 @@ import Tabs from '../components/ui/Tabs';
 import { Select } from '../components/ui/Input';
 import Button from '../components/ui/Button';
 import ActivityForm from '../features/activities/ActivityForm';
+import ExternalActivityForm from '../features/weekplanner/ExternalActivityForm';
 import {
   startOfWeek, dateOnlyISO, parseISO, addDays, weekdayIndex, isSameDay, isSameMonth,
   formatWeekLabel, formatDayLabel, formatMonthLabel,
@@ -28,10 +30,11 @@ export default function WeekOverviewPage() {
     weeks, currentWeek, instances, loading, error,
     viewDate, monthInstances,
     loadWeek, loadWeeks, ensureWeekForDate, goToWeek, setViewDate, loadMonth, goToDay, goToMonth,
-    addInstance, addAdHocInstance,
+    addInstance, addAdHocInstance, addExternalInstance,
   } = useWeekStore();
   const { templates, loadTemplates } = useActivityStore();
   const { themes, loadThemes } = useThemeStore();
+  const { loadTypes } = useExternalTypeStore();
 
   const [ready, setReady] = useState(false);
   const [view, setView] = useState('week');
@@ -43,7 +46,7 @@ export default function WeekOverviewPage() {
     (async () => {
       try {
         const thisWeekIso = dateOnlyISO(startOfWeek(new Date()));
-        const [, , weeksList] = await Promise.all([loadThemes(), loadTemplates(), loadWeeks()]);
+        const [, , , weeksList] = await Promise.all([loadThemes(), loadTemplates(), loadTypes(), loadWeeks()]);
         const thisWeek = weeksList.find((w) => w.start_date === thisWeekIso);
         if (thisWeek) await loadWeek(thisWeek.id);
         else await ensureWeekForDate(new Date());
@@ -138,6 +141,18 @@ export default function WeekOverviewPage() {
     if (view === 'month') refreshMonth();
   };
 
+  const createExternal = async ({ external_type_id, title }) => {
+    await ensureWeekForDate(addModal.date);
+    await addExternalInstance({
+      day_of_week: addModal.dayOfWeek,
+      home_tag: 'Home A',
+      external_type_id,
+      title,
+    });
+    setAddModal(null);
+    if (view === 'month') refreshMonth();
+  };
+
   return (
     <div className="page week-page">
       <WeekNavigation
@@ -196,24 +211,32 @@ export default function WeekOverviewPage() {
       )}
 
       <Modal open={!!addModal} title={addModal ? t('week.addActivityTitle', { block: t(`domain.block.${addModal.blockType}`) }) : ''} onClose={() => setAddModal(null)} size="md">
-        <Tabs tabs={[{ label: t('week.fromTemplate') }, { label: t('week.newActivity') }]} active={tab} onChange={setTab} />
-        {tab === 0 ? (
-          <div className="form-stack">
-            <Select
-              label={t('week.template')}
-              name="template"
-              value={pickedTemplate}
-              onChange={(e) => setPickedTemplate(e.target.value)}
-              options={templates.map((tpl) => ({ value: tpl.id, label: `${L(tpl, 'title')} · ${t(`domain.category.${tpl.category}`)}` }))}
-              placeholder={t('week.chooseTemplate')}
-            />
-            <div className="form-actions">
-              <Button type="button" variant="secondary" onClick={() => setAddModal(null)}>{t('week.cancel')}</Button>
-              <Button disabled={!pickedTemplate} onClick={addFromTemplate}>{t('week.add')}</Button>
-            </div>
-          </div>
+        {addModal?.blockType === EXTERNAL_BLOCK ? (
+          <ExternalActivityForm onSubmit={createExternal} onCancel={() => setAddModal(null)} />
         ) : (
-          <ActivityForm themes={themes} submitLabel={t('week.addActivity')} onSubmit={createAdHoc} onCancel={() => setAddModal(null)} />
+          <>
+            <Tabs tabs={[{ label: t('week.fromTemplate') }, { label: t('week.newActivity') }, { label: t('week.external') }]} active={tab} onChange={setTab} />
+            {tab === 0 ? (
+              <div className="form-stack">
+                <Select
+                  label={t('week.template')}
+                  name="template"
+                  value={pickedTemplate}
+                  onChange={(e) => setPickedTemplate(e.target.value)}
+                  options={templates.map((tpl) => ({ value: tpl.id, label: `${L(tpl, 'title')} · ${t(`domain.category.${tpl.category}`)}` }))}
+                  placeholder={t('week.chooseTemplate')}
+                />
+                <div className="form-actions">
+                  <Button type="button" variant="secondary" onClick={() => setAddModal(null)}>{t('week.cancel')}</Button>
+                  <Button disabled={!pickedTemplate} onClick={addFromTemplate}>{t('week.add')}</Button>
+                </div>
+              </div>
+            ) : tab === 2 ? (
+              <ExternalActivityForm onSubmit={createExternal} onCancel={() => setAddModal(null)} />
+            ) : (
+              <ActivityForm themes={themes} submitLabel={t('week.addActivity')} onSubmit={createAdHoc} onCancel={() => setAddModal(null)} />
+            )}
+          </>
         )}
       </Modal>
     </div>

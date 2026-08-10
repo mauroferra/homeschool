@@ -8,6 +8,7 @@ const BLOCK_TYPES = [
   'Czech School Alignment',
   'Italian Cultural Activity',
   'Bonding Ritual',
+  'External Activity',
 ];
 
 export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd }) {
@@ -37,8 +38,8 @@ export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd }
                     {instances
                       .filter((inst) => inst.day_of_week === i && inst.block_type === block)
                       .map((inst) => (
-                        <button key={inst.id} type="button" className="instance-chip" onClick={() => onOpenInstance(inst)}>
-                          <span className={`status-dot status-${inst.status.toLowerCase().replace(/\s+/g, '-')}`} />
+                        <button key={inst.id} type="button" className={`instance-chip ${inst.is_external ? 'chip-external' : ''}`} onClick={() => onOpenInstance(inst)}>
+                          {!inst.is_external && <span className={`status-dot status-${inst.status.toLowerCase().replace(/\s+/g, '-')}`} />}
                           {L(inst.activity, 'title')}
                           {inst.home_tag !== 'Home A' && <span className="home-chip">{inst.home_tag === 'Both' ? 'A+B' : 'B'}</span>}
                         </button>

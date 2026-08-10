@@ -63,6 +63,16 @@
     "addActivityTitle": "Přidat aktivitu · {{block}}",
     "fromTemplate": "Ze šablony",
     "newActivity": "Nová aktivita",
+    "external": "Externí",
+    "externalTitle": "Vnější aktivita (např. plavání, terapie)",
+    "externalHint": "Plánováno mimo rozvrh a zobrazeno jen pro přehled.",
+    "externalType": "Typ aktivity",
+    "chooseType": "Vyberte typ",
+    "defineType": "Definovat nový typ…",
+    "hideCustomType": "Hotovo s novým typem",
+    "externalTypeCustomPlaceholder": "např. Kurz plavání",
+    "externalName": "Název aktivity",
+    "externalNameRequired": "Název aktivity je povinný",
     "template": "Šablona",
     "chooseTemplate": "Vyberte šablonu",
     "cancel": "Zrušit",
@@ -167,6 +177,7 @@
     "subtitle": "Profil, heslo a znovupoužitelné šablony aktivit.",
     "account": "Účet",
     "templates": "Šablony ({{count}})",
+    "externalTypes": "Externí typy ({{count}})",
     "profileTitle": "Profil",
     "signedInAs": "Přihlášen jako",
     "role": "Role",
@@ -184,7 +195,16 @@
     "editTitle": "Upravit šablonu",
     "newTitle": "Nová šablona",
     "createTemplate": "Vytvořit šablonu",
-    "saveChanges": "Uložit změny"
+    "saveChanges": "Uložit změny",
+    "subtitleExtTypes": "Typy aktivit naplánovaných mimo rozvrh (např. plavání, terapie), zobrazené v kalendáři.",
+    "externalTypesTitle": "Typy vnějších aktivit",
+    "newExternalType": "Nový typ",
+    "noExternalTypes": "Zatím žádné typy vnějších aktivit. Přidejte první výše.",
+    "renameExternalType": "Přejmenovat typ",
+    "deleteExternalType": "Smazat typ",
+    "deleteExternalTypeConfirm": "Smazat typ „{{name}}“? Plánovací položky, které ho používají, zůstanou v kalendáři.",
+    "externalTypeName": "Název typu",
+    "externalTypePlaceholder": "např. Kurz plavání"
   },
   "fileUploader": {
     "attachments": "Přílohy",
@@ -204,13 +224,15 @@
       "Italian Micro-Immersion": "Italská mikro-ponoření",
       "Czech School Alignment": "Sladění s českou školou",
       "Italian Cultural Activity": "Italská kulturní aktivita",
-      "Bonding Ritual": "Rituál sblížení"
+      "Bonding Ritual": "Rituál sblížení",
+      "External Activity": "Vnější aktivita"
     },
     "blockShort": {
       "Italian Micro-Immersion": "IMI",
       "Czech School Alignment": "CSA",
       "Italian Cultural Activity": "ICA",
-      "Bonding Ritual": "BR"
+      "Bonding Ritual": "BR",
+      "External Activity": "EXT"
     },
     "category": {
       "Language": "Jazyk",

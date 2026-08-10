@@ -5,6 +5,7 @@ const blockTypes = {
   CZECH_SCHOOL_ALIGNMENT: 'Czech School Alignment',
   ITALIAN_CULTURAL_ACTIVITY: 'Italian Cultural Activity',
   BONDING_RITUAL: 'Bonding Ritual',
+  EXTERNAL_ACTIVITY: 'External Activity',
 };
 
 const blockKeys = [
@@ -12,6 +13,7 @@ const blockKeys = [
   'CZECH_SCHOOL_ALIGNMENT',
   'ITALIAN_CULTURAL_ACTIVITY',
   'BONDING_RITUAL',
+  'EXTERNAL_ACTIVITY',
 ];
 
 const householdTags = ['Home A', 'Home B', 'Both'];

@@ -3,6 +3,7 @@ import Theme from './Theme.js';
 import Activity from './Activity.js';
 import Week from './Week.js';
 import ActivityInstance from './ActivityInstance.js';
+import ExternalActivityType from './ExternalActivityType.js';
 
 User.hasMany(Theme, { foreignKey: 'userId', onDelete: 'CASCADE' });
 Theme.belongsTo(User, { foreignKey: 'userId' });
@@ -20,4 +21,9 @@ ActivityInstance.belongsTo(Week, { foreignKey: 'weekId' });
 Activity.hasMany(ActivityInstance, { foreignKey: 'activityId', onDelete: 'RESTRICT' });
 ActivityInstance.belongsTo(Activity, { foreignKey: 'activityId' });
 
-export { User, Theme, Activity, Week, ActivityInstance };
+User.hasMany(ExternalActivityType, { foreignKey: 'userId', onDelete: 'CASCADE' });
+ExternalActivityType.belongsTo(User, { foreignKey: 'userId' });
+ExternalActivityType.hasMany(ActivityInstance, { foreignKey: 'externalTypeId', onDelete: 'SET NULL' });
+ActivityInstance.belongsTo(ExternalActivityType, { foreignKey: 'externalTypeId' });
+
+export { User, Theme, Activity, Week, ActivityInstance, ExternalActivityType };

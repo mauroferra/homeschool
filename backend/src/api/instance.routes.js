@@ -15,6 +15,7 @@ router.use(auth);
 router.get('/weeks/:week_id/instances', weekParams, controller.listForWeek);
 router.post('/weeks/:week_id/instances', weekParams, validator.validateCreateInstance, controller.create);
 router.post('/weeks/:week_id/instances/ad-hoc', weekParams, validator.validateCreateAdHoc, controller.createAdHoc);
+router.post('/weeks/:week_id/instances/external', weekParams, validator.validateCreateExternal, controller.createExternal);
 
 router.get('/instances/:id', idParams, controller.get);
 router.patch('/instances/:id', idParams, validator.validateUpdateInstance, controller.update);

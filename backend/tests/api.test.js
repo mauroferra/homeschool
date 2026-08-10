@@ -107,6 +107,26 @@ test('week + instances + progress flow', async () => {
   assert.equal(adHoc.status, 201);
   assert.equal(adHoc.data.ad_hoc, true);
 
+  const externalType = await api('/external-types', { method: 'POST', token, body: { name: 'Swimming class' } });
+  assert.equal(externalType.status, 201);
+
+  const external = await api(`/weeks/${weekId}/instances/external`, {
+    method: 'POST',
+    token,
+    body: { day_of_week: 3, external_type_id: externalType.data.id },
+  });
+  assert.equal(external.status, 201);
+  assert.equal(external.data.is_external, true);
+  assert.equal(external.data.external_type_id, externalType.data.id);
+  assert.equal(external.data.activity.title, 'Swimming class');
+
+  const externalTypes = await api('/external-types', { token });
+  assert.equal(externalTypes.data.length, 1);
+  const renamed = await api(`/external-types/${externalType.data.id}`, { method: 'PATCH', token, body: { name: 'Swim' } });
+  assert.equal(renamed.data.name, 'Swim');
+  const renamedInstance = await api(`/instances/${external.data.id}`, { token });
+  assert.equal(renamedInstance.data.activity.title, 'Swim');
+
   const filtered = await api(`/weeks/${weekId}/instances?household=Home%20B`, { token });
   assert.equal(filtered.data.length, 1);
 

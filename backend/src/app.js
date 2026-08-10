@@ -16,6 +16,7 @@ import themeRoutes from './api/theme.routes.js';
 import activityRoutes from './api/activity.routes.js';
 import weekRoutes from './api/week.routes.js';
 import instanceRoutes from './api/instance.routes.js';
+import externalTypeRoutes from './api/externalType.routes.js';
 import progressRoutes from './api/progress.routes.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -47,6 +48,7 @@ function createApp() {
   app.use(config.apiBase + '/themes', themeRoutes);
   app.use(config.apiBase + '/activities', activityRoutes);
   app.use(config.apiBase + '/weeks', weekRoutes);
+  app.use(config.apiBase + '/external-types', externalTypeRoutes);
   app.use(config.apiBase, instanceRoutes);
   app.use(config.apiBase + '/progress', progressRoutes);
 

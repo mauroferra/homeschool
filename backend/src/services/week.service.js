@@ -1,9 +1,11 @@
-import { Week, ActivityInstance, Activity, Theme } from '../db/models/index.js';
-import { notFound } from '../utils/error.js';
+import { Week, ActivityInstance, Activity, Theme, ExternalActivityType } from '../db/models/index.js';
+import { notFound, badRequest } from '../utils/error.js';
 import { dateOnlyISO, weekRangeISO, startOfWeek, addDays, toISO } from '../utils/date.js';
+import { blockTypes } from '../utils/constants.js';
 
 const instanceInclude = [
   { model: Activity, as: 'Activity', required: false, include: [{ model: Theme, as: 'Theme', required: false }] },
+  { model: ExternalActivityType, as: 'ExternalActivityType', required: false },
 ];
 
 export function weekDto(week) {
@@ -14,8 +16,10 @@ export function weekDto(week) {
 export function instanceDto(at) {
   const j = at.toJSON();
   const activity = j.Activity || j.activity || {};
-  const isAdHoc = j.adHocTitle != null;
-  const title = j.adHocTitle || activity.title;
+  const isAdHoc = j.adHocTitle != null || j.externalTypeId != null;
+  const isExternal = j.blockType === blockTypes.EXTERNAL_ACTIVITY;
+  const externalType = j.ExternalActivityType || {};
+  const title = externalType.name || j.adHocTitle || activity.title;
   const category = j.adHocCategory || activity.category;
   return {
     id: j.id,
@@ -29,6 +33,8 @@ export function instanceDto(at) {
     created_at: j.createdAt,
     updated_at: j.updatedAt,
     ad_hoc: isAdHoc,
+    is_external: isExternal,
+    external_type_id: j.externalTypeId,
     activity: {
       id: activity.id,
       title,
@@ -133,6 +139,33 @@ export async function createAdHocInstance(userId, weekId, { day_of_week, block_t
     adHocDescription: description,
     adHocDuration: estimated_duration,
     adHocLinks: links || [],
+  });
+  return getInstance(userId, instance.id);
+}
+
+export async function createExternalPlaceholder(userId, weekId, { day_of_week, home_tag, external_type_id, title }) {
+  const week = await Week.findOne({ where: { id: weekId, userId } });
+  if (!week) throw notFound('Week not found');
+  let externalTypeId = null;
+  let adHocTitle = title || null;
+  if (external_type_id) {
+    const type = await ExternalActivityType.findOne({ where: { id: external_type_id, userId } });
+    if (!type) throw notFound('External activity type not found');
+    externalTypeId = type.id;
+    adHocTitle = null;
+  } else if (!adHocTitle) {
+    throw badRequest('External activity type or title is required', 'VALIDATION');
+  }
+  const instance = await ActivityInstance.create({
+    weekId,
+    dayOfWeek: day_of_week,
+    blockType: blockTypes.EXTERNAL_ACTIVITY,
+    activityId: null,
+    homeTag: home_tag || 'Home A',
+    status: null,
+    reflectionText: null,
+    adHocTitle,
+    externalTypeId,
   });
   return getInstance(userId, instance.id);
 }
