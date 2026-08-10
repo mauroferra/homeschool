@@ -1,5 +1,5 @@
 services:
-  curriculum:
+  app:
     image: docker.io/mauroferra/faro:latest
     build: .
     container_name: faro-app

@@ -3,7 +3,7 @@
 # (and optionally DB_NAME/DB_USER/DB_PASSWORD, defaulting to app/faro).
 # Mirrors docker-compose.yml: same image, env, postgres and healthcheck.
 services:
-  curriculum:
+  app:
     image: docker.io/mauroferra/faro:latest
     container_name: faro-app
     ports:
