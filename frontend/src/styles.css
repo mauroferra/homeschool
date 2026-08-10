@@ -381,10 +381,12 @@ a { color: var(--primary); text-decoration: none; }
   border-radius: 5px; font-size: 11px; padding: 3px 5px; cursor: pointer;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.month-instance.block-italian-micro-immersion { border-left-color: var(--block-imi-acc); }
-.month-instance.block-czech-school-alignment { border-left-color: var(--block-csa-acc); }
-.month-instance.block-italian-cultural-activity { border-left-color: var(--block-ica-acc); }
-.month-instance.block-bonding-ritual { border-left-color: var(--block-br-acc); }
+.month-instance.cat-language { border-left-color: var(--block-imi-acc); }
+.month-instance.cat-culture { border-left-color: var(--block-ica-acc); }
+.month-instance.cat-school-alignment { border-left-color: var(--block-csa-acc); }
+.month-instance.cat-ritual { border-left-color: var(--block-br-acc); }
+.month-instance.cat-project,
+.month-instance.cat-professional { border-left-color: #7a6f9e; }
 
 /* ---------- Cards ---------- */
 .card {
