@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useWeekStore, EXTERNAL_BLOCK } from '../store/weekStore';
 import { useActivityStore } from '../store/activityStore';
@@ -15,6 +14,7 @@ import Tabs from '../components/ui/Tabs';
 import { Select } from '../components/ui/Input';
 import Button from '../components/ui/Button';
 import ActivityForm from '../features/activities/ActivityForm';
+import ActivityDetailModal from '../features/activities/ActivityDetailModal';
 import ExternalActivityForm from '../features/weekplanner/ExternalActivityForm';
 import {
   startOfWeek, dateOnlyISO, parseISO, addDays, weekdayIndex, isSameDay, isSameMonth,
@@ -25,7 +25,6 @@ import { useLocalized } from '../utils/localize';
 export default function WeekOverviewPage() {
   const { t } = useTranslation();
   const L = useLocalized();
-  const navigate = useNavigate();
   const {
     weeks, currentWeek, instances, loading, error,
     viewDate, monthInstances,
@@ -39,6 +38,7 @@ export default function WeekOverviewPage() {
   const [ready, setReady] = useState(false);
   const [view, setView] = useState('week');
   const [addModal, setAddModal] = useState(null);
+  const [detailId, setDetailId] = useState(null);
   const [tab, setTab] = useState(0);
   const [pickedTemplate, setPickedTemplate] = useState('');
 
@@ -102,7 +102,11 @@ export default function WeekOverviewPage() {
     : view === 'day' ? instances.filter((i) => i.day_of_week === weekdayIndex(anchorDate)).length
       : instances.length;
 
-  const openInstance = (inst) => navigate(`/activity/${inst.id}`);
+  const openInstance = (inst) => setDetailId(inst.id);
+  const openDay = async (date) => {
+    await setViewDate(date);
+    setView('day');
+  };
   const openAdd = (blockType, date) => {
     setPickedTemplate('');
     setAddModal({ date, dayOfWeek: weekdayIndex(date), blockType });
@@ -110,6 +114,10 @@ export default function WeekOverviewPage() {
 
   const refreshMonth = async () => {
     if (viewDate) await loadMonth(parseISO(viewDate));
+  };
+
+  const onDetailChanged = async () => {
+    if (view === 'month' && viewDate) await loadMonth(parseISO(viewDate));
   };
 
   const addFromTemplate = async () => {
@@ -171,14 +179,14 @@ export default function WeekOverviewPage() {
       {view === 'week' && (
         <>
           <div className="week-grid-view">
-            <WeekGrid startDate={startDate} instances={instances} onOpenInstance={openInstance} onAdd={openAdd} />
+            <WeekGrid startDate={startDate} instances={instances} onOpenInstance={openInstance} onAdd={openAdd} onOpenDay={openDay} />
           </div>
 
           <div className="mobile-day-scroller">
             {Array.from({ length: 7 }).map((_, i) => {
               const date = addDays(parseISO(startDate), i);
               return (
-                <DayColumn key={i} date={date} dayIndex={i} instances={instances} onOpenInstance={openInstance} onAdd={openAdd} />
+                <DayColumn key={i} date={date} dayIndex={i} instances={instances} onOpenInstance={openInstance} onAdd={openAdd} onOpenDay={openDay} />
               );
             })}
           </div>
@@ -204,6 +212,7 @@ export default function WeekOverviewPage() {
           weeks={weeks}
           onOpenInstance={openInstance}
           onAdd={openAdd}
+          onOpenDay={openDay}
         />
       )}
 
@@ -236,6 +245,7 @@ export default function WeekOverviewPage() {
           </>
         )}
       </Modal>
+      {detailId && <ActivityDetailModal instanceId={detailId} onClose={() => setDetailId(null)} onChanged={onDetailChanged} />}
     </div>
   );
 }
