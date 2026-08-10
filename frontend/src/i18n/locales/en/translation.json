@@ -81,6 +81,7 @@
   },
   "activity": {
     "loading": "Loading activity…",
+    "detail": "Activity detail",
     "back": "Back to week",
     "removeConfirm": "Remove this scheduled activity?",
     "created": "Created {{date}}",

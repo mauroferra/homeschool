@@ -11,19 +11,36 @@ const BLOCK_TYPES = [
   'External Activity',
 ];
 
-export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd }) {
+export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd, onOpenDay }) {
   const { t } = useTranslation();
   const L = useLocalized();
+  const openDayHandler = (e, date) => {
+    if (!onOpenDay || e.target.closest('button')) return;
+    onOpenDay(date);
+  };
   return (
     <div className="week-grid">
       {Array.from({ length: 7 }).map((_, i) => {
         const date = dayOffset(startDate, i);
         const isToday = isSameDay(date, new Date());
         return (
-          <div key={i} className={`grid-col ${isToday ? 'is-today' : ''}`}>
+          <div
+            key={i}
+            className={`grid-col ${isToday ? 'is-today' : ''} ${onOpenDay ? 'day-nav' : ''}`}
+            onClick={(e) => openDayHandler(e, date)}
+          >
             <div className="day-header">
-              <span className="day-name">{t(`domain.weekday.${WEEKDAYS[i]}`)}</span>
-              <span className="day-date">{formatDate(date)}</span>
+              {onOpenDay ? (
+                <button type="button" className="day-nav-btn" onClick={() => onOpenDay(date)}>
+                  <span className="day-name">{t(`domain.weekday.${WEEKDAYS[i]}`)}</span>
+                  <span className="day-date">{formatDate(date)}</span>
+                </button>
+              ) : (
+                <>
+                  <span className="day-name">{t(`domain.weekday.${WEEKDAYS[i]}`)}</span>
+                  <span className="day-date">{formatDate(date)}</span>
+                </>
+              )}
             </div>
             <div className="grid-blocks">
               {BLOCK_TYPES.map((block) => (
