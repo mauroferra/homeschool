@@ -82,6 +82,7 @@
   },
   "activity": {
     "loading": "Nahrávám aktivitu…",
+    "detail": "Detail aktivity",
     "back": "Zpět na týden",
     "removeConfirm": "Odebrat tuto plánovanou aktivitu?",
     "created": "Vytvořeno {{date}}",

@@ -82,6 +82,7 @@
   },
   "activity": {
     "loading": "Caricamento attività…",
+    "detail": "Dettaglio attività",
     "back": "Torna alla settimana",
     "removeConfirm": "Rimuovere questa attività programmata?",
     "created": "Creato {{date}}",

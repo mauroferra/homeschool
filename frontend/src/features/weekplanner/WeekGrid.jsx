@@ -3,9 +3,13 @@ import { WEEKDAYS } from '../../utils/constants';
 import { dayOffset, formatDate, isSameDay } from '../../utils/dateHelpers';
 import { useLocalized } from '../../utils/localize';
 
-export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd }) {
+export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd, onOpenDay }) {
   const { t } = useTranslation();
   const L = useLocalized();
+  const openDayHandler = (e, date) => {
+    if (!onOpenDay || e.target.closest('button')) return;
+    onOpenDay(date);
+  };
   return (
     <div className="week-grid">
       {Array.from({ length: 7 }).map((_, i) => {
@@ -13,12 +17,23 @@ export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd }
         const isToday = isSameDay(date, new Date());
         const dayInstances = instances.filter((inst) => inst.day_of_week === i);
         return (
-          <div key={i} className={`grid-col ${isToday ? 'is-today' : ''}`}>
+          <div
+            key={i}
+            className={`grid-col ${isToday ? 'is-today' : ''} ${onOpenDay ? 'day-nav' : ''}`}
+            onClick={(e) => openDayHandler(e, date)}
+          >
             <div className="day-header">
-              <div className="day-header-meta">
-                <span className="day-name">{t(`domain.weekday.${WEEKDAYS[i]}`)}</span>
-                <span className="day-date">{formatDate(date)}</span>
-              </div>
+              {onOpenDay ? (
+                <button type="button" className="day-nav-btn" onClick={() => onOpenDay(date)}>
+                  <span className="day-name">{t(`domain.weekday.${WEEKDAYS[i]}`)}</span>
+                  <span className="day-date">{formatDate(date)}</span>
+                </button>
+              ) : (
+                <div className="day-header-meta">
+                  <span className="day-name">{t(`domain.weekday.${WEEKDAYS[i]}`)}</span>
+                  <span className="day-date">{formatDate(date)}</span>
+                </div>
+              )}
               <button type="button" className="btn-icon block-add" onClick={() => onAdd(date)} aria-label={t('week.addActivity')}>
                 +
               </button>
