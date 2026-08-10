@@ -210,7 +210,7 @@ export default function WeekOverviewPage() {
         />
       )}
 
-      <Modal open={!!addModal} title={addModal ? t('week.addActivityTitle', { block: t(`domain.block.${addModal.blockType}`) }) : ''} onClose={() => setAddModal(null)} size="md">
+      <Modal open={!!addModal} title={addModal ? (addModal.blockType === EXTERNAL_BLOCK ? t('week.addExternalActivityTitle') : t('week.addActivityTitle', { block: t(`domain.block.${addModal.blockType}`) })) : ''} onClose={() => setAddModal(null)} size="md">
         {addModal?.blockType === EXTERNAL_BLOCK ? (
           <ExternalActivityForm onSubmit={createExternal} onCancel={() => setAddModal(null)} />
         ) : (

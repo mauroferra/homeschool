@@ -61,6 +61,7 @@
     "noActivity": "Nessuna attività",
     "addActivity": "Aggiungi attività",
     "addActivityTitle": "Aggiungi attività · {{block}}",
+    "addExternalActivityTitle": "Aggiungi attività esterna",
     "fromTemplate": "Da modello",
     "newActivity": "Nuova attività",
     "external": "Esterna",

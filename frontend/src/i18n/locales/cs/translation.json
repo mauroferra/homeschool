@@ -61,6 +61,7 @@
     "noActivity": "Žádná aktivita",
     "addActivity": "Přidat aktivitu",
     "addActivityTitle": "Přidat aktivitu · {{block}}",
+    "addExternalActivityTitle": "Přidat externí aktivitu",
     "fromTemplate": "Ze šablony",
     "newActivity": "Nová aktivita",
     "external": "Externí",
