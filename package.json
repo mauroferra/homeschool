@@ -1,5 +1,5 @@
 {
-  "name": "homeschool",
+  "name": "faro",
   "version": "1.0.0",
   "private": true,
   "description": "Faro — Czech–Italian hybrid curriculum app; single-command dev and deployment for backend + frontend",
@@ -12,7 +12,7 @@
     "start": "npm --prefix backend run start",
     "deploy": "npm run setup && npm --prefix backend run db:migrate && npm --prefix backend run db:seed && npm run build && npm start",
     "test": "npm --prefix backend test",
-    "container:build": "CONTAINER_TOOL=${CONTAINER_TOOL:-$(command -v podman >/dev/null 2>&1 && printf podman || printf docker)}; $CONTAINER_TOOL build -t ${IMAGE:-docker.io/mauroferra/homeschool:latest} .",
-    "container:push": "CONTAINER_TOOL=${CONTAINER_TOOL:-$(command -v podman >/dev/null 2>&1 && printf podman || printf docker)}; $CONTAINER_TOOL push ${IMAGE:-docker.io/mauroferra/homeschool:latest}"
+    "container:build": "CONTAINER_TOOL=${CONTAINER_TOOL:-$(command -v podman >/dev/null 2>&1 && printf podman || printf docker)}; $CONTAINER_TOOL build -t ${IMAGE:-docker.io/mauroferra/faro:latest} .",
+    "container:push": "CONTAINER_TOOL=${CONTAINER_TOOL:-$(command -v podman >/dev/null 2>&1 && printf podman || printf docker)}; $CONTAINER_TOOL push ${IMAGE:-docker.io/mauroferra/faro:latest}"
   }
 }

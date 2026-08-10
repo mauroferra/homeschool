@@ -21,7 +21,7 @@ const config = {
     dialect: process.env.DB_DIALECT || 'sqlite',
     host: process.env.DB_HOST || 'localhost',
     port: parseInt(process.env.DB_PORT || '5432', 10),
-    database: process.env.DB_NAME || 'homeschool',
+    database: process.env.DB_NAME || 'faro',
     username: process.env.DB_USER || 'app',
     password: process.env.DB_PASSWORD || 'app',
     storage: process.env.DB_STORAGE || path.resolve(__dirname, '../../data/app.db'),

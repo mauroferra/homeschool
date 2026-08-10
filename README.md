@@ -79,8 +79,8 @@ Demo accounts (created by the seed):
 
 | Role  | Email                   | Password    |
 |-------|-------------------------|-------------|
-| Admin | `admin@homeschool.app`  | `admin123`  |
-| Parent| `parent@homeschool.app` | `parent123` |
+| Admin | `admin@faro.app`  | `admin123`  |
+| Parent| `parent@faro.app` | `parent123` |
 
 Admin can manage users (`/users`). The parent account owns the demo curriculum.
 
@@ -108,7 +108,7 @@ Set these in `backend/.env` (SQLite remains the default):
 DB_DIALECT=postgres      # or mysql
 DB_HOST=localhost
 DB_PORT=5432
-DB_NAME=homeschool
+DB_NAME=faro
 DB_USER=app
 DB_PASSWORD=app
 ```
@@ -133,8 +133,8 @@ The [`Dockerfile`](Dockerfile) produces a single self-contained image: it builds
 ```bash
 docker compose up --build
 # or
-docker build -t homeschool .
-docker run -p 4000:4000 -e JWT_SECRET=change-me -v homeschool-data:/app/backend/data homeschool
+docker build -t faro .
+docker run -p 4000:4000 -e JWT_SECRET=change-me -v faro-data:/app/backend/data faro
 ```
 
 ### Podman
@@ -142,9 +142,9 @@ docker run -p 4000:4000 -e JWT_SECRET=change-me -v homeschool-data:/app/backend/
 Podman auto-detects `Containerfile` first, so the repo ships an identical copy of the `Dockerfile` under `Containerfile` — either name works:
 
 ```bash
-podman build -t homeschool .
+podman build -t faro .
 # or, explicitly
-podman build -t homeschool -f Dockerfile .
+podman build -t faro -f Dockerfile .
 ```
 
 Then run it (and optionally compose):
@@ -152,10 +152,10 @@ Then run it (and optionally compose):
 ```bash
 podman run -p 4000:4000 \
   -e JWT_SECRET=change-me \
-  -e ADMIN_EMAIL=admin@homeschool.app \
+  -e ADMIN_EMAIL=admin@faro.app \
   -e ADMIN_PASSWORD=admin123 \
-  -v homeschool-data:/app/backend/data \
-  homeschool
+  -v faro-data:/app/backend/data \
+  faro
 
 # Compose (podman 4.7+ has a built-in wrapper; otherwise use the docker-compose CLI
 # against the podman socket via podman-docker)
@@ -181,16 +181,16 @@ podman compose up -d --pull always
 
 ```bash
 # Build with the registry-qualified tag
-podman build -t docker.io/mauroferra/homeschool:latest .
+podman build -t docker.io/mauroferra/faro:latest .
 
 # Log in to Docker Hub (use an access token with read/write permission as the password)
 podman login docker.io
 
 # Push the image
-podman push docker.io/mauroferra/homeschool:latest
+podman push docker.io/mauroferra/faro:latest
 ```
 
-`docker.io/mauroferra/homeschool:latest` is the image referenced by `docker-compose.yml` and `deploy/synology.yml`. On first push to a new repo the `:latest` tag is created; subsequent pushes overwrite it.
+`docker.io/mauroferra/faro:latest` is the image referenced by `docker-compose.yml` and `deploy/synology.yml`. On first push to a new repo the `:latest` tag is created; subsequent pushes overwrite it.
 
 ### One-shot build → push → redeploy
 

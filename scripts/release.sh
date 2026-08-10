@@ -20,7 +20,7 @@ else
   echo "Error: neither docker nor podman found" >&2
   exit 1
 fi
-IMAGE="${IMAGE:-docker.io/mauroferra/homeschool:latest}"
+IMAGE="${IMAGE:-docker.io/mauroferra/faro:latest}"
 
 PUSH=true
 RESTART=true
