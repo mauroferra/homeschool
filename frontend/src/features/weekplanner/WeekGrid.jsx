@@ -58,7 +58,6 @@ export default function WeekGrid({ startDate, instances, onOpenInstance, onAdd, 
                         <button key={inst.id} type="button" className={`instance-chip ${inst.is_external ? 'chip-external' : ''}`} onClick={() => onOpenInstance(inst)}>
                           {!inst.is_external && <span className={`status-dot status-${inst.status.toLowerCase().replace(/\s+/g, '-')}`} />}
                           {L(inst.activity, 'title')}
-                          {inst.home_tag !== 'Home A' && <span className="home-chip">{inst.home_tag === 'Both' ? 'A+B' : 'B'}</span>}
                         </button>
                       ))}
                   </div>

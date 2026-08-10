@@ -15,10 +15,7 @@ export default function ActivityInstanceCard({ instance, onOpen }) {
     <button type="button" className={`instance-card ${isExternal ? 'instance-external' : ''}`} onClick={() => onOpen(instance)}>
       <div className="instance-main">
         <span className="instance-title">{L(activity, 'title')}</span>
-        {time && <span className="instance-time">{time}</span>}
-        {instance.home_tag !== 'Home A' && (
-          <span className="home-chip">{instance.home_tag === 'Both' ? 'A+B' : 'B'}</span>
-        )}
+{time && <span className="instance-time">{time}</span>}
       </div>
       <div className="instance-meta">
         {isExternal ? (

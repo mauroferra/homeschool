@@ -19,7 +19,6 @@ export default function ActivityForm({ initial = {}, themes = [], onSubmit, onCa
     end_time: initial.end_time || '',
     links: initial.links || [],
     theme_id: initial.theme_id ?? '',
-    home_tag: initial.home_tag || 'Home A',
   });
   const [linkInput, setLinkInput] = useState('');
   const [errors, setErrors] = useState({});
@@ -56,7 +55,6 @@ export default function ActivityForm({ initial = {}, themes = [], onSubmit, onCa
         end_time: form.end_time || null,
         links: form.links.filter(Boolean),
         theme_id: form.theme_id || null,
-        home_tag: form.home_tag,
       });
     } catch (err) {
       setError(err.message);
