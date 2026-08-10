@@ -3,9 +3,11 @@ import { useTranslation } from 'react-i18next';
 import Button from '../../components/ui/Button';
 import { Input, Select } from '../../components/ui/Input';
 import { useExternalTypeStore } from '../../store/externalTypeStore';
+import { useLocalized } from '../../utils/localize';
 
 export default function ExternalActivityForm({ onSubmit, onCancel, submitLabel }) {
   const { t } = useTranslation();
+  const L = useLocalized();
   const { types, createType } = useExternalTypeStore();
   const [typeId, setTypeId] = useState('');
   const [customOpen, setCustomOpen] = useState(false);
@@ -42,7 +44,7 @@ export default function ExternalActivityForm({ onSubmit, onCancel, submitLabel }
         name="external-type"
         value={typeId}
         onChange={(e) => setTypeId(e.target.value)}
-        options={types.map((tp) => ({ value: tp.id, label: tp.name }))}
+        options={types.map((tp) => ({ value: tp.id, label: L(tp, 'name') }))}
         placeholder={t('week.chooseType')}
       />
       <button type="button" className="btn-link" onClick={() => setCustomOpen((o) => !o)}>

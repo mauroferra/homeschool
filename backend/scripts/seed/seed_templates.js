@@ -702,14 +702,18 @@ async function createUserIfMissing(email, password, role) {
 // Default externally-scheduled activity types (issue #7): swimming, speech
 // therapy, physiotherapy. Add/rename/remove via the API afterwards.
 const DEFAULT_EXTERNAL_TYPES = [
-  'Swimming class',
-  'Speech therapy',
-  'Physiotherapy',
+  { name: 'Swimming class', name_en: 'Swimming class', name_cs: 'Plavecký kurz', name_it: 'Corso di nuoto' },
+  { name: 'Speech therapy', name_en: 'Speech therapy', name_cs: 'Logopedie', name_it: 'Logopedia' },
+  { name: 'Physiotherapy', name_en: 'Physiotherapy', name_cs: 'Fyzioterapie', name_it: 'Fisioterapia' },
 ];
 
 async function seedDefaultExternalTypes(userId) {
-  for (const name of DEFAULT_EXTERNAL_TYPES) {
-    await ExternalActivityType.findOrCreate({ where: { userId, name }, defaults: { userId, name } });
+  for (const t of DEFAULT_EXTERNAL_TYPES) {
+    const [type] = await ExternalActivityType.findOrCreate({
+      where: { userId, name: t.name },
+      defaults: { userId, name: t.name, name_en: t.name_en, name_cs: t.name_cs, name_it: t.name_it },
+    });
+    await type.update({ name_en: t.name_en, name_cs: t.name_cs, name_it: t.name_it });
   }
 }
 

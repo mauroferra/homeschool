@@ -3,7 +3,7 @@ import { notFound, badRequest } from '../utils/error.js';
 
 function dto(t) {
   const j = t.toJSON();
-  return { id: j.id, name: j.name, created_at: j.createdAt, updated_at: j.updatedAt };
+  return { id: j.id, name: j.name, name_en: j.name_en, name_cs: j.name_cs, name_it: j.name_it, created_at: j.createdAt, updated_at: j.updatedAt };
 }
 
 export async function listExternalTypes(userId) {
