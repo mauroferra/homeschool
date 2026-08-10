@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Czech–Italian Hybrid Curriculum API
+  title: Faro API
   description: API for managing weekly curriculum, activities, themes, progress, and authentication.
   version: 1.0.0
 

@@ -1,5 +1,5 @@
 # API Specification, Database Schema & Wireframes
-**Project:** Czech–Italian Hybrid Curriculum Web Application  
+**Project:** Faro  
 **Owner:** Mauro  
 **Document Type:** Technical Specification (Raw Markdown)
 
