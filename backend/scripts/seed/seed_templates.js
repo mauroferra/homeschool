@@ -116,6 +116,219 @@ description_cs: 'Tradiční oslavy v průběhu roku.',
   },
 ];
 
+// Monthly theme planning (issue #12). Mirrors the three September themes
+// (Italian Cities, Italian Foods, Italian Holidays): one theme per cultural
+// area, with English as the base name/description and explicit Czech/Italian
+// translations. Each month of the seeded year after September gets 2-3 themes.
+const monthlyThemes = [
+  // --- October 2026 · Milestone II · Sillabe Aperte ---
+  {
+    name: 'Autumn Colours', name_cs: 'Podzimní barvy', name_it: 'I colori dell’autunno',
+    description: 'Leaves turn red, orange and yellow; collect them and name the colours in Italian.',
+    description_cs: 'Listí se barví do červena, oranžova a do žluta; sbírejte je a pojmenujte barvy italsky.',
+    description_it: 'Le foglie diventano rosse, arancioni e gialle; raccogli e dai un nome ai colori in italiano.',
+    startDate: '2026-10-01', endDate: '2026-10-31',
+  },
+  {
+    name: 'The Harvest', name_cs: 'Sklizeň', name_it: 'La raccolta',
+    description: 'Grapes, apples, chestnuts and pumpkins — autumn foods and their Italian names.',
+    description_cs: 'Hrozny, jablka, kaštany a dýně — podzimní plodiny a jejich italské názvy.',
+    description_it: 'Uva, mele, castagne e zucche — i cibi dell’autunno e i loro nomi italiani.',
+    startDate: '2026-10-01', endDate: '2026-10-31',
+  },
+  {
+    name: 'My Family', name_cs: 'Moje rodina', name_it: 'La mia famiglia',
+    description: 'Mother, father, grandparents and cousins — name everyone in Italian and Czech.',
+    description_cs: 'Máma, táta, prarodiče a bratranci — pojmenujte všechny italsky a česky.',
+    description_it: 'Mamma, papà, nonni e cugini — chiama tutti per nome in italiano e in ceco.',
+    startDate: '2026-10-01', endDate: '2026-10-31',
+  },
+
+  // --- November 2026 · Milestone III · Sillabe Chiuse e Gruppi ---
+  {
+    name: 'Remembering and Candles', name_cs: 'Vzpomínky a svíčky', name_it: 'Ricordi e candele',
+    description: 'At the start of November we remember family; light a candle and share a memory in Italian.',
+    description_cs: 'Na začátku listopadu vzpomínáme na rodinu; zapalte svíčku a podělte se o vzpomínku italsky.',
+    description_it: 'Ai primi di novembre ricordiamo i familiari; accendi una candela e condividi un ricordo in italiano.',
+    startDate: '2026-11-01', endDate: '2026-11-30',
+  },
+  {
+    name: 'The Farm', name_cs: 'Statek', name_it: 'La fattoria',
+    description: 'Farm animals and their sounds — cow, pig, hen, horse — in Italian and Czech.',
+    description_cs: 'Zvířata na statku a jejich zvuky — kráva, prase, slepice, kůň — italsky a česky.',
+    description_it: 'Gli animali della fattoria e i loro versi — mucca, maiale, gallina, cavallo — in italiano e in ceco.',
+    startDate: '2026-11-01', endDate: '2026-11-30',
+  },
+  {
+    name: 'Rainy Days', name_cs: 'Deštivé dny', name_it: 'Giorni di pioggia',
+    description: 'Umbrella, boots and raincoat — weather and clothing words for rainy days.',
+    description_cs: 'Deštník, holínky a pláštěnka — slova o počasí a oblečení pro deštivé dny.',
+    description_it: 'Ombrello, stivali e impermeabile — parole di meteo e vestiti per i giorni di pioggia.',
+    startDate: '2026-11-01', endDate: '2026-11-30',
+  },
+
+  // --- December 2026 · Milestone IV · Prime Parole Bisillabe ---
+  {
+    name: 'Christmas in Italy', name_cs: 'Vánoce v Itálii', name_it: 'Natale in Italia',
+    description: 'The tree, the crib and the stockings — Italian Christmas words and traditions.',
+    description_cs: 'Stromeček, betlém a punčochy — italská vánoční slova a tradice.',
+    description_it: 'L’albero, il presepe e le calze — parole e tradizioni del Natale italiano.',
+    startDate: '2026-12-01', endDate: '2026-12-23',
+  },
+  {
+    name: 'Winter Words', name_cs: 'Zimní slova', name_it: 'Parole d’inverno',
+    description: 'Snow, ice, scarf and gloves — winter words to use on cold walks.',
+    description_cs: 'Sníh, led, šála a rukavice — zimní slova pro procházky v mrazu.',
+    description_it: 'Neve, ghiaccio, sciarpa e guanti — parole d’inverno per le passeggiate al freddo.',
+    startDate: '2026-12-01', endDate: '2026-12-23',
+  },
+  {
+    name: 'Gifts and Kindness', name_cs: 'Dárky a laskavost', name_it: 'Regali e gentilezza',
+    description: 'Giving and receiving — words for gifts and kind gestures during the holidays.',
+    description_cs: 'Dávat a dostávat — slova pro dárky a laskavá gesta během svátků.',
+    description_it: 'Dare e ricevere — parole per i regali e i gesti gentili durante le feste.',
+    startDate: '2026-12-01', endDate: '2026-12-23',
+  },
+
+  // --- January 2027 · Milestone V · Scrittura ---
+  {
+    name: 'Befana and Epiphany', name_cs: 'Befana a Tři králové', name_it: 'La Befana e l’Epifania',
+    description: 'On 6 January the Befana brings gifts; tell the rhyme and look for the stocking.',
+    description_cs: '6. ledna přináší dárky Befana; převyprávějte říkadlo a hledejte punčošku.',
+    description_it: 'Il 6 gennaio arriva la Befana con i doni; racconta la filastrocca e cerca la calza.',
+    startDate: '2027-01-07', endDate: '2027-01-31',
+  },
+  {
+    name: 'Winter Games', name_cs: 'Zimní hry', name_it: 'Giochi d’inverno',
+    description: 'Sledging, snowballs and ice — play outside and name the games in Italian.',
+    description_cs: 'Sáňky, sněhové koule a led — hrajte si venku a pojmenujte hry italsky.',
+    description_it: 'Slitta, palle di neve e ghiaccio — gioca all’aperto e dai un nome ai giochi in italiano.',
+    startDate: '2027-01-07', endDate: '2027-01-31',
+  },
+  {
+    name: 'The Months of the Year', name_cs: 'Měsíce v roce', name_it: 'I mesi dell’anno',
+    description: 'Twelve months, four seasons — learn the names of the months in Italian and Czech.',
+    description_cs: 'Dvanáct měsíců, čtyři roční období — naučte se názvy měsíců italsky a česky.',
+    description_it: 'Dodici mesi, quattro stagioni — impara i nomi dei mesi in italiano e in ceco.',
+    startDate: '2027-01-07', endDate: '2027-01-31',
+  },
+
+  // --- February 2027 · Milestone VI · Articoli e Genere ---
+  {
+    name: 'Carnival of Masks', name_cs: 'Karneval masek', name_it: 'Carnevale delle maschere',
+    description: 'Arlecchino, Colombina and homemade masks — the colours and words of Carnival.',
+    description_cs: 'Arlecchino, Colombina a masky vyrobené doma — barvy a slova karnevalu.',
+    description_it: 'Arlecchino, Colombina e maschere fatte in casa — i colori e le parole del Carnevale.',
+    startDate: '2027-02-01', endDate: '2027-02-28',
+  },
+  {
+    name: 'Words of Friendship', name_cs: 'Slova přátelství', name_it: 'Parole dell’amicizia',
+    description: 'Friend, thank you, sharing — kind words to say and to write this month.',
+    description_cs: 'Přítel, děkuji, sdílení — laskavá slova, která tento měsíc vyslovíme a napíšeme.',
+    description_it: 'Amico, grazie, condividere — parole gentili da dire e scrivere questo mese.',
+    startDate: '2027-02-01', endDate: '2027-02-28',
+  },
+  {
+    name: 'From Winter to Spring', name_cs: 'Od zimy k jaru', name_it: 'Dall’inverno alla primavera',
+    description: 'The days get longer; notice the first signs of spring and give them a name.',
+    description_cs: 'Dny se prodlužují; všímejte si prvních jarních znamení a pojmenujte je.',
+    description_it: 'Le giornate si allungano; osserva i primi segni della primavera e dai loro un nome.',
+    startDate: '2027-02-01', endDate: '2027-02-28',
+  },
+
+  // --- March 2027 · Milestone VII · Singolare/Plurale e Frase ---
+  {
+    name: 'Fathers Day', name_cs: 'Den otců', name_it: 'La festa del papà',
+    description: 'On 19 March Italy celebrates fathers; make a card with a sentence for dad.',
+    description_cs: '19. března se v Itálii slaví Den otců; vyrobte pro tátu kartičku s větou.',
+    description_it: 'Il 19 marzo in Italia si festeggia il papà; prepara un biglietto con una frase per lui.',
+    startDate: '2027-03-01', endDate: '2027-03-31',
+  },
+  {
+    name: 'Spring Is Coming', name_cs: 'Přichází jaro', name_it: 'Arriva la primavera',
+    description: 'Flowers, birds and longer walks — spring words for the first warm days.',
+    description_cs: 'Květiny, ptáci a delší procházky — jarní slova pro první teplé dny.',
+    description_it: 'Fiori, uccelli e passeggiate più lunghe — parole di primavera per i primi giorni caldi.',
+    startDate: '2027-03-01', endDate: '2027-03-31',
+  },
+  {
+    name: 'The Garden in March', name_cs: 'Březnová zahrádka', name_it: 'L’orto di marzo',
+    description: 'Plant a seed and watch it grow; name the vegetables in Italian and Czech.',
+    description_cs: 'Zasaďte semínko a sledujte, jak roste; pojmenujte zeleninu italsky a česky.',
+    description_it: 'Pianta un seme e guardalo crescere; dai un nome agli ortaggi in italiano e in ceco.',
+    startDate: '2027-03-01', endDate: '2027-03-31',
+  },
+
+  // --- April 2027 · Milestone VIII · Verbi ---
+  {
+    name: 'Easter', name_cs: 'Velikonoce', name_it: 'La Pasqua',
+    description: 'Eggs, the basket and the Easter bunny — hunt for paper eggs while speaking Italian.',
+    description_cs: 'Vejce, košíček a velikonoční zajíček — hledejte papírová vejce a mluvte italsky.',
+    description_it: 'Uova, cestino e coniglietto — cerca uova di carta parlando in italiano.',
+    startDate: '2027-04-01', endDate: '2027-04-30',
+  },
+  {
+    name: 'Spring Flowers', name_cs: 'Jarní květiny', name_it: 'I fiori di primavera',
+    description: 'Tulips, daisies and the first flowers of the balcony and the garden.',
+    description_cs: 'Tulipány, sedmikrásky a první květiny na balkoně i na zahradě.',
+    description_it: 'Tulipani, margherite e i primi fiori di balcone e di giardino.',
+    startDate: '2027-04-01', endDate: '2027-04-30',
+  },
+  {
+    name: 'Italy in April', name_cs: 'Itálie v dubnu', name_it: 'L’Italia ad aprile',
+    description: 'Spring holidays and celebrations across Italy, from the south to the north.',
+    description_cs: 'Jarní svátky a oslavy v Itálii, od jihu k severu.',
+    description_it: 'Feste e celebrazioni di primavera in Italia, dal sud al nord.',
+    startDate: '2027-04-01', endDate: '2027-04-30',
+  },
+
+  // --- May 2027 · Milestone IX · Lettura e Comprensione ---
+  {
+    name: 'Mothers Day', name_cs: 'Den matek', name_it: 'La festa della mamma',
+    description: 'In May we celebrate mothers; prepare a bouquet of words for mamma.',
+    description_cs: 'V květnu slavíme Den matek; připravte pro maminku kytici slov.',
+    description_it: 'A maggio si festeggia la mamma; prepara un mazzo di parole per lei.',
+    startDate: '2027-05-01', endDate: '2027-05-31',
+  },
+  {
+    name: 'Nature and the Garden', name_cs: 'Příroda a zahrada', name_it: 'La natura e il giardino',
+    description: 'Insects, flowers and plants — discover nature and give it a name in Italian.',
+    description_cs: 'Hmyz, květiny a rostliny — objevujte přírodu a pojmenujte ji italsky.',
+    description_it: 'Insetti, fiori e piante — scopri la natura e dai un nome in italiano.',
+    startDate: '2027-05-01', endDate: '2027-05-31',
+  },
+  {
+    name: 'The Sea and the Beach', name_cs: 'Moře a pláž', name_it: 'Il mare e la spiaggia',
+    description: 'Shells, sand and the sea — summer holiday words to dream about early.',
+    description_cs: 'Mušle, písek a moře — slova o letních prázdninách, o kterých si budeme zdát.',
+    description_it: 'Conchiglie, sabbia e mare — parole di vacanza estiva per sognare in anticipo.',
+    startDate: '2027-05-01', endDate: '2027-05-31',
+  },
+
+  // --- June 2027 · Milestone X · Revisione e Librino ---
+  {
+    name: 'Summer Is Here', name_cs: 'Přišlo léto', name_it: 'Ecco l’estate',
+    description: 'The sun, the sea and the gelato — welcome summer with Italian words.',
+    description_cs: 'Slunce, moře a zmrzlina — přivítejte léto italskými slovy.',
+    description_it: 'Sole, mare e gelato — accogli l’estate con le parole italiane.',
+    startDate: '2027-06-01', endDate: '2027-06-30',
+  },
+  {
+    name: 'Travelling in Italy', name_cs: 'Cestování po Itálii', name_it: 'Viaggiare in Italia',
+    description: 'By train, by car or on foot — travel words for a summer trip.',
+    description_cs: 'Vlakem, autem nebo pěšky — cestovní slova pro letní výlet.',
+    description_it: 'In treno, in macchina o a piedi — parole di viaggio per una gita estiva.',
+    startDate: '2027-06-01', endDate: '2027-06-30',
+  },
+  {
+    name: 'My Book of Words', name_cs: 'Moje knížečka slov', name_it: 'Il mio librino di parole',
+    description: 'Collect the best words of the year into the little book — the final project.',
+    description_cs: 'Sesbírejte nejhezčí slova roku do knížečky — závěrečný projekt.',
+    description_it: 'Raccogli le parole più belle dell’anno nel librino — il progetto finale.',
+    startDate: '2027-06-01', endDate: '2027-06-30',
+  },
+];
+
 // ---------------------------------------------------------------------------
 // First-grade Italian curriculum (reading, writing, grammar).
 // Milestones are represented as monthly Theme records across the academic
@@ -984,6 +1197,10 @@ export async function seedDemo() {
   for (const t of sampleThemes) {
     const theme = await upsertTheme(parent.id, { ...t, startDate: '2026-09-01', endDate: '2026-09-30' });
     themes[t.name] = theme;
+  }
+
+  for (const t of monthlyThemes) {
+    await upsertTheme(parent.id, t);
   }
 
   for (const tmpl of templates) {

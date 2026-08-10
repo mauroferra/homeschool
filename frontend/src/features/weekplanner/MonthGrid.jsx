@@ -3,7 +3,7 @@ import { WEEKDAY_SHORT, BLOCK_TYPES } from '../../utils/constants';
 import { getMonthGrid, dateOnlyISO, isSameDay, isSameMonth, addDays, parseISO, sortInstancesByTime } from '../../utils/dateHelpers';
 import { useLocalized } from '../../utils/localize';
 
-export default function MonthGrid({ anchorDate, instances = [], weeks = [], onOpenInstance, onAdd }) {
+export default function MonthGrid({ anchorDate, instances = [], weeks = [], onOpenInstance, onAdd, onOpenDay }) {
   const { t } = useTranslation();
   const L = useLocalized();
   const grid = getMonthGrid(anchorDate);
@@ -15,6 +15,11 @@ export default function MonthGrid({ anchorDate, instances = [], weeks = [], onOp
     const iso = dateOnlyISO(addDays(parseISO(week.start_date), inst.day_of_week));
     (byDate[iso] ||= []).push(inst);
   });
+
+  const openDayHandler = (e, date) => {
+    if (!onOpenDay || e.target.closest('button')) return;
+    onOpenDay(date);
+  };
 
   return (
     <div className="month-view">
@@ -31,9 +36,20 @@ export default function MonthGrid({ anchorDate, instances = [], weeks = [], onOp
             const isToday = isSameDay(date, new Date());
             const inMonth = isSameMonth(date, anchorDate);
             return (
-              <div key={iso} className={`month-cell ${inMonth ? '' : 'out-month'} ${isToday ? 'is-today' : ''}`} data-iso={iso}>
+              <div
+                key={iso}
+                className={`month-cell ${inMonth ? '' : 'out-month'} ${isToday ? 'is-today' : ''} ${onOpenDay ? 'day-nav' : ''}`}
+                data-iso={iso}
+                onClick={(e) => openDayHandler(e, date)}
+              >
                 <div className="month-cell-head">
-                  <span className="month-day-number">{date.getDate()}</span>
+                  {onOpenDay ? (
+                    <button type="button" className="month-day-number day-nav-btn" onClick={() => onOpenDay(date)}>
+                      {date.getDate()}
+                    </button>
+                  ) : (
+                    <span className="month-day-number">{date.getDate()}</span>
+                  )}
                   <button
                     type="button"
                     className="btn-icon block-add month-cell-add"
