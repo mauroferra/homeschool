@@ -711,9 +711,9 @@ async function seedDefaultExternalTypes(userId) {
   for (const t of DEFAULT_EXTERNAL_TYPES) {
     const [type] = await ExternalActivityType.findOrCreate({
       where: { userId, name: t.name },
-      defaults: { userId, name: t.name, name_en: t.name_en, name_cs: t.name_cs, name_it: t.name_it },
+      defaults: { userId, name: t.name, nameEn: t.name_en, nameCs: t.name_cs, nameIt: t.name_it },
     });
-    await type.update({ name_en: t.name_en, name_cs: t.name_cs, name_it: t.name_it });
+    await type.update({ nameEn: t.name_en, nameCs: t.name_cs, nameIt: t.name_it });
   }
 }
 
