@@ -17,7 +17,6 @@ export default function ActivityForm({ initial = {}, themes = [], onSubmit, onCa
     estimated_duration: initial.estimated_duration ?? '',
     links: initial.links || [],
     theme_id: initial.theme_id ?? '',
-    home_tag: initial.home_tag || 'Home A',
   });
   const [linkInput, setLinkInput] = useState('');
   const [errors, setErrors] = useState({});
@@ -52,7 +51,6 @@ export default function ActivityForm({ initial = {}, themes = [], onSubmit, onCa
         estimated_duration: form.estimated_duration ? Number(form.estimated_duration) : null,
         links: form.links.filter(Boolean),
         theme_id: form.theme_id || null,
-        home_tag: form.home_tag,
       });
     } catch (err) {
       setError(err.message);

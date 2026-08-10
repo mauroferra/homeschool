@@ -119,7 +119,6 @@ export default function WeekOverviewPage() {
       day_of_week: addModal.dayOfWeek,
       block_type: addModal.blockType,
       activity_id: Number(pickedTemplate),
-      home_tag: 'Home A',
     });
     setAddModal(null);
     if (view === 'month') refreshMonth();
@@ -130,7 +129,6 @@ export default function WeekOverviewPage() {
     await addAdHocInstance({
       day_of_week: addModal.dayOfWeek,
       block_type: addModal.blockType,
-      home_tag: payload.home_tag || 'Home A',
       title: payload.title,
       category: payload.category,
       description: payload.description,
@@ -145,7 +143,6 @@ export default function WeekOverviewPage() {
     await ensureWeekForDate(addModal.date);
     await addExternalInstance({
       day_of_week: addModal.dayOfWeek,
-      home_tag: 'Home A',
       external_type_id,
       title,
     });

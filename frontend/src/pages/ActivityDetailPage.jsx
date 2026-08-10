@@ -24,7 +24,6 @@ export default function ActivityDetailPage() {
   const [instance, setInstance] = useState(null);
   const [status, setStatus] = useState('');
   const [reflection, setReflection] = useState('');
-  const [homeTag, setHomeTag] = useState('Home A');
   const [tab, setTab] = useState(0);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -37,7 +36,6 @@ export default function ActivityDetailPage() {
         setInstance(found);
         setStatus(found.status || '');
         setReflection(found.reflection_text || '');
-        setHomeTag(found.home_tag || 'Home A');
       } catch (err) {
         setError(err.message);
       }
@@ -49,8 +47,8 @@ export default function ActivityDetailPage() {
     setSaved(false);
     setError('');
     try {
-      await weekService.updateInstance(instance.id, { status, reflection_text: reflection, home_tag: homeTag });
-      setInstance({ ...instance, status, reflection_text: reflection, home_tag: homeTag });
+      await weekService.updateInstance(instance.id, { status, reflection_text: reflection });
+      setInstance({ ...instance, status, reflection_text: reflection });
       if (currentWeek) await refresh(currentWeek.id);
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);

@@ -166,13 +166,6 @@
     "activity": "aktivita",
     "weekOf": "Týden od {{date}}"
   },
-  "household": {
-    "label": "Domácnost",
-    "all": "Vše",
-    "homeA": "Domov A",
-    "homeB": "Domov B",
-    "both": "Obojí"
-  },
   "settingsPage": {
     "title": "Nastavení",
     "subtitle": "Profil, heslo a znovupoužitelné šablony aktivit.",
@@ -266,12 +259,6 @@
       "Fri": "Pá",
       "Sat": "So",
       "Sun": "Ne"
-    },
-    "household": {
-      "All": "Vše",
-      "Home A": "Domov A",
-      "Home B": "Domov B",
-      "Both": "Obojí"
     }
   }
 }

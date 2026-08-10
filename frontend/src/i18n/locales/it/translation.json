@@ -166,13 +166,6 @@
     "activity": "attività",
     "weekOf": "Settimana del {{date}}"
   },
-  "household": {
-    "label": "Nucleo familiare",
-    "all": "Tutti",
-    "homeA": "Casa A",
-    "homeB": "Casa B",
-    "both": "Entrambi"
-  },
   "settingsPage": {
     "title": "Impostazioni",
     "subtitle": "Profilo, password e modelli di attività riutilizzabili.",
@@ -266,12 +259,6 @@
       "Fri": "Ven",
       "Sat": "Sab",
       "Sun": "Dom"
-    },
-    "household": {
-      "All": "Tutti",
-      "Home A": "Casa A",
-      "Home B": "Casa B",
-      "Both": "Entrambi"
     }
   }
 }

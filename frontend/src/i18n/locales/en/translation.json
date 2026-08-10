@@ -166,13 +166,6 @@
     "activity": "activity",
     "weekOf": "Week of {{date}}"
   },
-  "household": {
-    "label": "Household",
-    "all": "All",
-    "homeA": "Home A",
-    "homeB": "Home B",
-    "both": "Both"
-  },
   "settingsPage": {
     "title": "Settings",
     "subtitle": "Profile, password and reusable activity templates.",
@@ -266,12 +259,6 @@
       "Fri": "Fri",
       "Sat": "Sat",
       "Sun": "Sun"
-    },
-    "household": {
-      "All": "All",
-      "Home A": "Home A",
-      "Home B": "Home B",
-      "Both": "Both"
     }
   }
 }
