@@ -2,7 +2,7 @@ import { Op } from 'sequelize';
 import { Week, ActivityInstance, Activity } from '../db/models/index.js';
 import { notFound } from '../utils/error.js';
 import { dateOnlyISO, startOfWeek, addDays } from '../utils/date.js';
-import { statuses, categories } from '../utils/constants.js';
+import { statuses, categories, blockTypes } from '../utils/constants.js';
 import { instanceDto } from './week.service.js';
 
 export async function getWeeklyStats(userId, { weekId } = {}) {
@@ -16,14 +16,15 @@ export async function getWeeklyStats(userId, { weekId } = {}) {
   if (!week) throw notFound('No week found for this period');
 
   const instances = await ActivityInstance.findAll({ where: { weekId: week.id } });
-  const total = instances.length;
-  const completed = instances.filter((i) => i.status === 'Completed').length;
-  const skipped = instances.filter((i) => i.status === 'Skipped').length;
-  const inProgress = instances.filter((i) => i.status === 'In progress').length;
+  const trackable = instances.filter((i) => i.blockType !== blockTypes.EXTERNAL_ACTIVITY);
+  const total = trackable.length;
+  const completed = trackable.filter((i) => i.status === 'Completed').length;
+  const skipped = trackable.filter((i) => i.status === 'Skipped').length;
+  const inProgress = trackable.filter((i) => i.status === 'In progress').length;
 
   const byCategory = {};
   for (const c of categories) byCategory[c] = 0;
-  for (const inst of instances) {
+  for (const inst of trackable) {
     let cat = null;
     if (inst.adHocCategory) {
       cat = inst.adHocCategory;
@@ -56,6 +57,7 @@ export async function getLastFourWeeks(userId) {
     let completed = 0;
     const byCategory = {};
     for (const inst of instances) {
+      if (inst.blockType === blockTypes.EXTERNAL_ACTIVITY) continue;
       let cat = null;
       if (inst.adHocCategory) cat = inst.adHocCategory;
       else if (inst.activityId) {
@@ -91,6 +93,7 @@ export async function getReflections(userId, { weekId } = {}) {
       include: [{ model: Activity, as: 'Activity', required: false }],
     });
     for (const inst of instances) {
+      if (inst.blockType === blockTypes.EXTERNAL_ACTIVITY) continue;
       if (!inst.reflectionText || !inst.reflectionText.trim()) continue;
       reflections.push({
         type: 'activity',

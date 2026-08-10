@@ -15,6 +15,7 @@ const ActivityInstance = getSequelize().define('ActivityInstance', {
   adHocDescription: { type: DataTypes.TEXT, field: 'ad_hoc_description', allowNull: true },
   adHocDuration: { type: DataTypes.INTEGER, field: 'ad_hoc_duration', allowNull: true },
   adHocLinks: { type: DataTypes.JSON, field: 'ad_hoc_links', allowNull: true },
+  externalTypeId: { type: DataTypes.INTEGER, field: 'external_type_id', allowNull: true },
 }, {
   tableName: 'activity_instances',
   timestamps: true,

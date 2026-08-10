@@ -25,6 +25,18 @@ export const createAdHocSchema = Joi.object({
   status: Joi.string().valid(...statuses).default('Not started'),
 });
 
+export const createExternalSchema = Joi.object({
+  day_of_week: Joi.number().integer().min(0).max(6).required(),
+  home_tag: Joi.string().valid(...householdTags).default('Home A'),
+  external_type_id: Joi.number().integer().min(1).allow(null),
+  title: Joi.string().min(1).max(200).allow(null),
+}).custom((value, helpers) => {
+  if (!value.external_type_id && !value.title) {
+    return helpers.error('any.required');
+  }
+  return value;
+}, 'at least one of external_type_id or title');
+
 export const updateInstanceSchema = Joi.object({
   day_of_week: Joi.number().integer().min(0).max(6),
   block_type: Joi.string().valid(...blockList),
@@ -36,4 +48,5 @@ export const updateInstanceSchema = Joi.object({
 
 export const validateCreateInstance = validate(createInstanceSchema);
 export const validateCreateAdHoc = validate(createAdHocSchema);
+export const validateCreateExternal = validate(createExternalSchema);
 export const validateUpdateInstance = validate(updateInstanceSchema);

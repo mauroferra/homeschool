@@ -17,10 +17,12 @@
   --block-csa: #eef4e6;
   --block-ica: #fdeee9;
   --block-br: #f4edf8;
+  --block-ext: #eef0f3;
   --block-imi-acc: #3b6da0;
   --block-csa-acc: #6f8639;
   --block-ica-acc: #c96a4f;
   --block-br-acc: #8a63a8;
+  --block-ext-acc: #7c8591;
   --mobile-nav-h: 62px;
   --topbar-h: 60px;
 }
@@ -122,6 +124,11 @@ a { color: var(--primary); text-decoration: none; }
 
 .link-input-row { display: flex; gap: 8px; }
 .link-input-row .field { flex: 1; margin-bottom: 0; }
+.btn-link {
+  background: none; border: none; color: var(--primary);
+  font-size: 13px; font-weight: 600; cursor: pointer; padding: 4px 0;
+  align-self: flex-start;
+}
 .link-list { list-style: none; margin: 8px 0 0; padding: 0; }
 .link-list li {
   display: flex; align-items: center; justify-content: space-between; gap: 8px;
@@ -129,6 +136,18 @@ a { color: var(--primary); text-decoration: none; }
   border-bottom: 1px solid var(--border);
 }
 .link-list a { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 80%; }
+
+.chip-list { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.chip-list-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px; border: 1px solid var(--border); border-radius: 10px;
+  background: var(--surface);
+}
+.chip-chip {
+  flex: 1; font-size: 14px; font-weight: 600;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.chip-actions { display: flex; gap: 4px; }
 
 .file-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
 .file-empty { color: var(--text-muted); font-size: 13px; }
@@ -272,6 +291,7 @@ a { color: var(--primary); text-decoration: none; }
 .block-czech-school-alignment { background: var(--block-csa); }
 .block-italian-cultural-activity { background: var(--block-ica); }
 .block-bonding-ritual { background: var(--block-br); }
+.block-external-activity { background: var(--block-ext); }
 .block-header {
   display: flex; align-items: center; justify-content: space-between; gap: 4px;
   padding: 5px 6px;
@@ -303,6 +323,17 @@ a { color: var(--primary); text-decoration: none; }
 .instance-status { font-size: 11px; color: var(--text-muted); }
 .instance-cat { font-size: 10px; color: var(--text-muted); background: var(--surface-2); padding: 1px 6px; border-radius: 4px; margin-left: auto; }
 .instance-reflect-icon { color: var(--text-muted); }
+.instance-external {
+  border-style: dashed;
+  border-color: var(--block-ext-acc);
+  background: var(--block-ext);
+}
+.external-badge {
+  font-size: 10px; font-weight: 700; color: var(--block-ext-acc);
+  background: var(--surface);
+  border: 1px dashed var(--block-ext-acc);
+  border-radius: 4px; padding: 1px 6px;
+}
 
 .instance-chip {
   width: 100%; text-align: left;
@@ -315,6 +346,12 @@ a { color: var(--primary); text-decoration: none; }
 .instance-chip .home-chip { margin-left: auto; flex-shrink: 0; }
 .instance-chip span:not(.status-dot):not(.home-chip) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .instance-chip .instance-title { }
+.chip-external {
+  border-style: dashed;
+  border-color: var(--block-ext-acc);
+  background: var(--block-ext);
+}
+.chip-external:not(.month-instance) { color: var(--block-ext-acc); }
 
 .status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 .status-not-started { background: #c7ccd4; }
@@ -385,6 +422,10 @@ a { color: var(--primary); text-decoration: none; }
 .month-instance.cat-ritual { border-left-color: var(--block-br-acc); }
 .month-instance.cat-project,
 .month-instance.cat-professional { border-left-color: #7a6f9e; }
+.month-external {
+  border-left: 3px dashed var(--block-ext-acc);
+  font-weight: 600;
+}
 
 /* ---------- Cards ---------- */
 .card {
@@ -403,6 +444,7 @@ a { color: var(--primary); text-decoration: none; }
 }
 .pill-cat { background: var(--primary-soft, #e7edf6); color: var(--primary); }
 .pill-theme { background: #f0edf8; color: #6a4fa3; }
+.pill-external { background: var(--block-ext); color: var(--block-ext-acc); border: 1px dashed var(--block-ext-acc); }
 .pill-active { background: var(--success); color: #fff; }
 .pill-muted { background: var(--surface-2); color: var(--text-muted); }
 .pill-weekly { background: var(--primary-soft, #e7edf6); color: var(--primary); }

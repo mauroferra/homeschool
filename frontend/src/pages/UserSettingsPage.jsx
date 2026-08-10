@@ -5,9 +5,11 @@ import Card from '../components/ui/Card';
 import { Input } from '../components/ui/Input';
 import ActivityTemplateList from '../features/activities/ActivityTemplateList';
 import ActivityForm from '../features/activities/ActivityForm';
+import ExternalTypeManager from '../features/settings/ExternalTypeManager';
 import Modal from '../components/ui/Modal';
 import { useActivityStore } from '../store/activityStore';
 import { useThemeStore } from '../store/themeStore';
+import { useExternalTypeStore } from '../store/externalTypeStore';
 import { authService } from '../services/authService';
 import { useAuthStore } from '../store/authStore';
 
@@ -15,6 +17,7 @@ export default function UserSettingsPage() {
   const { t } = useTranslation();
   const { templates, loadTemplates, createTemplate, updateTemplate, deleteTemplate } = useActivityStore();
   const { themes, loadThemes } = useThemeStore();
+  const { types, loadTypes, createType, updateType, deleteType } = useExternalTypeStore();
   const user = useAuthStore((s) => s.user);
   const [editing, setEditing] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -29,6 +32,7 @@ export default function UserSettingsPage() {
   useEffect(() => {
     loadTemplates().catch(() => {});
     loadThemes().catch(() => {});
+    loadTypes().catch(() => {});
   }, []);
 
   const openCreate = () => { setEditing(null); setModalOpen(true); };
@@ -75,6 +79,7 @@ export default function UserSettingsPage() {
       <div className="settings-tabs">
         <button type="button" className={`settings-tab ${tab === 0 ? 'active' : ''}`} onClick={() => setTab(0)}>{t('settingsPage.account')}</button>
         <button type="button" className={`settings-tab ${tab === 1 ? 'active' : ''}`} onClick={() => setTab(1)}>{t('settingsPage.templates', { count: templates.length })}</button>
+        <button type="button" className={`settings-tab ${tab === 2 ? 'active' : ''}`} onClick={() => setTab(2)}>{t('settingsPage.externalTypes', { count: types.length })}</button>
       </div>
 
       {tab === 0 ? (
@@ -104,6 +109,21 @@ export default function UserSettingsPage() {
             <Button icon="plus" onClick={openCreate}>{t('settingsPage.newTemplate')}</Button>
           </div>
           <ActivityTemplateList activities={templates} onEdit={openEdit} onDelete={handleDelete} />
+        </div>
+      )}
+
+      {tab === 2 && (
+        <div>
+          <div className="page-header">
+            <h2 className="card-title">{t('settingsPage.externalTypesTitle')}</h2>
+          </div>
+          <p className="page-sub">{t('settingsPage.subtitleExtTypes')}</p>
+          <ExternalTypeManager
+            types={types}
+            onAdd={createType}
+            onRename={updateType}
+            onDelete={deleteType}
+          />
         </div>
       )}
 

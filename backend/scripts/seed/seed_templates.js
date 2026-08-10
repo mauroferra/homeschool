@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import { User, Activity, Theme, Week, ActivityInstance } from '../../src/db/models/index.js';
+import { User, Activity, Theme, Week, ActivityInstance, ExternalActivityType } from '../../src/db/models/index.js';
 import { categories, blockTypes } from '../../src/utils/constants.js';
 
 // Demo templates. Base title/description are English; Czech and Italian
@@ -699,6 +699,24 @@ async function createUserIfMissing(email, password, role) {
   return user;
 }
 
+// Default externally-scheduled activity types (issue #7): swimming, speech
+// therapy, physiotherapy. Add/rename/remove via the API afterwards.
+const DEFAULT_EXTERNAL_TYPES = [
+  { name: 'Swimming class', name_en: 'Swimming class', name_cs: 'Plavecký kurz', name_it: 'Corso di nuoto' },
+  { name: 'Speech therapy', name_en: 'Speech therapy', name_cs: 'Logopedie', name_it: 'Logopedia' },
+  { name: 'Physiotherapy', name_en: 'Physiotherapy', name_cs: 'Fyzioterapie', name_it: 'Fisioterapia' },
+];
+
+async function seedDefaultExternalTypes(userId) {
+  for (const t of DEFAULT_EXTERNAL_TYPES) {
+    const [type] = await ExternalActivityType.findOrCreate({
+      where: { userId, name: t.name },
+      defaults: { userId, name: t.name, name_en: t.name_en, name_cs: t.name_cs, name_it: t.name_it },
+    });
+    await type.update({ name_en: t.name_en, name_cs: t.name_cs, name_it: t.name_it });
+  }
+}
+
 async function upsertTheme(userId, t) {
   const [theme] = await Theme.findOrCreate({
     where: { name: t.name, userId },
@@ -960,6 +978,10 @@ export async function seedDemo() {
 
   for (const tmpl of templates) {
     await upsertActivity(parent.id, tmpl);
+  }
+
+  for (const user of demo) {
+    await seedDefaultExternalTypes(user.id);
   }
 
   const weekStart = '2026-08-03';

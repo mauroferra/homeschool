@@ -5,6 +5,7 @@ export const BLOCK_TYPES = [
   'Czech School Alignment',
   'Italian Cultural Activity',
   'Bonding Ritual',
+  'External Activity',
 ];
 
 export const STATUSES = ['Not started', 'In progress', 'Completed', 'Skipped'];
@@ -18,6 +19,7 @@ export const BLOCK_LABELS = {
   'Czech School Alignment': 'Czech School Alignment',
   'Italian Cultural Activity': 'Italian Cultural Activity',
   'Bonding Ritual': 'Bonding Ritual',
+  'External Activity': 'External Activity',
 };
 
 export const BLOCK_COLORS = {
@@ -25,6 +27,7 @@ export const BLOCK_COLORS = {
   'Czech School Alignment': 'var(--block-csa)',
   'Italian Cultural Activity': 'var(--block-ica)',
   'Bonding Ritual': 'var(--block-br)',
+  'External Activity': 'var(--block-ext)',
 };
 
 export const STATIC_ROUTES = { week: '/week', themes: '/themes', progress: '/progress', settings: '/settings' };

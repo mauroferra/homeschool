@@ -61,8 +61,19 @@
     "noActivity": "No activity",
     "addActivity": "Add activity",
     "addActivityTitle": "Add activity · {{block}}",
+    "addExternalActivityTitle": "Add external activity",
     "fromTemplate": "From template",
     "newActivity": "New activity",
+    "external": "External",
+    "externalTitle": "External activity (e.g. swimming, therapy)",
+    "externalHint": "Scheduled outside the plan and shown for reference.",
+    "externalType": "Activity type",
+    "chooseType": "Choose a type",
+    "defineType": "Define a new type…",
+    "hideCustomType": "Done adding a type",
+    "externalTypeCustomPlaceholder": "e.g. Swimming class",
+    "externalName": "Activity name",
+    "externalNameRequired": "Activity name is required",
     "template": "Template",
     "chooseTemplate": "Choose a template",
     "cancel": "Cancel",
@@ -167,6 +178,7 @@
     "subtitle": "Profile, password and reusable activity templates.",
     "account": "Account",
     "templates": "Templates ({{count}})",
+    "externalTypes": "External types ({{count}})",
     "profileTitle": "Profile",
     "signedInAs": "Signed in as",
     "role": "Role",
@@ -184,7 +196,16 @@
     "editTitle": "Edit template",
     "newTitle": "New template",
     "createTemplate": "Create template",
-    "saveChanges": "Save changes"
+    "saveChanges": "Save changes",
+    "subtitleExtTypes": "Types of externally-scheduled activities (e.g. swimming, therapy) shown on the calendar.",
+    "externalTypesTitle": "External activity types",
+    "newExternalType": "New type",
+    "noExternalTypes": "No external activity types yet. Add the first one above.",
+    "renameExternalType": "Rename type",
+    "deleteExternalType": "Delete type",
+    "deleteExternalTypeConfirm": "Delete type \"{{name}}\"? Scheduled placeholders that use it stay on the calendar.",
+    "externalTypeName": "Type name",
+    "externalTypePlaceholder": "e.g. Swimming class"
   },
   "fileUploader": {
     "attachments": "Attachments",
@@ -204,13 +225,15 @@
       "Italian Micro-Immersion": "Italian Micro-Immersion",
       "Czech School Alignment": "Czech School Alignment",
       "Italian Cultural Activity": "Italian Cultural Activity",
-      "Bonding Ritual": "Bonding Ritual"
+      "Bonding Ritual": "Bonding Ritual",
+      "External Activity": "External Activity"
     },
     "blockShort": {
       "Italian Micro-Immersion": "IMI",
       "Czech School Alignment": "CSA",
       "Italian Cultural Activity": "ICA",
-      "Bonding Ritual": "BR"
+      "Bonding Ritual": "BR",
+      "External Activity": "EXT"
     },
     "category": {
       "Language": "Language",

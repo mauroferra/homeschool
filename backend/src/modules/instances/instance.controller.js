@@ -29,6 +29,15 @@ export async function createAdHoc(req, res, next) {
   }
 }
 
+export async function createExternal(req, res, next) {
+  try {
+    const instance = await weekService.createExternalPlaceholder(req.user.id, parseInt(req.params.week_id, 10), req.body);
+    res.status(201).json(instance);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function get(req, res, next) {
   try {
     const instance = await weekService.getInstance(req.user.id, parseInt(req.params.id, 10));

@@ -45,7 +45,7 @@ export default function MonthGrid({ anchorDate, instances = [], weeks = [], onOp
                 </div>
                 <div className="month-instances">
                   {dayInstances.map((inst) => (
-                    <button key={inst.id} type="button" className={`month-instance cat-${kebab(inst.activity?.category)}`} onClick={() => onOpenInstance(inst)}>
+                    <button key={inst.id} type="button" className={`month-instance ${inst.is_external ? 'month-external' : `cat-${kebab(inst.activity?.category)}`}`} onClick={() => onOpenInstance(inst)}>
                       {L(inst.activity, 'title')}
                     </button>
                   ))}

@@ -2,6 +2,8 @@ import { create } from 'zustand';
 import { weekService } from '../services/weekService';
 import { startOfWeek, dateOnlyISO, addWeek, addMonths, addDays, parseISO, getMonthGrid } from '../utils/dateHelpers';
 
+export const EXTERNAL_BLOCK = 'External Activity';
+
 export const useWeekStore = create((set, get) => ({
   weeks: [],
   currentWeek: null,
@@ -91,6 +93,18 @@ export const useWeekStore = create((set, get) => ({
   async addAdHocInstance(payload) {
     const week = get().currentWeek;
     const created = await weekService.createAdHocInstance(week.id, payload);
+    await get().loadWeek(week.id);
+    return created;
+  },
+
+  async addExternalInstance(payload) {
+    const week = get().currentWeek;
+    const created = await weekService.createExternalInstance(week.id, {
+      day_of_week: payload.day_of_week,
+      home_tag: payload.home_tag || 'Home A',
+      external_type_id: payload.external_type_id || null,
+      title: payload.title || null,
+    });
     await get().loadWeek(week.id);
     return created;
   },
