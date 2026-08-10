@@ -6,7 +6,7 @@ export default function AuthLayout({ children }) {
   return (
     <div className="auth-layout">
       <div className="auth-brand">
-        <span className="auth-badge">C·I</span>
+        <img src="/favicon.svg" alt="" className="auth-badge" />
         <h1>{t('app.title')}</h1>
         <p className="auth-tagline">{t('app.tagline')}</p>
         <LanguageSwitcher />

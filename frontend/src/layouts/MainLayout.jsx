@@ -50,7 +50,7 @@ export default function MainLayout({ children }) {
     <div className="app-shell">
       <header className="topbar">
         <NavLink to="/week" className="brand" onClick={(e) => handleClick(e, '/week')}>
-          <span className="brand-badge">C·I</span>
+          <img src="/favicon.svg" alt="" className="brand-badge" />
           <span className="brand-name">{t('app.name')}</span>
         </NavLink>
         <nav className="desktop-nav" aria-label={t('nav.ariaMain')}>
