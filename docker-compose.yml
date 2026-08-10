@@ -1,23 +1,23 @@
 services:
-  curriculum:
-    image: docker.io/mauroferra/homeschool:latest
+  app:
+    image: docker.io/mauroferra/faro:latest
     build: .
-    container_name: homeschool-curriculum
+    container_name: faro-app
     ports:
       - "4000:4000"
     environment:
       NODE_ENV: production
       JWT_SECRET: ${JWT_SECRET:-change-this-in-production}
-      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@homeschool.app}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@faro.app}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin123}
       DB_DIALECT: postgres
       DB_HOST: postgres
       DB_PORT: 5432
-      DB_NAME: ${DB_NAME:-homeschool}
+      DB_NAME: ${DB_NAME:-faro}
       DB_USER: ${DB_USER:-app}
       DB_PASSWORD: ${DB_PASSWORD:-app}
     volumes:
-      - curriculum-data:/app/backend/data
+      - faro-app-data:/app/backend/data
     depends_on:
       postgres:
         condition: service_healthy
@@ -25,15 +25,15 @@ services:
 
   postgres:
     image: docker.io/library/postgres:16-alpine
-    container_name: homeschool-postgres
+    container_name: faro-postgres
     environment:
-      POSTGRES_DB: ${DB_NAME:-homeschool}
+      POSTGRES_DB: ${DB_NAME:-faro}
       POSTGRES_USER: ${DB_USER:-app}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-app}
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - faro-postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-app} -d ${DB_NAME:-homeschool}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-app} -d ${DB_NAME:-faro}"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -41,5 +41,5 @@ services:
     restart: unless-stopped
 
 volumes:
-  curriculum-data:
-  postgres-data:
+  faro-app-data:
+  faro-postgres-data:

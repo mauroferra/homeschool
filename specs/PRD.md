@@ -1,5 +1,5 @@
 # Product Requirements Document (PRD)
-**Project:** Czech–Italian Hybrid Curriculum Web Application  
+**Project:** Faro  
 **Owner:** Mauro  
 **Purpose:** Provide developers with a complete specification for building a secure, private, mobile‑friendly web application that manages a Czech–Italian hybrid curriculum for a 6‑year‑old child.
 

@@ -1,5 +1,5 @@
 # Front-End Component Architecture
-**Project:** Czech–Italian Hybrid Curriculum Web Application  
+**Project:** Faro  
 **Owner:** Mauro  
 **Document Type:** Front-End Architecture (Raw Markdown)
 

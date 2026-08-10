@@ -16,7 +16,7 @@ npm run db:migrate && npm run db:seed   # required before first dev run (no auto
 npm run dev                              # :4000
 cd ../frontend && npm install && npm run dev   # :5173
 ```
-Seed logins: `parent@homeschool.app / parent123`, `admin@homeschool.app / admin123`. `SEED_DEMO=off` skips demo data (admin is always seeded). Passwords reset links are printed to the backend log in dev.
+Seed logins: `parent@faro.app / parent123`, `admin@faro.app / admin123`. `SEED_DEMO=off` skips demo data (admin is always seeded). Passwords reset links are printed to the backend log in dev.
 
 ## Verification (there is NO linter, formatter, or typecheck)
 - Backend: `cd backend && npm test` — node's built-in test runner; single integration file `tests/api.test.js` that syncs its own **in-memory** SQLite (`NODE_ENV=test DB_STORAGE=:memory:`), seeds a user, and exercises the API. Standalone; does not touch `data/app.db`.
@@ -44,7 +44,7 @@ Seed logins: `parent@homeschool.app / parent123`, `admin@homeschool.app / admin1
 - `DB_DIALECT=sqlite` default; Postgres/MySQL via env. `data/` (SQLite DB + uploads) is gitignored runtime state.
 
 ## Containers
-- `Containerfile` is a **symlink to `Dockerfile`** (single source of truth — edit `Dockerfile` only). Podman auto-detects `Containerfile`; `podman build -t homeschool .`.
+- `Containerfile` is a **symlink to `Dockerfile`** (single source of truth — edit `Dockerfile` only). Podman auto-detects `Containerfile`; `podman build -t faro .`.
 - Container entrypoint auto-runs migrate + seed every start (idempotent), so no manual `db:migrate`/`db:seed` inside the container. Persist `data/` (uploads) via a volume on `/app/backend/data`.
-- `docker-compose.yml` provisions a **PostgreSQL** service (`postgres-data` volume) as the persistent DB; the `curriculum` service depends on its `pg_isready` healthcheck before migrate/seed run. Build with `podman build -t homeschool .`.
+- `docker-compose.yml` provisions a **PostgreSQL** service (`postgres-data` volume) as the persistent DB; the `curriculum` service depends on its `pg_isready` healthcheck before migrate/seed run. Build with `podman build -t faro .`.
 - Deployment details: `specs/DEPLOYMENT-PLAN.md`; compose + env vars in `docker-compose.yml`.

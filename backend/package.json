@@ -1,7 +1,7 @@
 {
-  "name": "homeschool-backend",
+  "name": "faro-backend",
   "version": "1.0.0",
-  "description": "Czech–Italian Hybrid Curriculum API",
+  "description": "Faro API",
   "type": "module",
   "main": "src/app.js",
   "scripts": {

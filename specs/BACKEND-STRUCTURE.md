@@ -1,5 +1,5 @@
 # Backend Folder Structure
-**Project:** Czech–Italian Hybrid Curriculum Web Application  
+**Project:** Faro  
 **Owner:** Mauro  
 **Document Type:** Backend Architecture (Raw Markdown)
 

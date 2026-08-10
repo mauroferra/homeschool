@@ -962,8 +962,8 @@ async function seedCurriculum(parent) {
 }
 
 export async function seedDemo() {
-  const admin = await createUserIfMissing('admin@homeschool.app', 'admin123', 'admin');
-  const parent = await createUserIfMissing('parent@homeschool.app', 'parent123', 'parent');
+  const admin = await createUserIfMissing('admin@faro.app', 'admin123', 'admin');
+  const parent = await createUserIfMissing('parent@faro.app', 'parent123', 'parent');
 
   let demo = [admin, parent];
   if (process.env.SEED_DEMO_USER === 'on') {
@@ -1017,5 +1017,5 @@ export async function seedDemo() {
 }
 
 export async function ensureDemoUser() {
-  return createUserIfMissing('parent@homeschool.app', 'parent123', 'parent');
+  return createUserIfMissing('parent@faro.app', 'parent123', 'parent');
 }
