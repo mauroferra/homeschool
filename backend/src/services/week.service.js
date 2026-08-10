@@ -19,28 +19,28 @@ export function instanceDto(at) {
   const isAdHoc = j.adHocTitle != null || j.externalTypeId != null;
   const isExternal = j.blockType === blockTypes.EXTERNAL_ACTIVITY;
   const externalType = j.ExternalActivityType || {};
-  const title = externalType.name || j.adHocTitle || activity.title;
-  const category = j.adHocCategory || activity.category;
-  return {
-    id: j.id,
-    week_id: j.weekId,
-    day_of_week: j.dayOfWeek,
-    block_type: j.blockType,
-    activity_id: j.activityId,
-    home_tag: j.homeTag,
-    status: j.status,
-    reflection_text: j.reflectionText,
-    created_at: j.createdAt,
-    updated_at: j.updatedAt,
-    ad_hoc: isAdHoc,
-    is_external: isExternal,
-    external_type_id: j.externalTypeId,
-    activity: {
-      id: activity.id,
-      title,
-      title_en: activity.title_en,
-      title_cs: activity.title_cs,
-      title_it: activity.title_it,
+const title = externalType.name || j.adHocTitle || activity.title;
+const category = j.adHocCategory || activity.category;
+return {
+  id: j.id,
+  week_id: j.weekId,
+  day_of_week: j.dayOfWeek,
+  block_type: j.blockType,
+  activity_id: j.activityId,
+  home_tag: j.homeTag,
+  status: j.status,
+  reflection_text: j.reflectionText,
+  created_at: j.createdAt,
+  updated_at: j.updatedAt,
+  ad_hoc: isAdHoc,
+  is_external: isExternal,
+  external_type_id: j.externalTypeId,
+  activity: {
+    id: activity.id,
+    title,
+    title_en: externalType.nameEn || activity.title_en,
+    title_cs: externalType.nameCs || activity.title_cs,
+    title_it: externalType.nameIt || activity.title_it,
       category,
       description: j.adHocDescription ?? activity.description,
       description_en: activity.description_en,
