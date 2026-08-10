@@ -1,6 +1,6 @@
-# Czech–Italian Hybrid Curriculum
+# Faro
 
-A private, mobile-first web application for planning and tracking a bilingual (Czech–Italian) weekly and monthly curriculum for a young child. Built from the specs in [`specs/`](specs/).
+Faro is a private, mobile-first web application for planning and tracking a bilingual (Czech–Italian) weekly and monthly curriculum for a young child. Built from the specs in [`specs/`](specs/).
 
 ## Stack
 
