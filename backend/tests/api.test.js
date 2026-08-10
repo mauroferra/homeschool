@@ -110,6 +110,11 @@ test('week + instances + progress flow', async () => {
   const externalType = await api('/external-types', { method: 'POST', token, body: { name: 'Swimming class' } });
   assert.equal(externalType.status, 201);
 
+  const externalTypes = await api('/external-types', { token });
+  assert.equal(externalTypes.data.length, 1);
+  const localizedType = await api(`/external-types/${externalType.data.id}`, { method: 'PATCH', token, body: { name: 'Swimming class', name_it: 'Corso di nuoto' } });
+  assert.equal(localizedType.data.name_it, 'Corso di nuoto');
+
   const external = await api(`/weeks/${weekId}/instances/external`, {
     method: 'POST',
     token,
@@ -119,9 +124,7 @@ test('week + instances + progress flow', async () => {
   assert.equal(external.data.is_external, true);
   assert.equal(external.data.external_type_id, externalType.data.id);
   assert.equal(external.data.activity.title, 'Swimming class');
-
-  const externalTypes = await api('/external-types', { token });
-  assert.equal(externalTypes.data.length, 1);
+  assert.equal(external.data.activity.title_it, 'Corso di nuoto');
   const renamed = await api(`/external-types/${externalType.data.id}`, { method: 'PATCH', token, body: { name: 'Swim' } });
   assert.equal(renamed.data.name, 'Swim');
   const renamedInstance = await api(`/instances/${external.data.id}`, { token });
