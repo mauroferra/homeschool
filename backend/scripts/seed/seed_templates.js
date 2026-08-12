@@ -20,7 +20,7 @@ const templates = [
   },
   {
     title: 'Italian Breakfast Ritual',
-    title_it: 'Rituale della colazione italiana',
+    title_it: 'Colazione italiana',
     title_cs: 'Italský rituál snidaně',
     category: categories[3],
     description: 'Share a simple Italian breakfast and name the foods in Italian.',
@@ -42,7 +42,7 @@ const templates = [
   },
   {
     title: 'Pasta Shapes Charades',
-    title_it: 'Sciarada delle forme di pasta',
+    title_it: 'Mimo delle forme di pasta',
     title_cs: 'Šaráda s tvary těstovin',
     category: categories[1],
     description: 'Act out and name different pasta shapes in Italian.',
@@ -56,13 +56,13 @@ const templates = [
     title_cs: 'Procházka s čísly',
     category: categories[2],
     description: 'Practise counting to ten in Czech and Italian on a short walk.',
-    description_it: 'Esercitatevi a contare fino a dieci in ceco e in italiano durante una breve passeggiata.',
+    description_it: 'Esercitati a contare fino a dieci in ceco e in italiano durante una passeggiata.',
     description_cs: 'Za procházky si procvičte počítání do deseti česky a italsky.',
     estimatedDuration: 15,
   },
   {
     title: 'Evening Check-in Cuddle',
-    title_it: 'Amoretto del check-in serale',
+    title_it: 'Coccola serale',
     title_cs: 'Večerní objetí a check-in',
     category: categories[3],
     description: 'Five minutes of calm, one thing each that was good today.',
@@ -78,7 +78,7 @@ const templates = [
     title_cs: 'Dabing k pohádce',
     category: categories[0],
     description: 'Watch a short cartoon segment and repeat a favourite line.',
-    description_it: 'Guarda un breve cartoon e ripeti una battuta preferita.',
+    description_it: 'Guarda un cartone animato e ripeti una battuta che ti è piaciuta.',
     description_cs: 'Sledujte krátkou část pohádky a zopakujte oblíbenou větu.',
     estimatedDuration: 15,
   },
@@ -305,7 +305,7 @@ const monthlyThemes = [
     startDate: '2027-05-01', endDate: '2027-05-31',
   },
 
-  // --- June 2027 · Milestone X · Revisione e Librino ---
+  // --- June 2027 · Milestone X · Revisione e Libretto ---
   {
     name: 'Summer Is Here', name_cs: 'Přišlo léto', name_it: 'Ecco l’estate',
     description: 'The sun, the sea and the gelato — welcome summer with Italian words.',
@@ -321,10 +321,10 @@ const monthlyThemes = [
     startDate: '2027-06-01', endDate: '2027-06-30',
   },
   {
-    name: 'My Book of Words', name_cs: 'Moje knížečka slov', name_it: 'Il mio librino di parole',
+    name: 'My Book of Words', name_cs: 'Moje knížečka slov', name_it: 'Il mio libretto delle parole',
     description: 'Collect the best words of the year into the little book — the final project.',
     description_cs: 'Sesbírejte nejhezčí slova roku do knížečky — závěrečný projekt.',
-    description_it: 'Raccogli le parole più belle dell’anno nel librino — il progetto finale.',
+    description_it: 'Raccogli le parole più belle dell’anno nel libretto — il progetto finale.',
     startDate: '2027-06-01', endDate: '2027-06-30',
   },
 ];
@@ -422,7 +422,7 @@ const curriculumThemes = [
     startDate: '2027-05-01', endDate: '2027-05-31',
   },
   {
-    name: 'Milestone X · Revisione e Librino',
+    name: 'Milestone X · Revisione e Libretto',
     name_en: 'Milestone X · Revision and Little Book',
     name_cs: 'Milestone X · Opakování a knížka',
     description: 'Consolidare l’anno con giochi di ripasso e realizzare un librino personale ("il mio librino").',
