@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import { User, Activity, Theme, Week, ActivityInstance, ExternalActivityType } from '../../src/db/models/index.js';
-import { categories, blockTypes } from '../../src/utils/constants.js';
+import { categories, blockTypes, categoryToBlockType } from '../../src/utils/constants.js';
 
 // Demo templates. Base title/description are English; Czech and Italian
 // translations are stored explicitly (English falls back to the base).
@@ -1110,10 +1110,25 @@ async function scheduleWeekInstances(userId, startDate, plan, byTitle) {
       console.warn(`[seed] curriculum activity not found: ${p.title}`);
       continue;
     }
-    await ActivityInstance.findOrCreate({
-      where: { weekId: week.id, dayOfWeek: p.day, blockType: p.block, activityId: activity.id, homeTag: 'Home A' },
-      defaults: { weekId: week.id, dayOfWeek: p.day, blockType: p.block, activityId: activity.id, homeTag: 'Home A' },
+    // Derive block_type from the activity's category so that the box colour
+    // always matches the activity template type (issue #31). The plan's `block`
+    // field is kept only for documentation and is superseded by the mapping.
+    const blockType = categoryToBlockType[activity.category] || p.block;
+    const existing = await ActivityInstance.findOne({
+      where: { weekId: week.id, dayOfWeek: p.day, activityId: activity.id, homeTag: 'Home A' },
     });
+    if (existing) {
+      if (existing.blockType !== blockType) await existing.update({ blockType });
+    } else {
+      await ActivityInstance.create({
+        weekId: week.id,
+        dayOfWeek: p.day,
+        blockType,
+        activityId: activity.id,
+        homeTag: 'Home A',
+        status: 'Not started',
+      });
+    }
   }
   return week;
 }
@@ -1212,35 +1227,24 @@ export async function seedDemo() {
   }
 
   const weekStart = '2026-08-03';
-  const [week, created] = await Week.findOrCreate({ where: { startDate: weekStart, userId: parent.id }, defaults: { startDate: weekStart, userId: parent.id } });
-
-  if (created !== false || true) {
-    const allActivities = await Activity.findAll({ where: { userId: parent.id } });
-    const byTitle = Object.fromEntries(allActivities.map((a) => [a.title, a]));
-    const plan = [
-      { day: 0, block: 'Italian Micro-Immersion', title: 'Italian Storytime' },
-      { day: 0, block: 'Bonding Ritual', title: 'Evening Check-in Cuddle' },
-      { day: 1, block: 'Czech School Alignment', title: 'Number Walk' },
-      { day: 2, block: 'Italian Cultural Activity', title: 'Pasta Shapes Charades' },
-      { day: 2, block: 'Italian Micro-Immersion', title: 'Colour Hunt' },
-      { day: 3, block: 'Bonding Ritual', title: 'Evening Check-in Cuddle' },
-      { day: 4, block: 'Italian Micro-Immersion', title: 'Cartoon Dubbing' },
-      { day: 5, block: 'Italian Cultural Activity', title: 'Family Album Scrapbook' },
-    ];
-    for (const p of plan) {
-      const activity = byTitle[p.title];
-      if (!activity) continue;
-      await ActivityInstance.findOrCreate({
-        where: { weekId: week.id, dayOfWeek: p.day, blockType: p.block, activityId: activity.id, homeTag: 'Home A' },
-        defaults: { weekId: week.id, dayOfWeek: p.day, blockType: p.block, activityId: activity.id, homeTag: 'Home A' },
-      });
-    }
-  }
+  const demoPlan = [
+    { day: 0, title: 'Italian Storytime' },
+    { day: 0, title: 'Evening Check-in Cuddle' },
+    { day: 1, title: 'Number Walk' },
+    { day: 2, title: 'Pasta Shapes Charades' },
+    { day: 2, title: 'Colour Hunt' },
+    { day: 3, title: 'Evening Check-in Cuddle' },
+    { day: 4, title: 'Cartoon Dubbing' },
+    { day: 5, title: 'Family Album Scrapbook' },
+  ];
+  const demoActivities = await Activity.findAll({ where: { userId: parent.id } });
+  const demoByTitle = Object.fromEntries(demoActivities.map((a) => [a.title, a]));
+  await scheduleWeekInstances(parent.id, weekStart, demoPlan, demoByTitle);
 
   // First-grade Italian curriculum (milestones, lessons, September sample plan).
   await seedCurriculum(parent);
 
-  return { admin, parent, seededWeekCreated: created !== false };
+  return { admin, parent, seededWeekCreated: true };
 }
 
 export async function ensureDemoUser() {

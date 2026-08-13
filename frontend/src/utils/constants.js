@@ -33,3 +33,12 @@ export const BLOCK_COLORS = {
 };
 
 export const STATIC_ROUTES = { week: '/week', themes: '/themes', progress: '/progress', settings: '/settings' };
+
+export const CATEGORY_TO_BLOCK_TYPE = {
+  Language: 'Italian Micro-Immersion',
+  Culture: 'Italian Cultural Activity',
+  'School Alignment': 'Czech School Alignment',
+  Ritual: 'Bonding Ritual',
+  Project: 'Italian Cultural Activity',
+  Professional: 'External Activity',
+};

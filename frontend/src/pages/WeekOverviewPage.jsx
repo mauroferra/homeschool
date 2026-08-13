@@ -4,7 +4,7 @@ import { useWeekStore } from '../store/weekStore';
 import { useActivityStore } from '../store/activityStore';
 import { useThemeStore } from '../store/themeStore';
 import { useExternalTypeStore } from '../store/externalTypeStore';
-import { CURRICULUM_BLOCK_TYPES } from '../utils/constants';
+import { CURRICULUM_BLOCK_TYPES, CATEGORY_TO_BLOCK_TYPE } from '../utils/constants';
 import WeekNavigation from '../features/weekplanner/WeekNavigation';
 import WeekGrid from '../features/weekplanner/WeekGrid';
 import DayColumn from '../features/weekplanner/DayColumn';
@@ -227,7 +227,10 @@ block_type: pickedType,
               label={t('week.type')}
               name="block_type"
               value={pickedType}
-              onChange={(e) => setPickedType(e.target.value)}
+              onChange={(e) => {
+                setPickedType(e.target.value);
+                setPickedTemplate('');
+              }}
               options={CURRICULUM_BLOCK_TYPES.map((bt) => ({ value: bt, label: t(`domain.block.${bt}`) }))}
             />
             <Select
@@ -235,7 +238,9 @@ block_type: pickedType,
               name="template"
               value={pickedTemplate}
               onChange={(e) => setPickedTemplate(e.target.value)}
-              options={templates.map((tpl) => ({ value: tpl.id, label: `${L(tpl, 'title')} · ${t(`domain.category.${tpl.category}`)}` }))}
+              options={templates
+                .filter((tpl) => CATEGORY_TO_BLOCK_TYPE[tpl.category] === pickedType)
+                .map((tpl) => ({ value: tpl.id, label: `${L(tpl, 'title')} · ${t(`domain.category.${tpl.category}`)}` }))}
               placeholder={t('week.chooseTemplate')}
             />
             <div className="form-actions">

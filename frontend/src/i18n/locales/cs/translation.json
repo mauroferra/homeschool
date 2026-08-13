@@ -28,7 +28,9 @@
     "passwordRequired": "Heslo je povinné",
     "submit": "Přihlásit se",
     "forgot": "Zapomenuté heslo?",
-    "emailPlaceholder": "vas@priklad.cz"
+    "emailPlaceholder": "vas@priklad.cz",
+    "showPassword": "Zobrazit heslo",
+    "hint": "Seedové účty: parent@faro.app / admin@faro.app (heslo je v dev logu)"
   },
   "reset": {
     "title": "Obnovit heslo",

@@ -28,7 +28,9 @@
     "passwordRequired": "La password è obbligatoria",
     "submit": "Accedi",
     "forgot": "Password dimenticata?",
-    "emailPlaceholder": "tuo@esempio.it"
+    "emailPlaceholder": "tuo@esempio.it",
+    "showPassword": "Mostra password",
+    "hint": "Account di test: parent@faro.app / admin@faro.app (password nel log dev)"
   },
   "reset": {
     "title": "Reimposta password",

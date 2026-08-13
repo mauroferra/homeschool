@@ -28,7 +28,9 @@
     "passwordRequired": "Password is required",
     "submit": "Log in",
     "forgot": "Forgot password?",
-    "emailPlaceholder": "you@example.com"
+    "emailPlaceholder": "you@example.com",
+    "showPassword": "Show password",
+    "hint": "Seed accounts: parent@faro.app / admin@faro.app (password printed in dev)"
   },
   "reset": {
     "title": "Reset password",
