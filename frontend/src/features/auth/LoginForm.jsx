@@ -12,6 +12,7 @@ export default function LoginForm() {
   const login = useAuthStore((s) => s.login);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -56,13 +57,24 @@ export default function LoginForm() {
       />
       <Input
         name="password"
-        type="password"
+        type={showPassword ? 'text' : 'password'}
         label={t('login.password')}
         autoComplete="current-password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         error={errors.password}
       />
+      <div className="field-switch">
+        <label className="switch">
+          <input
+            type="checkbox"
+            checked={showPassword}
+            onChange={(e) => setShowPassword(e.target.checked)}
+          />
+          <span className="switch-slider" />
+          <span className="switch-label">{t('login.showPassword')}</span>
+        </label>
+      </div>
       <Button type="submit" loading={loading} className="btn-block">{t('login.submit')}</Button>
       <p className="auth-link">
         <Link to="/reset">{t('login.forgot')}</Link>
